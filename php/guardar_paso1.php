@@ -39,7 +39,7 @@ $stmt->bind_param("isssssssssss",
 
 if ($stmt->execute()) {
     // Redirigir al siguiente paso
-    header("C:\xampp\htdocs\ConsultorioVirtual\views\index.htmlation: paso2_no_patologicos.html");
+    header("Location: ../views/index.html");
     exit;
 } else {
     echo "Error al guardar: " . $stmt->error;

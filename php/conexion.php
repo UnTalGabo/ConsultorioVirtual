@@ -13,6 +13,5 @@ if ($conn->connect_error) {
 }
 
 
-// Puedes mostrar este mensaje solo durante pruebas
-echo "Conexión exitosa a la base de datos.";
+// echo "Conexión exitosa a la base de datos.";
 ?>
