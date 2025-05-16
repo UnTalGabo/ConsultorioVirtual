@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Consultorio Médico</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f9f9f9;
+      color: #1e2a78;
+    }
+
+    header {
+      background-color: #1e2a78;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+    }
+
+    .button {
+      background-color: #1e2a78;
+      color: white;
+      padding: 16px;
+      text-align: center;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    .button:hover {
+      background-color: #0d1a5a;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Consultorio Médico - Panel Principal</h1>
+</header>
+
+<div class="container">
+  <div class="grid">
+    <a href="registro_paciente.html" class="button">Registrar Paciente</a>
+    <a href="ver_pacientes.html" class="button">Ver Pacientes</a>
+    <a href="nueva_consulta.html" class="button">Nueva Consulta</a>
+    <a href="agendar_cita.html" class="button">Agendar Cita</a>
+    <a href="historial.html" class="button">Ver Historial</a>
+    <a href="cargar_excel.html" class="button">Cargar Pacientes (XLS)</a>
+    <a href="calendario.html" class="button">Calendario</a>
+  </div>
+</div>
+
+<footer>
+  Sistema desarrollado por Gabriel Orozco - Prototipo
+</footer>
+
+</body>
+</html>
