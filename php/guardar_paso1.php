@@ -11,8 +11,10 @@ $telefono = $_POST['telefono'];
 $direccion = $_POST['direccion'];
 $escolaridad = $_POST['escolaridad'];
 $contacto_emergencia = $_POST['contacto_emergencia'];
+$telefono_emergencia = $_POST['telefono_emergencia'];
 $parentesco = $_POST['parentesco'];
-$departamento = $_POST['departamento'];
+$area = $_POST['area'];
+$puesto = $_POST['puesto'];
 
 // Validar que no exista ya un paciente con ese ID
 $verifica = $conn->query("SELECT * FROM pacientes WHERE id_empleado = $id_empleado");
@@ -25,16 +27,16 @@ if ($verifica->num_rows > 0) {
 // Insertar en la base de datos
 $sql = "INSERT INTO pacientes (
             id_empleado, nombre_completo, fecha_nacimiento, genero, estado_civil, 
-            telefono, direccion, escolaridad, puesto, contacto_emergencia, parentesco, departamento
+            telefono, direccion, escolaridad, contacto_emergencia, telefono_emergencia, parentesco, area, puesto
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
 
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("isssssssssss", 
+$stmt->bind_param("issssssssssss", 
     $id_empleado, $nombre, $fecha_nacimiento, $genero, $estado_civil,
-    $telefono, $direccion, $escolaridad, $puesto, $contacto_emergencia,
-    $parentesco, $departamento
+    $telefono, $direccion, $escolaridad, $contacto_emergencia, $telefono_emergencia,
+    $parentesco, $area, $puesto
 );
 
 if ($stmt->execute()) {

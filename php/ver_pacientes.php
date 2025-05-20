@@ -35,7 +35,7 @@ $resultado = $conn->query($sql);
                 <td><?php echo $fila['id_empleado']; ?></td>
                 <td><?php echo $fila['nombre_completo']; ?></td>
                 <td><?php echo $fila['telefono']; ?></td>
-                <td><?php echo $fila['departamento']; ?></td>
+                <td><?php echo $fila['area']; ?></td>
                 <td>
                   <a href="ver_detalle.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-info text-white">Ver</a>
                   <a href="editar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-warning">Editar</a>
