@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../php/conexion.php";
 
 $sql = "SELECT * FROM pacientes ORDER BY nombre_completo ASC";
 $resultado = $conn->query($sql);
@@ -39,7 +39,7 @@ $resultado = $conn->query($sql);
                 <td>
                   <a href="ver_detalle.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-info text-white">Ver</a>
                   <a href="editar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-warning">Editar</a>
-                  <a href="eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente?');">Eliminar</a>
+                  <a href="eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">Eliminar</a>
                 </td>
               </tr>
             <?php endwhile; ?>

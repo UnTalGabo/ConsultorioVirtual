@@ -41,7 +41,7 @@ $stmt->bind_param("issssssssssss",
 
 if ($stmt->execute()) {
     // Redirigir al siguiente paso
-    header("Location: ../views/index.html");
+    header("Location: ../views/paso2.php?id=" . $id_empleado);
     exit;
 } else {
     echo "Error al guardar: " . $stmt->error;
