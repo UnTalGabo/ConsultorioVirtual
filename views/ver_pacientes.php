@@ -37,8 +37,8 @@ $resultado = $conn->query($sql);
                 <td><?php echo $fila['telefono']; ?></td>
                 <td><?php echo $fila['area']; ?></td>
                 <td>
-                  <a href="ver_detalle.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-info text-white">Ver</a>
-                  <a href="editar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-warning">Editar</a>
+                  <a href="ver_detalles.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-info text-white">Ver</a>
+                  <a href="registro_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-warning">Editar</a>
                   <a href="eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">Eliminar</a>
                 </td>
               </tr>

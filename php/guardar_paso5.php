@@ -81,7 +81,7 @@ if ($result->num_rows > 0) {
 
 if ($stmt->execute()) {
     // Redirigir al siguiente paso (paso 6)
-    header("Location: ../paso6.php?id=" . $id_paciente);
+    header("Location: ../views/paso6.php?id=" . $id_paciente);
 } else {
     // Mostrar error
     die("Error al guardar los datos: " . $conn->error);

@@ -7,7 +7,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     header("Location: ../paso4.php?id=" . $_POST['id_paciente']);
     exit();
 }
-
+$id_paciente = $_POST['id_paciente'];
 $sql_genero = "SELECT genero FROM pacientes WHERE id_empleado = ?";
 $stmt_genero = $conn->prepare($sql_genero);
 $stmt_genero->bind_param("i", $id_paciente);
@@ -18,7 +18,7 @@ $genero = $paciente['genero'];
 $stmt_genero->close();
 
 // Obtener datos del formulario
-$id_paciente = $_POST['id_paciente'];
+
 $fuma = isset($_POST['fuma']) ? 1 : 0;
 $cigarros_dia = isset($_POST['cigarros_dia']) ? intval($_POST['cigarros_dia']) : null;
 $anos_fumando = isset($_POST['anos_fumando']) ? intval($_POST['anos_fumando']) : null;
@@ -103,10 +103,10 @@ if ($result->num_rows > 0) {
 
 if ($stmt->execute()) {
     // Redirigir según el género
-    if (strtolower($genero) === 'Femenino') {
-        header("Location: ../paso5.php?id=" . $id_paciente);
+    if (strtolower($genero) === 'femenino') {
+        header("Location: ../views/paso5.php?id=" . $id_paciente);
     } else {
-        header("Location: ../paso6.php?id=" . $id_paciente);
+        header("Location: ../views/paso6.php?id=" . $id_paciente);
     }
 } else {
     // Mostrar error

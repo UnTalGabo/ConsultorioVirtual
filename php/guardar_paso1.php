@@ -20,32 +20,52 @@ $puesto = $_POST['puesto'];
 $verifica = $conn->query("SELECT * FROM pacientes WHERE id_empleado = $id_empleado");
 
 if ($verifica->num_rows > 0) {
-    echo "Ya existe un paciente con ese número de empleado.";
+    $sql = "UPDATE pacientes SET 
+            nombre_completo = ?, 
+            fecha_nacimiento = ?,
+            genero = ?
+            estado_civil = ?,
+            telefono = ?,
+            direccion = ?,
+            escolaridad = ?,
+            contacto_emergencia = ?,
+            telefono_emergencia = ?,
+            parentesco = ?,
+            area = ?,
+            puesto = ?
+            WHERE id_empleado = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("ssssssssssss", $nombre, $fecha_nacimiento, $genero, $estado_civil,
+    $telefono, $direccion, $escolaridad, $contacto_emergencia, $telefono_emergencia, $parentesco, $area, $puesto, $id_empleado);
+    if ($stmt->execute()) {
+    // Redirigir al siguiente paso
+    header("Location: ../views/paso2.php?id=" . $id_empleado);
     exit;
+} else {
+    echo "Error al Actualizar: " . $stmt->error;
 }
-
-// Insertar en la base de datos
-$sql = "INSERT INTO pacientes (
+} else {
+    // Si no existe, insertar un nuevo registro
+    $sql = "INSERT INTO pacientes (
             id_empleado, nombre_completo, fecha_nacimiento, genero, estado_civil, 
             telefono, direccion, escolaridad, contacto_emergencia, telefono_emergencia, parentesco, area, puesto
         ) VALUES (
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
-
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("issssssssssss", 
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("issssssssssss", 
     $id_empleado, $nombre, $fecha_nacimiento, $genero, $estado_civil,
     $telefono, $direccion, $escolaridad, $contacto_emergencia, $telefono_emergencia,
-    $parentesco, $area, $puesto
-);
-
-if ($stmt->execute()) {
+    $parentesco, $area, $puesto);
+    if ($stmt->execute()) {
     // Redirigir al siguiente paso
     header("Location: ../views/paso2.php?id=" . $id_empleado);
     exit;
 } else {
     echo "Error al guardar: " . $stmt->error;
 }
+}
+
 
 $stmt->close();
 $conn->close();
