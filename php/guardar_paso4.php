@@ -4,13 +4,13 @@ require_once "conexion.php";
 
 // Validar que el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header("Location: ../paso4.php?id=" . $_POST['id_paciente']);
+    header("Location: ../paso4.php?id=" . $_POST['id_empleado']);
     exit();
 }
-$id_paciente = $_POST['id_paciente'];
+$id_empleado = $_POST['id_empleado'];
 $sql_genero = "SELECT genero FROM pacientes WHERE id_empleado = ?";
 $stmt_genero = $conn->prepare($sql_genero);
-$stmt_genero->bind_param("i", $id_paciente);
+$stmt_genero->bind_param("i", $id_empleado);
 $stmt_genero->execute();
 $result_genero = $stmt_genero->get_result();
 $paciente = $result_genero->fetch_assoc();
@@ -35,9 +35,9 @@ $transfusiones = isset($_POST['transfusiones']) ? 1 : 0;
 $transfusiones_recibidas = isset($_POST['transfusiones_recibidas']) ? 1 : 0;
 
 // Verificar si ya existe un registro para este paciente
-$sql_check = "SELECT id FROM antecedentes_no_patologicos WHERE id_paciente = ?";
+$sql_check = "SELECT id FROM antecedentes_no_patologicos WHERE id_empleado = ?";
 $stmt_check = $conn->prepare($sql_check);
-$stmt_check->bind_param("i", $id_paciente);
+$stmt_check->bind_param("i", $id_empleado);
 $stmt_check->execute();
 $result = $stmt_check->get_result();
 
@@ -58,11 +58,11 @@ if ($result->num_rows > 0) {
             tatuajes = ?, 
             transfusiones = ?, 
             transfusiones_recibidas = ? 
-            WHERE id_paciente = ?";
+            WHERE id_empleado = ?";
 } else {
     // Insertar nuevo registro
     $sql = "INSERT INTO antecedentes_no_patologicos (
-            id_paciente, 
+            id_empleado, 
             fuma, 
             cigarros_dia, 
             anos_fumando, 
@@ -89,12 +89,12 @@ if ($result->num_rows > 0) {
         $fuma, $cigarros_dia, $anos_fumando, $bebe, $anos_bebiendo, 
         $frecuencia_alcohol, $medicamentos_controlados, $usa_drogas, 
         $tipo_droga, $practica_deporte, $tipo_deporte, $tatuajes, 
-        $transfusiones, $transfusiones_recibidas, $id_paciente
+        $transfusiones, $transfusiones_recibidas, $id_empleado
     );
 } else {
     $stmt->bind_param(
         "iiiiiisiisisiii",
-        $id_paciente, $fuma, $cigarros_dia, $anos_fumando, $bebe, 
+        $id_empleado, $fuma, $cigarros_dia, $anos_fumando, $bebe, 
         $anos_bebiendo, $frecuencia_alcohol, $medicamentos_controlados, 
         $usa_drogas, $tipo_droga, $practica_deporte, $tipo_deporte, 
         $tatuajes, $transfusiones, $transfusiones_recibidas
@@ -104,9 +104,9 @@ if ($result->num_rows > 0) {
 if ($stmt->execute()) {
     // Redirigir según el género
     if (strtolower($genero) === 'femenino') {
-        header("Location: ../views/paso5.php?id=" . $id_paciente);
+        header("Location: ../views/paso5.php?id=" . $id_empleado);
     } else {
-        header("Location: ../views/paso6.php?id=" . $id_paciente);
+        header("Location: ../views/paso6.php?id=" . $id_empleado);
     }
 } else {
     // Mostrar error

@@ -80,6 +80,15 @@ $stmt->close();
             cursor: pointer;
             font-size: 16px;
         }
+        .btn-salir {
+            background-color:rgb(173, 52, 52);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
         .enfermedad-item {
             margin-bottom: 10px;
         }
@@ -190,6 +199,7 @@ $stmt->close();
 
     <div class="button-container">
         <button type="submit" class="button-next">Guardar y Continuar</button>
+        <button type="button" class="btn-salir" onclick="window.location.href='../views/ver_pacientes.php'">Salir</button>
     </div>
 </form>
 

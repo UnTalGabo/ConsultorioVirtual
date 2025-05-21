@@ -14,6 +14,34 @@ if ($resultado->num_rows == 0) {
 }
 $paciente = $resultado->fetch_assoc();
 $stmt_verifica->close();
+
+$sql = "SELECT enfermedad, parentesco FROM enfermedades_heredo WHERE id_empleado = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_empleado);
+$stmt->execute();
+$resultado = $stmt->get_result();
+$enfermedades = [];
+while ($row = $resultado->fetch_assoc()) {
+    $enfermedades[] = $row;
+}
+$stmt->close();
+
+function getSelected($efnfermedad, $parentesco){
+    global $enfermedades;
+    foreach ($enfermedades as $enfermedad) {
+        if ($enfermedad['enfermedad'] == $efnfermedad && $enfermedad['parentesco'] == $parentesco) {
+            return 'selected';
+        }
+    }
+}
+function getChecked($efnfermedad){
+    global $enfermedades;
+    foreach ($enfermedades as $enfermedad) {
+        if ($enfermedad['enfermedad'] == $efnfermedad) {
+            return 'checked';
+        }
+    }
+}
 ?>
 
 <script>
@@ -89,6 +117,19 @@ document.addEventListener('DOMContentLoaded', function() {
             margin-left: auto;
             margin-right: auto;
         }
+        .btn-salir {
+            background-color:rgb(151, 42, 42);
+            color: white;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 <body>
@@ -114,17 +155,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Presión alta/baja</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="presion">
+                            <input type="checkbox" name="enfermedades[]" value="presion" <?php echo getChecked("Presión alta/baja")?> >
                             <input type="hidden" name="nombre_enfermedad_presion" value="Presión alta/baja">
                         </td>
                         <td>
                             <select name="presion_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Presión alta/baja", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Presión alta/baja", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Presión alta/baja", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Presión alta/baja", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Presión alta/baja", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -132,17 +173,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Vértigos</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="vertigos">
+                            <input type="checkbox" name="enfermedades[]" value="vertigos" <?php echo getChecked("Vértigos")?> >
                             <input type="hidden" name="nombre_enfermedad_vertigos" value="Vértigos">
                         </td>
                         <td>
                             <select name="vertigos_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Vértigos", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Vértigos", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Vértigos", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Vértigos", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Vértigos", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -150,17 +191,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Diabetes</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="diabetes">
+                            <input type="checkbox" name="enfermedades[]" value="diabetes" <?php echo getChecked("Diabetes")?> >
                             <input type="hidden" name="nombre_enfermedad_diabetes" value="Diabetes">
                         </td>
                         <td>
                             <select name="diabetes_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Diabetes", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Diabetes", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Diabetes", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Diabetes", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Diabetes", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -168,17 +209,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Enfermedades del Corazón</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="corazon">
+                            <input type="checkbox" name="enfermedades[]" value="corazon" <?php echo getChecked("Enfermedades del Corazón")?> >
                             <input type="hidden" name="nombre_enfermedad_corazon" value="Enfermedades del Corazón">
                         </td>
                         <td>
                             <select name="corazon_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Enfermedades del Corazón", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Enfermedades del Corazón", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Enfermedades del Corazón", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Enfermedades del Corazón", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Enfermedades del Corazón", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -186,17 +227,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Enfermedades Pulmonares</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="pulmonares">
+                            <input type="checkbox" name="enfermedades[]" value="pulmonares" <?php echo getChecked("Enfermedades Pulmonares")?> >
                             <input type="hidden" name="nombre_enfermedad_pulmonares" value="Enfermedades Pulmonares">
                         </td>
                         <td>
                             <select name="pulmonares_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Enfermedades Pulmonares", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Enfermedades Pulmonares", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Enfermedades Pulmonares", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Enfermedades Pulmonares", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Enfermedades Pulmonares", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -204,17 +245,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Enfermedades del Riñon</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="rinon">
+                            <input type="checkbox" name="enfermedades[]" value="rinon" <?php echo getChecked("Enfermedades del Riñon")?> >
                             <input type="hidden" name="nombre_enfermedad_rinon" value="Enfermedades del Riñon">
                         </td>
                         <td>
                             <select name="rinon_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Enfermedades del Riñon", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Enfermedades del Riñon", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Enfermedades del Riñon", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Enfermedades del Riñon", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Enfermedades del Riñon", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -222,17 +263,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Enfermedades del Higado</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="higado">
+                            <input type="checkbox" name="enfermedades[]" value="higado" <?php echo getChecked("Enfermedades del Higado")?> >
                             <input type="hidden" name="nombre_enfermedad_higado" value="Enfermedades del Higado">
                         </td>
                         <td>
                             <select name="higado_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Enfermedades del Higado", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Enfermedades del Higado", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Enfermedades del Higado", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Enfermedades del Higado", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Enfermedades del Higado", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -240,17 +281,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Alergias</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="alergias">
+                            <input type="checkbox" name="enfermedades[]" value="alergias" <?php echo getChecked("Alergias")?> >
                             <input type="hidden" name="nombre_enfermedad_alergias" value="Alergias">
                         </td>
                         <td>
                             <select name="alergias_quien">
-                                <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                               <option value="">Seleccionar</option>
+                                <option value="A" <?php echo getSelected("Alergias", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Alergias", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Alergias", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Alergias", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Alergias", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -258,17 +299,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Tumores o cáncer</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="tumores">
+                            <input type="checkbox" name="enfermedades[]" value="tumores" <?php echo getChecked("Tumores o cáncer")?> >
                             <input type="hidden" name="nombre_enfermedad_tumores" value="Tumores o cáncer">
                         </td>
                         <td>
                             <select name="tumores_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Tumores o cáncer", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Tumores o cáncer", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Tumores o cáncer", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Tumores o cáncer", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Tumores o cáncer", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -276,17 +317,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Asma bronquial</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="asma">
+                            <input type="checkbox" name="enfermedades[]" value="asma" <?php echo getChecked("Asma bronquial")?> >
                             <input type="hidden" name="nombre_enfermedad_asma" value="Asma bronquial">
                         </td>
                         <td>
                             <select name="asma_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Asma bronquial", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Asma bronquial", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Asma bronquial", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Asma bronquial", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Asma bronquial", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -294,17 +335,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Gastritis/Ulcera</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="gastritis">
+                            <input type="checkbox" name="enfermedades[]" value="gastritis" <?php echo getChecked("Gastritis/Ulcera")?> >
                             <input type="hidden" name="nombre_enfermedad_gastritis" value="Gastritis/Ulcera">
                         </td>
                         <td>
                             <select name="gastritis_quien">
-                                <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                               <option value="">Seleccionar</option>
+                                <option value="A" <?php echo getSelected("Gastritis/Ulcera", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Gastritis/Ulcera", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Gastritis/Ulcera", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Gastritis/Ulcera", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Gastritis/Ulcera", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -327,17 +368,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Flebitis/Várices</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="varices">
+                            <input type="checkbox" name="enfermedades[]" value="varices" <?php echo getChecked("Flebitis/Várices")?> >
                             <input type="hidden" name="nombre_enfermedad_varices" value="Flebitis/Várices">
                         </td>
                         <td>
                             <select name="varices_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Flebitis/Várices", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Flebitis/Várices", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Flebitis/Várices", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Flebitis/Várices", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Flebitis/Várices", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -345,17 +386,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Artritis</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="artritis">
+                            <input type="checkbox" name="enfermedades[]" value="artritis" <?php echo getChecked("Artritis")?> >
                             <input type="hidden" name="nombre_enfermedad_artritis" value="Artritis">
                         </td>
                         <td>
                             <select name="artritis_quien">
-                                <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                               <option value="">Seleccionar</option>
+                                <option value="A" <?php echo getSelected("Artritis", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Artritis", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Artritis", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Artritis", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Artritis", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -363,17 +404,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Alteraciones del sueño</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="sueno">
+                            <input type="checkbox" name="enfermedades[]" value="sueno" <?php echo getChecked("Alteraciones del sueño")?> >
                             <input type="hidden" name="nombre_enfermedad_sueno" value="Alteraciones del sueño">
                         </td>
                         <td>
                             <select name="sueno_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Alteraciones del sueño", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Alteraciones del sueño", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Alteraciones del sueño", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Alteraciones del sueño", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Alteraciones del sueño", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -381,17 +422,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Acufeno/Tinitus</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="tinitus">
+                            <input type="checkbox" name="enfermedades[]" value="tinitus" <?php echo getChecked("Acufeno/Tinitus")?> >
                             <input type="hidden" name="nombre_enfermedad_tinitus" value="Acufeno/Tinitus">
                         </td>
                         <td>
                             <select name="tinitus_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Acufeno/Tinitus", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Acufeno/Tinitus", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Acufeno/Tinitus", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Acufeno/Tinitus", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Acufeno/Tinitus", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -399,17 +440,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Problemas de espalda</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="espalda">
+                            <input type="checkbox" name="enfermedades[]" value="espalda" <?php echo getChecked("Problemas de espalda")?> >
                             <input type="hidden" name="nombre_enfermedad_espalda" value="Problemas de espalda">
                         </td>
                         <td>
                             <select name="espalda_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Problemas de espalda", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Problemas de espalda", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Problemas de espalda", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Problemas de espalda", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Problemas de espalda", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -417,17 +458,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Sensación de hormigueo</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="hormigueo">
+                            <input type="checkbox" name="enfermedades[]" value="hormigueo" <?php echo getChecked("Sensación de hormigueo")?> >
                             <input type="hidden" name="nombre_enfermedad_hormigueo" value="Sensación de hormigueo">
                         </td>
                         <td>
                             <select name="hormigueo_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Sensación de hormigueo", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Sensación de hormigueo", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Sensación de hormigueo", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Sensación de hormigueo", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Sensación de hormigueo", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -435,17 +476,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Convulsiones</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="convulsiones">
+                            <input type="checkbox" name="enfermedades[]" value="convulsiones" <?php echo getChecked("Convulsiones")?> >
                             <input type="hidden" name="nombre_enfermedad_convulsiones" value="Convulsiones">
                         </td>
                         <td>
                             <select name="convulsiones_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Convulsiones", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Convulsiones", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Convulsiones", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Convulsiones", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Convulsiones", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -453,17 +494,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Debilidad Muscular</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="debilidad">
+                            <input type="checkbox" name="enfermedades[]" value="debilidad" <?php echo getChecked("Debilidad Muscular")?> >
                             <input type="hidden" name="nombre_enfermedad_debilidad" value="Debilidad Muscular">
                         </td>
                         <td>
                             <select name="debilidad_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Debilidad Muscular", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Debilidad Muscular", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Debilidad Muscular", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Debilidad Muscular", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Debilidad Muscular", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -471,17 +512,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Osteoporosis</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="osteoporosis">
+                            <input type="checkbox" name="enfermedades[]" value="osteoporosis" <?php echo getChecked("Osteoporosis")?> >
                             <input type="hidden" name="nombre_enfermedad_osteoporosis" value="Osteoporosis">
                         </td>
                         <td>
                             <select name="osteoporosis_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Osteoporosis", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Osteoporosis", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Osteoporosis", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Osteoporosis", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Osteoporosis", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -489,17 +530,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>Hernias</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="hernias">
+                            <input type="checkbox" name="enfermedades[]" value="hernias" <?php echo getChecked("Hernias")?> >
                             <input type="hidden" name="nombre_enfermedad_hernias" value="Hernias">
                         </td>
                         <td>
                             <select name="hernias_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("Hernias", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("Hernias", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("Hernias", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("Hernias", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("Hernias", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -507,17 +548,17 @@ document.addEventListener('DOMContentLoaded', function() {
                     <tr>
                         <td>COVID 19</td>
                         <td>
-                            <input type="checkbox" name="enfermedades[]" value="covid">
+                            <input type="checkbox" name="enfermedades[]" value="covid" <?php echo getChecked("COVID 19")?> >
                             <input type="hidden" name="nombre_enfermedad_covid" value="COVID 19">
                         </td>
                         <td>
                             <select name="covid_quien">
                                 <option value="">Seleccionar</option>
-                                <option value="A">Abuelos (A)</option>
-                                <option value="P">Padre (P)</option>
-                                <option value="M">Madre (M)</option>
-                                <option value="H">Hermanos (H)</option>
-                                <option value="T">Tíos (T)</option>
+                                <option value="A" <?php echo getSelected("COVID 19", 'A') ?> >Abuelos (A)</option>
+                                <option value="P" <?php echo getSelected("COVID 19", 'P') ?> >Padre (P)</option>
+                                <option value="M" <?php echo getSelected("COVID 19", 'M') ?> >Madre (M)</option>
+                                <option value="H" <?php echo getSelected("COVID 19", 'H') ?> >Hermanos (H)</option>
+                                <option value="T" <?php echo getSelected("COVID 19", 'T') ?> >Tíos (T)</option>
                             </select>
                         </td>
                     </tr>
@@ -527,6 +568,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
 
     <button type="submit" class="button-next">Guardar y Continuar &raquo;</button>
+    <button type="button" class="btn-salir" onclick="window.location.href='../views/ver_pacientes.php'">Salir</button>
 </form>
 
 </body>

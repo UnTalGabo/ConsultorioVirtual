@@ -23,7 +23,7 @@ if ($verifica->num_rows > 0) {
     $sql = "UPDATE pacientes SET 
             nombre_completo = ?, 
             fecha_nacimiento = ?,
-            genero = ?
+            genero = ?,
             estado_civil = ?,
             telefono = ?,
             direccion = ?,
@@ -35,15 +35,15 @@ if ($verifica->num_rows > 0) {
             puesto = ?
             WHERE id_empleado = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssss", $nombre, $fecha_nacimiento, $genero, $estado_civil,
+    $stmt->bind_param("ssssssssssssi", $nombre, $fecha_nacimiento, $genero, $estado_civil,
     $telefono, $direccion, $escolaridad, $contacto_emergencia, $telefono_emergencia, $parentesco, $area, $puesto, $id_empleado);
     if ($stmt->execute()) {
     // Redirigir al siguiente paso
-    header("Location: ../views/paso2.php?id=" . $id_empleado);
+    header("Location: ../views/paso3.php?id=" . $id_empleado);
     exit;
-} else {
-    echo "Error al Actualizar: " . $stmt->error;
-}
+    } else {
+        echo "Error al Actualizar: " . $stmt->error;
+    }
 } else {
     // Si no existe, insertar un nuevo registro
     $sql = "INSERT INTO pacientes (
