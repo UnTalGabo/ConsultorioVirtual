@@ -13,7 +13,35 @@ if ($resultado->num_rows == 0) {
     die("<h2>Error: Paciente no encontrado</h2>");
 }
 $paciente = $resultado->fetch_assoc();
+
+$sql = "SELECT * FROM antecedentes_patologicos WHERE id_empleado = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_empleado);
+$stmt->execute();
+$resultado2 = $stmt->get_result();
+$antecedentes = $resultado2->fetch_assoc();
+
+$sql = "SELECT enfermedad FROM enfermedades_patologicas WHERE id_empleado = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_empleado);
+$stmt->execute();
+$resultado3 = $stmt->get_result();
+$enfermedades = [];
+while ($row = $resultado3->fetch_assoc()) {
+    $enfermedades[] = $row;
+}
+
 $stmt->close();
+
+function getChecked($efnfermedad){
+    global $enfermedades;
+    foreach ($enfermedades as $enfermedad) {
+        if ($enfermedad['enfermedad'] == $efnfermedad) {
+            return 'checked';
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -81,7 +109,7 @@ $stmt->close();
             font-size: 16px;
         }
         .btn-salir {
-            background-color:rgb(173, 52, 52);
+            background-color:rgb(172, 45, 45);
             color: white;
             padding: 12px 20px;
             border: none;
@@ -100,51 +128,210 @@ $stmt->close();
 <p>Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
 
 <form action="../php/guardar_paso6.php" method="post">
-    <input type="hidden" name="id_paciente" value="<?php echo $id_empleado; ?>">
+    <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
     <h3>Enfermedades (marque las que apliquen)</h3>
     <div class="form-container">
         <!-- Columna 1 -->
         <div class="form-column">
             <div class="enfermedad-item">
-                <label><input type="checkbox" name="enfermedades[]" value="Varicela/Rubeola/Sarampion"> Varicela/Rubeola/Sarampión</label>
+                <label><input type="checkbox" name="enfermedades[]" value="Varicela/Rubeola/Sarampión" 
+                <?php echo getChecked('Varicela/Rubeola/Sarampión') ?> > Varicela/Rubeola/Sarampión</label>
             </div>
+            
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades respiratorias" 
+                <?php echo getChecked('Enfermedades respiratorias') ?> > Enfermedades respiratorias </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades pulmonares" <?php echo getChecked('Enfermedades pulmonares') ?> > Enfermedades pulmonares </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Asma bronquial" 
+                <?php echo getChecked('Asma bronquial') ?> > Asma bronquial </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades del corazón" 
+                <?php echo getChecked('Enfermedades del corazón') ?> > Enfermedades del corazón </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Presión alta o baja" 
+                <?php echo getChecked('Presión alta o baja') ?> > Presión alta o baja </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Vértigos" 
+                <?php echo getChecked('Vértigos') ?> > Vértigos </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Anemia/Sangrado anormal" 
+                <?php echo getChecked('Anemia/Sangrado anormal') ?> > Anemia/Sangrado anormal </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Tuberculosos" 
+                <?php echo getChecked('Tuberculosos') ?> > Tuberculosos </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Varices/Hemorroides" 
+                <?php echo getChecked('Varices/Hemorroides') ?> > Varices/Hemorroides </label>
+            </div>
+
+            
+
+
             <!-- Agregar más enfermedades aquí -->
-            <div class="form-group">
-                <label>Otra enfermedad:</label>
-                <input type="text" name="otra_enfermedad_1" placeholder="Especifique otra enfermedad">
-            </div>
+            
         </div>
 
         <!-- Columna 2 -->
         <div class="form-column">
             <div class="enfermedad-item">
-                <label><input type="checkbox" name="enfermedades[]" value="Varices/Hemorroides"> Varices/Hemorroides</label>
+                <label><input type="checkbox" name="enfermedades[]" value="Cefalea" 
+                <?php echo getChecked('Cefalea') ?> > Cefalea </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Hernias" 
+                <?php echo getChecked('Hernias') ?> > Hernias </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Problemas en la espalda" 
+                <?php echo getChecked('Problemas en la espalda') ?> > Problemas en la espalda </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Golpes en la columna" 
+                <?php echo getChecked('Golpes en la columna') ?> > Golpes en la columna </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Golpes en la cabeza" 
+                <?php echo getChecked('Golpes en la cabeza') ?> > Golpes en la cabeza </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Artritis o Reumatismo" 
+                <?php echo getChecked('Artritis o Reumatismo') ?> > Artritis o Reumatismo </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Depresión/Ansiedad" 
+                <?php echo getChecked('Depresión/Ansiedad') ?> > Depresión/Ansiedad </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Paludismo" 
+                <?php echo getChecked('Paludismo') ?> > Paludismo </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Sensación de Hormigueo" 
+                <?php echo getChecked('Sensación de Hormigueo') ?> > Sensación de Hormigueo </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades Gastrointestinales" 
+                <?php echo getChecked('Enfermedades Gastrointestinales') ?> > Enfermedades Gastrointestinales </label>
             </div>
             <!-- Agregar más enfermedades aquí -->
-            <div class="form-group">
-                <label>Otra enfermedad:</label>
-                <input type="text" name="otra_enfermedad_2" placeholder="Especifique otra enfermedad">
-            </div>
+            
         </div>
 
         <!-- Columna 3 -->
         <div class="form-column">
             <div class="enfermedad-item">
-                <label><input type="checkbox" name="enfermedades[]" value="Sensacion de hormigueo"> Sensación de hormigueo</label>
+                <label><input type="checkbox" name="enfermedades[]" value="Gastritis/Ulcera/Colitis" 
+                <?php echo getChecked('Gastritis/Ulcera/Colitis') ?> > Gastritis/Ulcera/Colitis </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades del higado" 
+                <?php echo getChecked('Enfermedades del higado') ?> > Enfermedades del higado </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Diabetes" 
+                <?php echo getChecked('Diabetes') ?> > Diabetes </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades del riñon" 
+                <?php echo getChecked('Enfermedades del riñon') ?> > Enfermedades del riñon </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades de genitales" 
+                <?php echo getChecked('Enfermedades de genitales') ?> > Enfermedades de genitales </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Convulsiones (Epilepsia)" 
+                <?php echo getChecked('Convulsiones (Epilepsia)') ?> > Convulsiones (Epilepsia) </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Paroditis" 
+                <?php echo getChecked('Paroditis') ?> > Paroditis </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Transtornos de la pies" 
+                <?php echo getChecked('Transtornos de la pies') ?> > Transtornos de la pies </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Heridas/Quemaduras" 
+                <?php echo getChecked('Heridas/Quemaduras') ?> > Heridas/Quemaduras </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades Oculares" 
+                <?php echo getChecked('Enfermedades Oculares') ?> > Enfermedades Oculares </label>
             </div>
             <!-- Agregar más enfermedades aquí -->
-            <div class="form-group">
-                <label>Otra enfermedad:</label>
-                <input type="text" name="otra_enfermedad_3" placeholder="Especifique otra enfermedad">
-            </div>
+            
         </div>
 
         <!-- Columna 4 -->
         <div class="form-column">
             <div class="enfermedad-item">
-                <label><input type="checkbox" name="enfermedades[]" value="Transtornos de la piel"> Trastornos de la piel</label>
+                <label><input type="checkbox" name="enfermedades[]" value="Enfermedades dentales" 
+                <?php echo getChecked('Enfermedades dentales') ?> > Enfermedades dentales </label>
             </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Problemas de audicion" 
+                <?php echo getChecked('Problemas de audicion') ?> > Problemas de audicion </label>
+            </div>
+            
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Acufeno/Tinitus" 
+                <?php echo getChecked('Acufeno/Tinitus') ?> > Acufeno/Tinitus </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Usa prótesis" 
+                <?php echo getChecked('Usa prótesis') ?> > Usa prótesis </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="Tumores o cáncer" 
+                <?php echo getChecked('Tumores o cáncer') ?> > Tumores o cáncer </label>
+            </div>
+
+            <div class="enfermedad-item">
+                <label><input type="checkbox" name="enfermedades[]" value="COVID 19" 
+                <?php echo getChecked('COVID 19') ?> > COVID 19 </label>
+            </div>
+            
             <!-- Agregar más enfermedades aquí -->
             <div class="form-group">
                 <label>Otra enfermedad:</label>
@@ -156,7 +343,7 @@ $stmt->close();
     <!-- Sección de ancho completo -->
     <div class="form-group full-width">
         <label>Fracturas o esguinces</label>
-        <textarea name="fracturas_esguinces" rows="3"></textarea>
+        <textarea name="fracturas_esguinces" rows="3" value="<?php echo isset($antecedentes['']) ? $antecedentes[''] : '' ?>"></textarea>
     </div>
 
     <div class="form-group full-width">

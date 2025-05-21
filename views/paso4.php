@@ -88,12 +88,12 @@ $stmt->close();
     <!-- Tabaquismo -->
     <div class="form-group">
         <label>
-            <input type="checkbox" name="fuma" id="fuma" <?php echo $antecedentes['fuma'] ? 'checked' : ''; ?>>
+            <input type="checkbox" name="fuma" id="fuma" <?php echo isset($antecedentes['fuma']) && $antecedentes['fuma'] == 1 ? 'checked' : ''; ?>>
             ¿Fuma?
         </label>
         <div id="fuma_fields" class="conditional-field">
             <label>Cigarros por día:
-                <input type="number" name="cigarros_dia" min="0" value="<?php echo $antecedentes['cigarros_dia']; ?>">
+                <input type="number" name="cigarros_dia" min="0" value="<?php echo $antecedentes['cigarros_dia']  ; ?>">
             </label>
             <label>Años fumando:
                 <input type="number" name="anos_fumando" min="0" value ="<?php echo $antecedentes['anos_fumando']; ?>">
@@ -104,7 +104,7 @@ $stmt->close();
     <!-- Consumo de alcohol -->
     <div class="form-group">
         <label>
-            <input type="checkbox" name="bebe" id="bebe" <?php echo $antecedentes['bebe'] ? 'checked' : ''; ?>>
+            <input type="checkbox" name="bebe" id="bebe" <?php echo isset($antecedentes['bebe']) && $antecedentes['bebe'] == 1 ? 'checked' : ''; ?>>
             ¿Consume alcohol?
         </label>
         <div id="bebe_fields" class="conditional-field">
@@ -113,7 +113,7 @@ $stmt->close();
             </label>
             <label>Frecuencia:
                 <select name="frecuencia_alcohol">
-                    <option value="<?php echo $antecedentes['frecuencia_alcohol'] ?> "> 
+                    <option value="<?php echo isset($antecedentes['frecuencia_alcohol']) ? $antecedentes['frecuencia_alcohol'] : '' ?> "> 
                         <?php echo isset($antecedentes['frecuencia_alcohol']) ? 
                         $antecedentes['frecuencia_alcohol'] : "Seleciona" ?> </option>
                     <option value="Ocasional">Ocasional</option>
@@ -128,7 +128,7 @@ $stmt->close();
     <div class="form-group">
         <label>
             <input type="checkbox" name="medicamentos_controlados" 
-                   <?php echo $antecedentes['medicamentos_controlados'] ? 'checked' : ''; ?>>
+                    <?php echo isset($antecedentes['medicamentos_controlados']) && $antecedentes['medicamentos_controlados'] == 1 ? 'checked' : ''; ?>>
             ¿Usa medicamentos controlados?
         </label>
     </div>
@@ -137,13 +137,13 @@ $stmt->close();
     <div class="form-group">
         <label>
             <input type="checkbox" name="usa_drogas" id="drogas" 
-                   <?php echo $antecedentes['usa_drogas'] ? 'checked' : ''; ?>>
+                    <?php echo isset($antecedentes['drogas']) && $antecedentes['drogas'] == 1 ? 'checked' : ''; ?>>
             ¿Ha usado drogas?
         </label>
         <div id="drogas_fields" class="conditional-field">
             <label>Tipo de droga:
                 <input type="text" name="tipo_droga" 
-                       value="<?php echo $antecedentes['tipo_droga']; ?>">
+                       value="<?php echo isset($antecedentes['tipo_droga']) ? $antecedentes['tipo_droga'] : ''; ?>">
             </label>
         </div>
     </div>
@@ -151,13 +151,13 @@ $stmt->close();
     <div class="form-group">
         <label>
             <input type="checkbox" name="practica_deporte" id="deporte" 
-                   <?php echo $antecedentes['practica_deporte'] ? 'checked' : ''; ?>>
+                    <?php echo isset($antecedentes['deporte']) && $antecedentes['deporte'] == 1 ? 'checked' : ''; ?>>
             ¿Practica deporte?
         </label>
         <div id="deporte_fields" class="conditional-field">
             <label>¿Cual deporte?
                 <input type="text" name="tipo_deporte" 
-                       value="<?php echo $antecedentes['tipo_deporte']; ?>">
+                       value="<?php echo isset($antecedentes['tipo_deporte']) ? $antecedentes['tipo_deporte'] : ''; ?>">
             </label>
         </div>
     </div>
@@ -165,7 +165,8 @@ $stmt->close();
     <div class="form-group">
         <label>
             <input type="checkbox" name="tatuajes" 
-                   <?php echo $antecedentes['tatuajes'] ? 'checked' : ''; ?>>
+                   <?php echo isset($antecedentes['tatuajes']) && 
+                   $antecedentes['tatuajes'] == 1 ? 'checked' : ''; ?>>
             ¿Tiene algun tatuaje?
         </label>
     </div>
@@ -175,13 +176,15 @@ $stmt->close();
     <div class="form-group">
         <label>
             <input type="checkbox" name="transfusiones" id="transfusiones" 
-                   <?php echo $antecedentes['transfusiones'] ? 'checked' : ''; ?>>
+                    <?php echo isset($antecedentes['transfusiones']) && 
+                    $antecedentes['transfusiones'] == 1 ? 'checked' : ''; ?>>
             ¿Acepta transfuciones de sangre?
         </label>
         <div id="transfusiones_fields" class="conditional-field">
             <label>¿Ha recibido transfusiones?
                 <input type="checkbox" name="transfusiones_recibidas" 
-                       <?php echo $antecedentes['transfusiones_recibidas'] ? 'checked' : ''; ?>>
+                        <?php echo isset($antecedentes['transfuciones_recibidas']) && 
+                        $antecedentes['transfuciones_recibidas'] == 1 ? 'checked' : ''; ?>>
             </label>
         </div>
     </div>

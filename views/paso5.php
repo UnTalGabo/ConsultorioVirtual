@@ -96,7 +96,7 @@ $stmt->close();
 <p>Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
 
 <form action="../php/guardar_paso5.php" method="post">
-    <input type="hidden" name="id_paciente" value="<?php echo $id_empleado; ?>">
+    <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
     <div class="form-container">
         <!-- Columna 1 -->
