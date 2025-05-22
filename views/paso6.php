@@ -368,7 +368,6 @@ function getChecked($efnfermedad){
 
     <div class="form-group">
         <label>
-            <input type="checkbox" name="enfermedad_actual" id="enfermedad_actual">
             ¿Tiene alguna enfermedad actualmente?
         </label>
         <textarea name="enfermedad_actual_desc" rows="3"></textarea>   

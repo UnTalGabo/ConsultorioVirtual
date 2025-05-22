@@ -60,7 +60,6 @@ try {
                 fracturas_esguinces = ?,
                 cirugias = ?,
                 tipo_sangre = ?,
-                enfermedad_actual = ?,
                 enfermedad_actual_desc = ?,
                 medicamentos = ?,
                 observaciones = ?,
@@ -73,24 +72,22 @@ try {
                 fracturas_esguinces,
                 cirugias,
                 tipo_sangre,
-                enfermedad_actual,
                 enfermedad_actual_desc,
                 medicamentos,
                 observaciones,
                 fecha_creacion,
                 fecha_actualizacion
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
     }
     
     $stmt = $conn->prepare($sql);
     
     if ($result->num_rows > 0) {
         $stmt->bind_param(
-            "sssssssi",
+            "ssssssi",
             $fracturas_esguinces,
             $cirugias,
             $tipo_sangre,
-            $enfermedad_actual,
             $enfermedad_actual_desc,
             $medicamentos,
             $observaciones,
@@ -98,12 +95,11 @@ try {
         );
     } else {
         $stmt->bind_param(
-            "isssssss",
+            "issssss",
             $id_empleado,
             $fracturas_esguinces,
             $cirugias,
             $tipo_sangre,
-            $enfermedad_actual,
             $enfermedad_actual_desc,
             $medicamentos,
             $observaciones
