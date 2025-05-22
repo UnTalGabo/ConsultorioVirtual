@@ -19,144 +19,296 @@ if ($id_paciente > 0) {
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>Paso 1 - Ficha de Identificación</title>
+  <title><?php echo $id_paciente ? 'Editar' : 'Nuevo'; ?> Paciente - Paso 1</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f6fa;
       color: #1e2a78;
       max-width: 800px;
-      margin: auto;
+      margin: 20px auto;
       padding: 20px;
     }
 
     h2 {
       text-align: center;
       color: #1e2a78;
+      margin-bottom: 30px;
     }
 
-    form {
+    .form-container {
       background: white;
-      padding: 20px;
+      padding: 25px;
       border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+    }
+
+    .form-section {
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .form-section h3 {
+      color: #2e3c81;
+      margin-top: 0;
+      margin-bottom: 15px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #2e3c81;
+    }
+
+    .form-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .form-group {
+      flex: 1;
+      min-width: 200px;
     }
 
     label {
       display: block;
-      margin-top: 15px;
+      margin-bottom: 5px;
       font-weight: bold;
+      color: #1e2a78;
     }
 
     input, select, textarea {
       width: 100%;
       padding: 10px;
-      margin-top: 5px;
       border: 1px solid #ccc;
-      border-radius: 6px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      font-size: 14px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 25px;
     }
 
     .button-next {
-      background-color: #1e2a78;
+      background-color: #2e3c81;
       color: white;
       border: none;
-      padding: 12px 20px;
-      margin-top: 20px;
-      border-radius: 6px;
+      padding: 12px 25px;
+      border-radius: 5px;
       cursor: pointer;
       font-size: 16px;
+      transition: background-color 0.3s;
     }
 
     .button-next:hover {
-      background-color: #16205a;
+      background-color: #1e2a78;
+    }
+
+    .btn-salir {
+      background-color: #dc3545;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 5px;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s;
+    }
+
+    .btn-salir:hover {
+      background-color: #c82333;
     }
   </style>
 </head>
 <body>
 
-  <h2>Paso 1: Ficha de Identificación</h2>
+  <h2><?php echo $id_paciente ? 'Editar' : 'Nuevo'; ?> Paciente - Información Básica</h2>
 
-  <form action="..\php\guardar_paso1.php" method="POST">
-    <input type="hidden" name="id_empleado" value="<?php echo $id_paciente; ?>">
+  <div class="form-container">
+    <form action="../php/guardar_paso1.php" method="POST">
+      <input type="hidden" name="id_empleado" value="<?php echo $id_paciente; ?>">
 
-    <label for="id_empleado">Número de empleado</label>
-    <input type="number" name="id_empleado"
-      value="<?php echo isset($paciente['id_empleado']) ? $paciente['id_empleado'] : ''; ?>"
-      required placeholder="Ej. 1023">
+      <!-- Sección 1: Datos del Empleado -->
+      <div class="form-section">
+        <h3>Datos del Empleado</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="id_empleado">Número de empleado</label>
+            <input type="number" name="id_empleado" 
+                   value="<?php echo isset($paciente['id_empleado']) ? $paciente['id_empleado'] : ''; ?>" 
+                   required placeholder="Ej. 1023">
+          </div>
+          
+          <div class="form-group">
+            <label for="puesto">Puesto</label>
+            <input type="text" name="puesto"
+                   value="<?php echo isset($paciente['puesto']) ? $paciente['puesto'] : ''; ?>"
+                   required placeholder="Ej. Analista de Sistemas">
+          </div>
+          
+          <div class="form-group">
+            <label for="area">Área/Departamento</label>
+            <input type="text" name="area"
+                   value="<?php echo isset($paciente['area']) ? $paciente['area'] : ''; ?>"
+                   required placeholder="Ej. Recursos Humanos">
+          </div>
+        </div>
+      </div>
 
-    <label for="nombre_completo">Nombre completo</label>
-    <input type="text" name="nombre_completo" 
-      value="<?php echo isset($paciente['nombre_completo']) ? $paciente['nombre_completo'] : ''; ?>" 
-      required placeholder="Ej. Juan Pérez López">
+      <!-- Sección 2: Datos Personales -->
+      <div class="form-section">
+        <h3>Datos Personales</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nombre_completo">Nombre completo</label>
+            <input type="text" name="nombre_completo" 
+                   value="<?php echo isset($paciente['nombre_completo']) ? $paciente['nombre_completo'] : ''; ?>" 
+                   required placeholder="Ej. Juan Pérez López">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fecha_nacimiento">Fecha de nacimiento</label>
+            <input type="date" name="fecha_nacimiento"
+                   value="<?php echo isset($paciente['fecha_nacimiento']) ? $paciente['fecha_nacimiento'] : ''; ?>"
+                   required>
+          </div>
+          
+          <div class="form-group">
+            <label for="genero">Género</label>
+            <select name="genero" required>
+              <option value="">Seleccione...</option>
+              <option value="Masculino" <?php echo (isset($paciente['genero']) && $paciente['genero'] == 'Masculino') ? 'selected' : ''; ?>>Masculino</option>
+              <option value="Femenino" <?php echo (isset($paciente['genero']) && $paciente['genero'] == 'Femenino') ? 'selected' : ''; ?>>Femenino</option>
+              <option value="Otro" <?php echo (isset($paciente['genero']) && $paciente['genero'] == 'Otro') ? 'selected' : ''; ?>>Otro</option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="estado_civil">Estado civil</label>
+            <select name="estado_civil" required>
+              <option value="">Seleccione...</option>
+              <option value="Soltero/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Soltero/a') ? 'selected' : ''; ?>>Soltero/a</option>
+              <option value="Casado/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Casado/a') ? 'selected' : ''; ?>>Casado/a</option>
+              <option value="Divorciado/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Divorciado/a') ? 'selected' : ''; ?>>Divorciado/a</option>
+              <option value="Viudo/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Viudo/a') ? 'selected' : ''; ?>>Viudo/a</option>
+            </select>
+          </div>
+        </div>
+      </div>
 
-    <label for="puesto">Puesto</label>
-    <input type="text" name="puesto"
-      value="<?php echo isset($paciente['puesto']) ? $paciente['puesto'] : ''; ?>"
-      required placeholder="Ej. Analista de Sistemas, Jefe de Urgencias">
+      <!-- Sección 3: Datos de Contacto -->
+      <div class="form-section">
+        <h3>Datos de Contacto</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefono">Teléfono</label>
+            <input type="tel" name="telefono" 
+                   value="<?php echo isset($paciente['telefono']) ? $paciente['telefono'] : ''; ?>"
+                   required placeholder="Ej. 4431234567">
+          </div>
+          
+          <div class="form-group">
+            <label for="escolaridad">Escolaridad Máxima</label>
+            <input type="text" name="escolaridad"
+                   value="<?php echo isset($paciente['escolaridad']) ? $paciente['escolaridad'] : ''; ?>"
+                   required placeholder="Ej. Preparatoria, Licenciatura">
+          </div>
+        </div>
+      </div>
 
-    <label for="area">Área</label>
-    <input type="text" name="area"
-      value="<?php echo isset($paciente['area']) ? $paciente['area'] : ''; ?>"
-      required placeholder="Ej. Recursos Humanos, Sistemas">
+      <!-- Sección 4: Dirección -->
+      <div class="form-section">
+        <h3>Dirección</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="calle">Calle</label>
+            <input type="text" name="calle"
+                   value="<?php echo isset($paciente['calle']) ? $paciente['calle'] : ''; ?>"
+                   required placeholder="Ej. Francisco I. Madero">
+          </div>
+          
+          <div class="form-group" style="max-width: 100px;">
+            <label for="numero">Número</label>
+            <input type="text" name="numero"
+                   value="<?php echo isset($paciente['numero']) ? $paciente['numero'] : ''; ?>"
+                   required placeholder="Ej. 123">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="colonia">Colonia</label>
+            <input type="text" name="colonia"
+                   value="<?php echo isset($paciente['colonia']) ? $paciente['colonia'] : ''; ?>"
+                   required placeholder="Ej. Vasco de Quiroga">
+          </div>
+          
+          <div class="form-group">
+            <label for="ciudad">Ciudad</label>
+            <input type="text" name="ciudad"
+                   value="<?php echo isset($paciente['ciudad']) ? $paciente['ciudad'] : ''; ?>"
+                   required placeholder="Ej. Morelia">
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <input type="text" name="estado"
+                   value="<?php echo isset($paciente['estado']) ? $paciente['estado'] : ''; ?>"
+                   required placeholder="Ej. Michoacán">
+          </div>
+          
+          <div class="form-group" style="max-width: 150px;">
+            <label for="cp">Código Postal</label>
+            <input type="text" name="cp"
+                   value="<?php echo isset($paciente['cp']) ? $paciente['cp'] : ''; ?>"
+                   required placeholder="Ej. 58295">
+          </div>
+        </div>
+      </div>
 
-    <label for="fecha_nacimiento">Fecha de nacimiento</label>
-    <input type="date" name="fecha_nacimiento"
-    value="<?php echo isset($paciente['fecha_nacimiento']) ? $paciente['fecha_nacimiento'] : ''; ?>"
-    required>
+      <!-- Sección 5: Contacto de Emergencia -->
+      <div class="form-section">
+        <h3>Contacto de Emergencia</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="contacto_emergencia">Nombre completo</label>
+            <input type="text" name="contacto_emergencia"
+                   value="<?php echo isset($paciente['contacto_emergencia']) ? $paciente['contacto_emergencia'] : ''; ?>"
+                   required placeholder="Nombre del contacto">
+          </div>
+          
+          <div class="form-group">
+            <label for="telefono_emergencia">Teléfono</label>
+            <input type="tel" name="telefono_emergencia"
+                   value="<?php echo isset($paciente['telefono_emergencia']) ? $paciente['telefono_emergencia'] : ''; ?>"
+                   required placeholder="Ej. 4431234567">
+          </div>
+          
+          <div class="form-group">
+            <label for="parentesco">Parentesco</label>
+            <input type="text" name="parentesco"
+                   value="<?php echo isset($paciente['parentesco']) ? $paciente['parentesco'] : ''; ?>"
+                   required placeholder="Ej. Hermano, Madre">
+          </div>
+        </div>
+      </div>
 
-    <label for="genero">Género</label>
-    <select name="genero" required>
-      <option value="<?php echo isset($paciente['genero']) ? $paciente['genero'] : ''; ?>">
-        <?php echo isset($paciente['genero']) ? $paciente['genero'] : 'Selecciona'; ?>
-      </option>
-      <option value="Masculino">Masculino</option>
-      <option value="Femenino">Femenino</option>
-      <option value="Otro">Otro</option>
-    </select>
-
-    <label for="estado_civil">Estado civil</label>
-    <select name="estado_civil" required>
-      <option value="<?php echo isset($paciente['estado_civil']) ? $paciente['estado_civil'] : ''; ?>">
-        <?php echo isset($paciente['estado_civil']) ? $paciente['estado_civil'] : 'Selecciona'; ?></option>
-      <option value="Soltero/a">Soltero/a</option>
-      <option value="Casado/a">Casado/a</option>
-      <option value="Divorciado/a">Divorciado/a</option>
-      <option value="Viudo/a">Viudo/a</option>
-    </select>
-
-    <label for="telefono">Teléfono</label>
-    <input type="tel" name="telefono" 
-      value="<?php echo isset($paciente['telefono']) ? $paciente['telefono'] : ''; ?>"
-    required placeholder="Ej. 4431234567">
-
-    <label for="direccion">Domicilio actual</label>
-    <textarea name="direccion" value="<?php echo isset($paciente['direccion']) ? $paciente['direccion'] : ''; ?>"
-     rows="3" required placeholder="Calle, número, colonia, ciudad"><?php echo isset($paciente['direccion']) ? $paciente['direccion'] : ''; ?></textarea>
-
-    <label for="escolaridad">Escolaridad Maxima</label>
-    <input type="text" name="escolaridad"
-      value="<?php echo isset($paciente['escolaridad']) ? $paciente['escolaridad'] : ''; ?>"
-     required placeholder="Ej. Preparatoria, Licenciatura...">
-
-    <label for="contacto_emergencia">Contacto en caso de emergencia</label>
-    <input type="text" name="contacto_emergencia"
-      value="<?php echo isset($paciente['contacto_emergencia']) ? $paciente['contacto_emergencia'] : ''; ?>"
-     required placeholder="Nombre completo de la persona">
-
-    <label for="telefono_emergencia">Teléfono de emergencia</label>
-    <input type="tel" name="telefono_emergencia"
-      value="<?php echo isset($paciente['telefono_emergencia']) ? $paciente['telefono_emergencia'] : ''; ?>"
-     required placeholder="Ej. 4431234567">
-
-    <label for="parentesco">Parentesco</label>
-    <input type="text" name="parentesco"
-      value="<?php echo isset($paciente['parentesco']) ? $paciente['parentesco'] : ''; ?>"
-     required placeholder="Ej. Hermano, Madre, Amigo">
-
-    
-
-    <button class="button-next" type="submit">Siguiente &raquo;</button>
-  </form>
+      <div class="button-container">
+        <a href="../index.html" class="btn-salir">Salir</a>
+        <button type="submit" class="button-next"><?php echo $id_paciente ? 'Actualizar' : 'Guardar'; ?> y Continuar &raquo;</button>
+      </div>
+    </form>
+  </div>
 
 </body>
 </html>

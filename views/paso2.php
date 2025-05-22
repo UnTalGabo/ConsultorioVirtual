@@ -8,7 +8,7 @@ $id_empleado = $_GET['id'];
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Confirmación de Aviso de Privacidad</title>
+    <title>Confirmación de Aviso de Conformidad</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -41,7 +41,7 @@ $id_empleado = $_GET['id'];
 </head>
 <body>
 
-<h2>Aviso de Privacidad</h2>
+<h2>Aviso de Conformidad</h2>
 
 <div class="aviso-box">
     <p><strong>CONFORMIDAD:</strong></p>

@@ -175,7 +175,7 @@ try {
     $stmt->close();
     
     $conn->commit();
-    header("Location: ../views/paso8.php?id=" . $id_empleado);
+    header("Location: ../views/ver_pacientes.php?id=" . $id_empleado);
     exit();
     
 } catch (Exception $e) {

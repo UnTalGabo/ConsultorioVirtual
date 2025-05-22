@@ -8,7 +8,12 @@ $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $genero = $_POST['genero'];
 $estado_civil = $_POST['estado_civil'];
 $telefono = $_POST['telefono'];
-$direccion = $_POST['direccion'];
+$calle = $_POST['calle'];
+$numero = $_POST['numero'];
+$colonia = $_POST['colonia'];
+$ciudad = $_POST['ciudad'];
+$estado = $_POST['estado'];
+$cp = $_POST['cp'];
 $escolaridad = $_POST['escolaridad'];
 $contacto_emergencia = $_POST['contacto_emergencia'];
 $telefono_emergencia = $_POST['telefono_emergencia'];
@@ -26,7 +31,12 @@ if ($verifica->num_rows > 0) {
             genero = ?,
             estado_civil = ?,
             telefono = ?,
-            direccion = ?,
+            calle = ?,
+            numero = ?,
+            colonia = ?,
+            ciudad = ?,
+            estado = ?,
+            cp = ?,
             escolaridad = ?,
             contacto_emergencia = ?,
             telefono_emergencia = ?,
@@ -35,8 +45,8 @@ if ($verifica->num_rows > 0) {
             puesto = ?
             WHERE id_empleado = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("ssssssssssssi", $nombre, $fecha_nacimiento, $genero, $estado_civil,
-    $telefono, $direccion, $escolaridad, $contacto_emergencia, $telefono_emergencia, $parentesco, $area, $puesto, $id_empleado);
+    $stmt->bind_param("sssssssssssssssssi", $nombre, $fecha_nacimiento, $genero, $estado_civil,
+    $telefono, $calle, $numero, $colonia, $ciudad, $estado, $cp, $escolaridad, $contacto_emergencia, $telefono_emergencia, $parentesco, $area, $puesto, $id_empleado);
     if ($stmt->execute()) {
     // Redirigir al siguiente paso
     header("Location: ../views/paso3.php?id=" . $id_empleado);
@@ -48,14 +58,14 @@ if ($verifica->num_rows > 0) {
     // Si no existe, insertar un nuevo registro
     $sql = "INSERT INTO pacientes (
             id_empleado, nombre_completo, fecha_nacimiento, genero, estado_civil, 
-            telefono, direccion, escolaridad, contacto_emergencia, telefono_emergencia, parentesco, area, puesto
+            telefono, calle, numero, colonia, ciudad, estado, cp, escolaridad, contacto_emergencia, telefono_emergencia, parentesco, area, puesto
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("issssssssssss", 
+    $stmt->bind_param("isssssssssssssssss", 
     $id_empleado, $nombre, $fecha_nacimiento, $genero, $estado_civil,
-    $telefono, $direccion, $escolaridad, $contacto_emergencia, $telefono_emergencia,
+    $telefono, $calle, $numero, $colonia, $ciudad, $estado, $cp, $escolaridad, $contacto_emergencia, $telefono_emergencia,
     $parentesco, $area, $puesto);
     if ($stmt->execute()) {
     // Redirigir al siguiente paso

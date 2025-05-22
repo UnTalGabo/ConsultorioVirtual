@@ -8,7 +8,7 @@ if ($id_empleado === 0) {
 }
 
 // Obtener datos del paciente
-$sql = "SELECT nombre_completo FROM pacientes WHERE id_empleado = ?";
+$sql = "SELECT nombre_completo, puesto FROM pacientes WHERE id_empleado = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_empleado);
 $stmt->execute();
@@ -130,8 +130,16 @@ function getChecked($valor){
 
         <div class="form-group">
             <label for="edad_inicio_trabajo">¿A qué edad comenzó a trabajar?</label>
-            <input type="number" name="edad_inicio_trabajo" id="edad_inicio_trabajo" min="10" max="70"
-            value="<?php echo isset($antecedentes['edad_inicio_trabajo']) ? $antecedentes['edad_inicio_trabajo'] : ''; ?>">
+            <select name="edad_inicio_trabajo" id="edad_inicio_trabajo" required>
+                <option value="">Seleccione una edad</option>
+                <?php 
+                    $edad_actual = isset($antecedentes['edad_inicio_trabajo']) ? $antecedentes['edad_inicio_trabajo'] : '';
+                    for ($i = 10; $i <= 40; $i++) {
+                        $selected = ($i == $edad_actual) ? 'selected' : '';
+                        echo "<option value='$i' $selected>$i años</option>";
+                    }
+                ?>
+    </select>
         </div>
 
         <div class="form-section">
@@ -139,19 +147,29 @@ function getChecked($valor){
             <div class="form-group">
                 <label for="empresa">Empresa:</label>
                 <input type="text" name="empresa" id="empresa"
-                value="<?php echo isset($antecedentes['empresa']) ? $antecedentes['empresa'] : ''; ?>">
+                    value="Hospital Angeles Morelia" readonly
+                    style="background-color: #f8f9fa; cursor: not-allowed;">
             </div>
             
             <div class="form-group">
                 <label for="antiguedad">Antigüedad (años):</label>
-                <input type="text" name="antiguedad" id="antiguedad"
-                value="<?php echo isset($antecedentes['antiguedad']) ? $antecedentes['antiguedad'] : ''; ?>">
+                <select name="antiguedad" id="antiguedad" required>
+                <option value="">Seleccione una edad</option>
+                <?php 
+                    $edad_actual = isset($antecedentes['antiguedad']) ? $antecedentes['antiguedad'] : '';
+                    for ($i = 0; $i <= 20; $i++) {
+                        $selected = ($i == $edad_actual) ? 'selected' : '';
+                        echo "<option value='$i' $selected>$i años</option>";
+                    }
+                ?>
+    </select>
             </div>
             
             <div class="form-group">
-                <label for="puesto">Puesto:</label>
+                <label for="puesto">puesto:</label>
                 <input type="text" name="puesto" id="puesto"
-                value="<?php echo isset($antecedentes['puesto']) ? $antecedentes['puesto'] : ''; ?>">
+                    value="<?php echo isset($paciente['puesto']) ? $paciente['puesto'] : '' ?>" readonly
+                    style="background-color: #f8f9fa; cursor: not-allowed;">
             </div>
             
             <div class="form-group">
@@ -321,7 +339,7 @@ function getChecked($valor){
         </div>
 
         <div class="button-container">
-            <button type="submit" class="button-next">Guardar y Continuar</button>
+            <button type="submit" class="button-next">Guardar y Salir</button>
             <a href="../views/ver_pacientes.php" class="btn-salir">Salir</a>
         </div>
     </form>
