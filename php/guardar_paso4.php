@@ -8,6 +8,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit();
 }
 $id_empleado = $_POST['id_empleado'];
+$accion = $_POST['accion'] ?? '';
 $sql_genero = "SELECT genero FROM pacientes WHERE id_empleado = ?";
 $stmt_genero = $conn->prepare($sql_genero);
 $stmt_genero->bind_param("i", $id_empleado);
@@ -125,10 +126,12 @@ if ($result->num_rows > 0) {
 
 if ($stmt->execute()) {
     // Redirigir según el género
-    if (strtolower($genero) === 'femenino') {
+    if (strtolower($genero) === 'femenino' && $accion === 'guardar_continuar') {
         header("Location: ../views/paso5.php?id=" . $id_empleado);
-    } else {
+    } else if ($accion === 'guardar_continuar') {
         header("Location: ../views/paso6.php?id=" . $id_empleado);
+    } else if  ($accion === 'guardar_salir') {
+        header("Location: ../views/ver_pacientes.php");
     }
 } else {
     // Mostrar error

@@ -1,4 +1,3 @@
-
 <?php
 require_once "../php/conexion.php";
 
@@ -304,14 +303,16 @@ $stmt->close();
                     </div>
                 </div>
 
-                <div class="d-flex justify-content-between align-items-center mt-4">
-                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg">
-                        <i class="bi bi-box-arrow-left"></i> Salir
-                    </a>
-                    <button type="submit" class="btn btn-primary btn-lg">
-                        <i class="bi bi-save2"></i>
-                        Guardar y Continuar &raquo;
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
+                        <i class="bi bi-save2"></i> Guardar y Salir
                     </button>
+                    <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
+                        <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
+                    </button>
+                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" name="accion" value="salir_sin_guardar">
+                        <i class="bi bi-box-arrow-left"></i> Salir sin guardar
+                    </a>
                 </div>
             </form>
         </div>

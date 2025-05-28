@@ -323,14 +323,18 @@ if ($id_paciente > 0) {
           </div>
         </div>
 
-        <div class="d-flex justify-content-between align-items-center mt-4">
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
           <a href="ver_pacientes.php" class="btn btn-danger btn-lg">
-            <i class="bi bi-box-arrow-left"></i> Salir
+            <i class="bi bi-box-arrow-left"></i> Salir sin guardar
           </a>
-          <button type="submit" class="btn btn-primary btn-lg">
-            <i class="bi bi-save2"></i>
-            <?php echo $id_paciente ? 'Actualizar' : 'Guardar'; ?> y Continuar &raquo;
-          </button>
+          <div class="ms-auto d-flex gap-2">
+            <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
+              <i class="bi bi-save2"></i> Guardar y Salir
+            </button>
+            <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
+              <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
+            </button>
+          </div>
         </div>
       </form>
     </div>

@@ -110,7 +110,15 @@ $resultado = $conn->query($sql);
                 <td><?php echo $fila['telefono']; ?></td>
                 <td><?php echo $fila['area']; ?></td>
                 <td>
-                  <a href="registro_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-warning">Editar</a>
+                  <button 
+                    class="btn btn-sm btn-warning btn-editar"
+                    data-id="<?php echo $fila['id_empleado']; ?>"
+                    data-genero="<?php echo strtolower($fila['genero']); ?>"
+                    data-nombre="<?php echo htmlspecialchars($fila['nombre_completo']); ?>"
+                    type="button"
+                    data-bs-toggle="modal"
+                    data-bs-target="#modalEditar"
+                  >Editar</button>
                   <a href="paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-info text-white">Examen Medico</a>
                   <a href="../php/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">Eliminar</a>
                 </td>
@@ -130,6 +138,29 @@ $resultado = $conn->query($sql);
 
     <div class="text-center mt-4">
       <a href="../views/index.html" class="btn btn-secondary">Volver al panel principal</a>
+    </div>
+  </div>
+
+  <!-- Modal para elegir sección a editar -->
+  <div class="modal fade" id="modalEditar" tabindex="-1" aria-labelledby="modalEditarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="modalEditarLabel">¿Qué sección deseas editar?</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+        </div>
+        <div class="modal-body">
+          <div id="nombrePaciente" class="mb-3 fw-bold text-primary"></div>
+          <div class="d-grid gap-2">
+            <a id="btnDatosGenerales" class="btn btn-outline-primary" href="#">Datos Generales</a>
+            <a id="btnHeredoFamiliares" class="btn btn-outline-secondary" href="#">Antecedentes Heredo-Familiares</a>
+            <a id="btnNoPatologicos" class="btn btn-outline-success" href="#">Antecedentes Personales No Patológicos</a>
+            <a id="btnGinecoObstetricos" class="btn btn-outline-warning" href="#" style="display:none;">Antecedentes Gineco-Obstétricos</a>
+            <a id="btnPatologicos" class="btn btn-outline-danger" href="#">Antecedentes Patológicos</a>
+            <a id="btnMedicoLaborales" class="btn btn-outline-info" href="#">Antecedentes Médico-Laborales</a>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -160,6 +191,35 @@ $resultado = $conn->query($sql);
     }
     // Buscar en tiempo real al escribir
     document.getElementById("buscador").addEventListener("keyup", buscarPaciente);
+
+    // Modal editar lógica
+    let idSeleccionado = null;
+    let generoSeleccionado = null;
+    let nombreSeleccionado = null;
+
+    document.querySelectorAll('.btn-editar').forEach(btn => {
+      btn.addEventListener('click', function() {
+        idSeleccionado = this.getAttribute('data-id');
+        generoSeleccionado = this.getAttribute('data-genero');
+        nombreSeleccionado = this.getAttribute('data-nombre');
+        document.getElementById('nombrePaciente').textContent = nombreSeleccionado;
+
+        // Mostrar botón Gineco-Obstétricos solo si es mujer
+        if (generoSeleccionado === 'femenino' || generoSeleccionado === 'mujer') {
+          document.getElementById('btnGinecoObstetricos').style.display = '';
+        } else {
+          document.getElementById('btnGinecoObstetricos').style.display = 'none';
+        }
+
+        // Actualiza los hrefs de los botones
+        document.getElementById('btnDatosGenerales').href = `registro_paciente.php?id=${idSeleccionado}`;
+        document.getElementById('btnHeredoFamiliares').href = `paso3.php?id=${idSeleccionado}`;
+        document.getElementById('btnNoPatologicos').href = `paso4.php?id=${idSeleccionado}`;
+        document.getElementById('btnGinecoObstetricos').href = `paso5.php?id=${idSeleccionado}`;
+        document.getElementById('btnPatologicos').href = `paso6.php?id=${idSeleccionado}`;
+        document.getElementById('btnMedicoLaborales').href = `paso7.php?id=${idSeleccionado}`;
+      });
+    });
   </script>
 </body>
 

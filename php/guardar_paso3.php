@@ -4,6 +4,7 @@ require_once "conexion.php";
 // 1. Validar datos recibidos
 $id_empleado = $_POST['id_empleado'];
 $enfermedades_marcadas = $_POST['enfermedades'] ?? []; // Array de enfermedades marcadas
+$accion = $_POST['accion'] ?? '';
 
 // 2. Iniciar transacción para integridad de datos
 $conn->begin_transaction();
@@ -33,7 +34,11 @@ try {
     }
 
     $conn->commit(); // Confirmar cambios
-    header("Location: ../views/paso4.php?id=$id_empleado");
+    if ($accion === 'guardar_salir') {
+        header("Location: ../views/ver_pacientes.php");
+    } else {
+        header("Location: ../views/paso4.php?id=$id_empleado");
+    }
     exit;
 } catch (Exception $e) {
     $conn->rollback(); // Revertir en caso de error
