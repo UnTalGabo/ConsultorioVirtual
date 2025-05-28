@@ -6,6 +6,7 @@ $id_empleado = $_GET['id'];
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Confirmación de Aviso de Conformidad</title>
@@ -18,11 +19,19 @@ $id_empleado = $_GET['id'];
             background-color: #f4f6fa;
             color: #1e2a78;
             /* Animación de fade-in para el contenido principal */
-            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+            animation: fadeInBody 0.7s cubic-bezier(.39, .575, .565, 1.000);
         }
+
         @keyframes fadeInBody {
-            from { opacity: 0; transform: translateY(30px);}
-            to   { opacity: 1; transform: translateY(0);}
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .aviso-box {
@@ -32,11 +41,19 @@ $id_empleado = $_GET['id'];
             background: white;
             border-radius: 5px;
             /* Animación de entrada para la caja de aviso */
-            animation: fadeInAviso 1s cubic-bezier(.39,.575,.565,1.000);
+            animation: fadeInAviso 1s cubic-bezier(.39, .575, .565, 1.000);
         }
+
         @keyframes fadeInAviso {
-            from { opacity: 0; transform: scale(0.97);}
-            to   { opacity: 1; transform: scale(1);}
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
         }
 
         .button-next {
@@ -49,6 +66,7 @@ $id_empleado = $_GET['id'];
             font-size: 16px;
             transition: background-color 0.3s, transform 0.1s;
         }
+
         .button-next:disabled {
             background-color: #cccccc;
         }
@@ -67,39 +85,41 @@ $id_empleado = $_GET['id'];
         }
     </style>
 </head>
+
 <body>
 
-<h2>Aviso de Conformidad</h2>
+    <h2>Aviso de Conformidad</h2>
 
-<div class="aviso-box">
-    <p><strong>CONFORMIDAD:</strong></p>
-    <p>Por este medio confirmo que el responsable del servicio médico en turno me ha explicado con detalle los tipos de evaluaciones médicas, 
-        las preguntas informativas para mi expediente médico, las preguntas evaluativas, 
-        los motivos de la evaluación médica y las consideraciones que se aplicarán durante la misma; 
-        todo ello ha quedado aclarado y comprendido.  
-        En esta evaluación médica se identifican las preguntas informativas y las preguntas evaluativas.  </p>
-    <p>Toda la información proporcionada estará protegida bajo el aviso de privacidad de la organización. </p>
-</div>
-
-<form action="../php/guardar_paso2.php" method="post">
-    <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
-    
-    <label>
-        <input type="checkbox" name="acepta_terminos" id="check_terminos" required>
-        Acepto los términos y condiciones
-    </label>
-
-    <div style="margin-top: 20px;">
-        <button type="submit" class="button-next" id="btn_continuar" disabled>Continuar a Antecedentes Heredo-Familiares &raquo;</button>
+    <div class="aviso-box">
+        <p><strong>CONFORMIDAD:</strong></p>
+        <p>Por este medio confirmo que el responsable del servicio médico en turno me ha explicado con detalle los tipos de evaluaciones médicas,
+            las preguntas informativas para mi expediente médico, las preguntas evaluativas,
+            los motivos de la evaluación médica y las consideraciones que se aplicarán durante la misma;
+            todo ello ha quedado aclarado y comprendido.
+            En esta evaluación médica se identifican las preguntas informativas y las preguntas evaluativas. </p>
+        <p>Toda la información proporcionada estará protegida bajo el aviso de privacidad de la organización. </p>
     </div>
-</form>
 
-<script>
-    // Habilitar botón solo si el checkbox está marcado
-    document.getElementById('check_terminos').addEventListener('change', function() {
-        document.getElementById('btn_continuar').disabled = !this.checked;
-    });
-</script>
+    <form action="../php/guardar_paso2.php" method="post">
+        <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
+
+        <label>
+            <input type="checkbox" name="acepta_terminos" id="check_terminos" required>
+            Acepto los términos y condiciones
+        </label>
+
+        <div style="margin-top: 20px;">
+            <button type="submit" class="button-next" id="btn_continuar" disabled>Continuar a Antecedentes Heredo-Familiares &raquo;</button>
+        </div>
+    </form>
+
+    <script>
+        // Habilitar botón solo si el checkbox está marcado
+        document.getElementById('check_terminos').addEventListener('change', function() {
+            document.getElementById('btn_continuar').disabled = !this.checked;
+        });
+    </script>
 
 </body>
+
 </html>

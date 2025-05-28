@@ -50,7 +50,7 @@ try {
     $stmt_check->bind_param("i", $id_empleado);
     $stmt_check->execute();
     $result = $stmt_check->get_result();
-    
+
     if ($result->num_rows > 0) {
         // Actualizar registro existente
         $sql = "UPDATE antecedentes_laborales SET 
@@ -110,9 +110,9 @@ try {
                 fecha_actualizacion
             ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
     }
-    
+
     $stmt = $conn->prepare($sql);
-    
+
     if ($result->num_rows > 0) {
         $stmt->bind_param(
             "isssiiiiiiiiississsssssi",
@@ -170,18 +170,16 @@ try {
             $secuela
         );
     }
-    
+
     $stmt->execute();
     $stmt->close();
-    
+
     $conn->commit();
     header("Location: ../views/ver_pacientes.php?id=" . $id_empleado);
     exit();
-    
 } catch (Exception $e) {
     $conn->rollback();
     die("Error al guardar los datos: " . $e->getMessage());
 }
 
 $conn->close();
-?>

@@ -63,19 +63,33 @@ $stmt = $conn->prepare($sql);
 
 if ($result->num_rows > 0) {
     $stmt->bind_param(
-        "iisiiiissii", 
-        $edad_inicio_regla, $ritmo_ciclo_menstrual, $fecha_ultima_menstruacion, 
-        $numero_gestas, $numero_partos, $numero_abortos, $numero_cesareas, 
-        $complicaciones_menstruacion, $fecha_ultima_citologia, $mastografia, 
+        "iisiiiissii",
+        $edad_inicio_regla,
+        $ritmo_ciclo_menstrual,
+        $fecha_ultima_menstruacion,
+        $numero_gestas,
+        $numero_partos,
+        $numero_abortos,
+        $numero_cesareas,
+        $complicaciones_menstruacion,
+        $fecha_ultima_citologia,
+        $mastografia,
         $id_empleado
     );
 } else {
     $stmt->bind_param(
-        "iiisiiiissi", 
-        $id_empleado, $edad_inicio_regla, $ritmo_ciclo_menstrual, 
-        $fecha_ultima_menstruacion, $numero_gestas, $numero_partos, 
-        $numero_abortos, $numero_cesareas, $complicaciones_menstruacion, 
-        $fecha_ultima_citologia, $mastografia
+        "iiisiiiissi",
+        $id_empleado,
+        $edad_inicio_regla,
+        $ritmo_ciclo_menstrual,
+        $fecha_ultima_menstruacion,
+        $numero_gestas,
+        $numero_partos,
+        $numero_abortos,
+        $numero_cesareas,
+        $complicaciones_menstruacion,
+        $fecha_ultima_citologia,
+        $mastografia
     );
 }
 
@@ -91,4 +105,3 @@ if ($stmt->execute()) {
 $stmt_check->close();
 $stmt->close();
 $conn->close();
-?>

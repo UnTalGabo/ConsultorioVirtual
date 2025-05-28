@@ -45,12 +45,31 @@ if ($verifica->num_rows > 0) {
             puesto = ?
             WHERE id_empleado = ?";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("sssssssssssssssssi", $nombre, $fecha_nacimiento, $genero, $estado_civil,
-    $telefono, $calle, $numero, $colonia, $ciudad, $estado, $cp, $escolaridad, $contacto_emergencia, $telefono_emergencia, $parentesco, $area, $puesto, $id_empleado);
+    $stmt->bind_param(
+        "sssssssssssssssssi",
+        $nombre,
+        $fecha_nacimiento,
+        $genero,
+        $estado_civil,
+        $telefono,
+        $calle,
+        $numero,
+        $colonia,
+        $ciudad,
+        $estado,
+        $cp,
+        $escolaridad,
+        $contacto_emergencia,
+        $telefono_emergencia,
+        $parentesco,
+        $area,
+        $puesto,
+        $id_empleado
+    );
     if ($stmt->execute()) {
-    // Redirigir al siguiente paso
-    header("Location: ../views/paso3.php?id=" . $id_empleado);
-    exit;
+        // Redirigir al siguiente paso
+        header("Location: ../views/paso3.php?id=" . $id_empleado);
+        exit;
     } else {
         echo "Error al Actualizar: " . $stmt->error;
     }
@@ -63,20 +82,36 @@ if ($verifica->num_rows > 0) {
             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     $stmt = $conn->prepare($sql);
-    $stmt->bind_param("isssssssssssssssss", 
-    $id_empleado, $nombre, $fecha_nacimiento, $genero, $estado_civil,
-    $telefono, $calle, $numero, $colonia, $ciudad, $estado, $cp, $escolaridad, $contacto_emergencia, $telefono_emergencia,
-    $parentesco, $area, $puesto);
+    $stmt->bind_param(
+        "isssssssssssssssss",
+        $id_empleado,
+        $nombre,
+        $fecha_nacimiento,
+        $genero,
+        $estado_civil,
+        $telefono,
+        $calle,
+        $numero,
+        $colonia,
+        $ciudad,
+        $estado,
+        $cp,
+        $escolaridad,
+        $contacto_emergencia,
+        $telefono_emergencia,
+        $parentesco,
+        $area,
+        $puesto
+    );
     if ($stmt->execute()) {
-    // Redirigir al siguiente paso
-    header("Location: ../views/paso2.php?id=" . $id_empleado);
-    exit;
-} else {
-    echo "Error al guardar: " . $stmt->error;
-}
+        // Redirigir al siguiente paso
+        header("Location: ../views/paso2.php?id=" . $id_empleado);
+        exit;
+    } else {
+        echo "Error al guardar: " . $stmt->error;
+    }
 }
 
 
 $stmt->close();
 $conn->close();
-?>

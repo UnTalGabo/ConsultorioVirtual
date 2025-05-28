@@ -85,19 +85,41 @@ $stmt = $conn->prepare($sql);
 
 if ($result->num_rows > 0) {
     $stmt->bind_param(
-        "iiiiisiisisiiii", 
-        $fuma, $cigarros_dia, $anos_fumando, $bebe, $anos_bebiendo, 
-        $frecuencia_alcohol, $medicamentos_controlados, $usa_drogas, 
-        $tipo_droga, $practica_deporte, $tipo_deporte, $tatuajes, 
-        $transfusiones, $transfusiones_recibidas, $id_empleado
+        "iiiiisiisisiiii",
+        $fuma,
+        $cigarros_dia,
+        $anos_fumando,
+        $bebe,
+        $anos_bebiendo,
+        $frecuencia_alcohol,
+        $medicamentos_controlados,
+        $usa_drogas,
+        $tipo_droga,
+        $practica_deporte,
+        $tipo_deporte,
+        $tatuajes,
+        $transfusiones,
+        $transfusiones_recibidas,
+        $id_empleado
     );
 } else {
     $stmt->bind_param(
         "iiiiiisiisisiii",
-        $id_empleado, $fuma, $cigarros_dia, $anos_fumando, $bebe, 
-        $anos_bebiendo, $frecuencia_alcohol, $medicamentos_controlados, 
-        $usa_drogas, $tipo_droga, $practica_deporte, $tipo_deporte, 
-        $tatuajes, $transfusiones, $transfusiones_recibidas
+        $id_empleado,
+        $fuma,
+        $cigarros_dia,
+        $anos_fumando,
+        $bebe,
+        $anos_bebiendo,
+        $frecuencia_alcohol,
+        $medicamentos_controlados,
+        $usa_drogas,
+        $tipo_droga,
+        $practica_deporte,
+        $tipo_deporte,
+        $tatuajes,
+        $transfusiones,
+        $transfusiones_recibidas
     );
 }
 
@@ -117,4 +139,3 @@ if ($stmt->execute()) {
 $stmt_check->close();
 $stmt->close();
 $conn->close();
-?>

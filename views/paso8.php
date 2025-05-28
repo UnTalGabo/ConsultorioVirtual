@@ -30,7 +30,8 @@ $examen_medico = $resultado->fetch_assoc();
 
 $stmt->close();
 
-function getChecked($valor, $comparar){
+function getChecked($valor, $comparar)
+{
     global $examen_medico;
     return isset($examen_medico[$valor]) && $examen_medico[$valor] == $comparar ? 'checked' : '';
 }
@@ -39,6 +40,7 @@ function getChecked($valor, $comparar){
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <title>Paso 8: Examen Médico</title>
@@ -51,27 +53,38 @@ function getChecked($valor, $comparar){
             background-color: #f4f6fa;
             color: #1e2a78;
             /* Animación de fade-in para el contenido principal */
-            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+            animation: fadeInBody 0.7s cubic-bezier(.39, .575, .565, 1.000);
         }
+
         @keyframes fadeInBody {
-            from { opacity: 0; transform: translateY(30px);}
-            to   { opacity: 1; transform: translateY(0);}
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
+
         .form-container {
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             opacity: 0;
             transform: translateY(40px);
             animation: fadeInForm 0.8s 0.2s forwards;
         }
+
         @keyframes fadeInForm {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         .form-section {
             margin-bottom: 30px;
             padding-bottom: 20px;
@@ -80,26 +93,39 @@ function getChecked($valor, $comparar){
             transform: translateY(30px);
             animation: fadeInSection 0.7s forwards;
         }
-        .form-section:nth-child(1) { animation-delay: 0.3s; }
-        .form-section:nth-child(2) { animation-delay: 0.4s; }
-        .form-section:nth-child(3) { animation-delay: 0.5s; }
+
+        .form-section:nth-child(1) {
+            animation-delay: 0.3s;
+        }
+
+        .form-section:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+
+        .form-section:nth-child(3) {
+            animation-delay: 0.5s;
+        }
+
         @keyframes fadeInSection {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         .form-group {
             margin-bottom: 15px;
             opacity: 0;
             transform: translateY(20px);
             animation: fadeInGroup 0.6s forwards;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group input[type="date"],
@@ -112,6 +138,7 @@ function getChecked($valor, $comparar){
             box-sizing: border-box;
             transition: box-shadow 0.3s, border-color 0.3s;
         }
+
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
@@ -119,29 +146,37 @@ function getChecked($valor, $comparar){
             border-color: #2e3c81;
             box-shadow: 0 0 0 2px #2e3c8133;
         }
-        .button-next, .btn-salir {
+
+        .button-next,
+        .btn-salir {
             transition: background-color 0.3s, transform 0.1s;
         }
-        .button-next:active, .btn-salir:active {
+
+        .button-next:active,
+        .btn-salir:active {
             transform: scale(0.97);
         }
+
         @keyframes fadeInGroup {
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
+
         .form-container {
             background: white;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
+
         .form-section {
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
+
         .form-section h3 {
             color: #2e3c81;
             margin-top: 0;
@@ -150,20 +185,24 @@ function getChecked($valor, $comparar){
             padding: 8px;
             border-radius: 4px;
         }
+
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
             margin-top: 15px;
         }
+
         .form-group {
             margin-bottom: 15px;
         }
+
         .form-group label {
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
         }
+
         .form-group input[type="text"],
         .form-group input[type="number"],
         .form-group input[type="date"],
@@ -175,30 +214,36 @@ function getChecked($valor, $comparar){
             border-radius: 4px;
             box-sizing: border-box;
         }
+
         .evaluation-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
         }
+
         .evaluation-column {
             border: 1px solid #dee2e6;
             padding: 15px;
             border-radius: 5px;
         }
+
         .evaluation-item {
             margin-bottom: 20px;
         }
+
         .evaluation-item h4 {
             margin-top: 0;
             color: #2e3c81;
             border-bottom: 1px solid #eee;
             padding-bottom: 5px;
         }
+
         .button-container {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
+
         .button-next {
             background-color: #2e3c81;
             color: white;
@@ -208,6 +253,7 @@ function getChecked($valor, $comparar){
             cursor: pointer;
             font-size: 16px;
         }
+
         .btn-salir {
             background-color: #dc3545;
             color: white;
@@ -218,18 +264,21 @@ function getChecked($valor, $comparar){
             text-decoration: none;
             display: inline-block;
         }
+
         .signature-box {
             margin-top: 30px;
             padding: 15px;
             background-color: #f8f9fa;
             border-radius: 5px;
         }
+
         .result-grid {
             display: grid;
             grid-template-columns: 1fr 2fr;
             gap: 20px;
             margin-top: 20px;
         }
+
         .imc-display {
             font-weight: bold;
             color: #2e3c81;
@@ -240,6 +289,7 @@ function getChecked($valor, $comparar){
         }
     </style>
 </head>
+
 <body>
     <h2>Paso 8: Examen Médico</h2>
     <p>Paciente: <strong><?php echo htmlspecialchars($paciente['nombre_completo']); ?></strong></p>
@@ -249,132 +299,123 @@ function getChecked($valor, $comparar){
 
         <div class="form-section">
             <h3>SOMATOMETRÍA / SIGNOS VITALES</h3>
-            
+
             <div class="form-grid">
                 <div class="form-group">
                     <label for="talla">Talla (cm):</label>
                     <input type="number" name="talla" id="talla" step="0.01"
-                    value="<?php echo isset($examen_medico['talla']) ? $examen_medico['talla'] : '' ?>" oninput="calcularIMC()">
+                        value="<?php echo isset($examen_medico['talla']) ? $examen_medico['talla'] : '' ?>" oninput="calcularIMC()">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="peso">Peso (kg):</label>
                     <input type="number" name="peso" id="peso" step="0.1"
-                    value="<?php echo isset($examen_medico['peso']) ? $examen_medico['peso'] : '' ?>" oninput="calcularIMC()">
+                        value="<?php echo isset($examen_medico['peso']) ? $examen_medico['peso'] : '' ?>" oninput="calcularIMC()">
                 </div>
-                
+
                 <div class="form-group">
                     <label>IMC:</label>
                     <div class="imc-display" id="imc_display"><?php echo isset($examen_medico['imc']) ? $examen_medico['imc'] : '--' ?></div>
                     <input type="hidden" name="imc" id="imc">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="fc">FC (x'):</label>
                     <input type="number" name="fc" id="fc"
-                    value="<?php echo isset($examen_medico['fc']) ? $examen_medico['fc'] : '' ?>">
+                        value="<?php echo isset($examen_medico['fc']) ? $examen_medico['fc'] : '' ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="fr">FR (x'):</label>
                     <input type="number" name="fr" id="fr"
-                    value="<?php echo isset($examen_medico['fr']) ? $examen_medico['fr'] : '' ?>">
+                        value="<?php echo isset($examen_medico['fr']) ? $examen_medico['fr'] : '' ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="temp">Temp (°C):</label>
                     <input type="number" name="temp" id="temp" step="0.1"
-                    value="<?php echo isset($examen_medico['temp']) ? $examen_medico['temp'] : '' ?>">
+                        value="<?php echo isset($examen_medico['temp']) ? $examen_medico['temp'] : '' ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="perimetro_abdominal">Perímetro Abd. (cm):</label>
                     <input type="number" name="perimetro_abdominal" id="perimetro_abdominal"
-                    value="<?php echo isset($examen_medico['perimetro_abdominal']) ? $examen_medico['perimetro_abdominal'] : '' ?>">
+                        value="<?php echo isset($examen_medico['perimetro_abdominal']) ? $examen_medico['perimetro_abdominal'] : '' ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="presion_arterial">Presión arterial (mm/Hg):</label>
                     <input type="text" name="presion_arterial" id="presion_arterial" placeholder="120/80"
-                    value="<?php echo isset($examen_medico['presion_arterial']) ? $examen_medico['presion_arterial'] : '' ?>">
+                        value="<?php echo isset($examen_medico['presion_arterial']) ? $examen_medico['presion_arterial'] : '' ?>">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="spo2">SpO2 (%):</label>
                     <input type="number" name="spo2" id="spo2" min="0" max="100"
-                    value="<?php echo isset($examen_medico['spo2']) ? $examen_medico['spo2'] : '' ?>">
+                        value="<?php echo isset($examen_medico['spo2']) ? $examen_medico['spo2'] : '' ?>">
                 </div>
             </div>
         </div>
 
         <div class="form-section">
             <h3>EVALUACIÓN FÍSICA</h3>
-            
+
             <div class="evaluation-grid">
                 <div class="evaluation-column">
                     <div class="evaluation-item">
                         <h4>CABEZA</h4>
                         <textarea name="cabeza" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['cabeza']) ? $examen_medico['cabeza'] : '' ?>"
-                        ><?php echo isset($examen_medico['cabeza']) ? $examen_medico['cabeza'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['cabeza']) ? $examen_medico['cabeza'] : '' ?>"><?php echo isset($examen_medico['cabeza']) ? $examen_medico['cabeza'] : '' ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>OÍDO</h4>
                         <textarea name="oido" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['oido']) ? $examen_medico['oido'] : '' ?>"
-                        ><?php echo isset($examen_medico['oido']) ? $examen_medico['oido'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['oido']) ? $examen_medico['oido'] : '' ?>"><?php echo isset($examen_medico['oido']) ? $examen_medico['oido'] : '' ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>CAVIDAD ORAL</h4>
                         <textarea name="cavidad_oral" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['cavidad_oral']) ? $examen_medico['cavidad_oral'] : '' ?>"
-                        ><?php echo isset($examen_medico['cavidad_oral']) ? $examen_medico['cavidad_oral'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['cavidad_oral']) ? $examen_medico['cavidad_oral'] : '' ?>"><?php echo isset($examen_medico['cavidad_oral']) ? $examen_medico['cavidad_oral'] : '' ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>CUELLO</h4>
                         <textarea name="cuello" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['cuello']) ? $examen_medico['cuello'] : '' ?>"
-                        ><?php echo isset($examen_medico['cuello']) ? $examen_medico['cuello'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['cuello']) ? $examen_medico['cuello'] : '' ?>"><?php echo isset($examen_medico['cuello']) ? $examen_medico['cuello'] : '' ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>TÓRAX</h4>
                         <textarea name="torax" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['torax']) ? $examen_medico['torax'] : '' ?>"
-                        ><?php echo isset($examen_medico['torax']) ? $examen_medico['torax'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['torax']) ? $examen_medico['torax'] : '' ?>"><?php echo isset($examen_medico['torax']) ? $examen_medico['torax'] : '' ?></textarea>
                     </div>
                 </div>
-                
+
                 <div class="evaluation-column">
                     <div class="evaluation-item">
                         <h4>COLUMNA VERTEBRAL</h4>
                         <textarea name="columna" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['columna']) ? $examen_medico['columna'] : '' ?>"
-                        ><?php echo isset($examen_medico['columna']) ? $examen_medico['columna'] : null ?></textarea>
+                            value="<?php echo isset($examen_medico['columna']) ? $examen_medico['columna'] : '' ?>"><?php echo isset($examen_medico['columna']) ? $examen_medico['columna'] : null ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>EXTREMIDADES SUPERIORES</h4>
                         <textarea name="extremidades_superiores" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['extremidades_superiores']) ? $examen_medico['extremidades_superiores'] : '' ?>"
-                        ><?php echo isset($examen_medico['extremidades_superiores']) ? $examen_medico['extremidades_superiores'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['extremidades_superiores']) ? $examen_medico['extremidades_superiores'] : '' ?>"><?php echo isset($examen_medico['extremidades_superiores']) ? $examen_medico['extremidades_superiores'] : '' ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>EXTREMIDADES INFERIORES</h4>
                         <textarea name="extremidades_inferiores" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['extremidades_inferiores']) ? $examen_medico['extremidades_inferiores'] : '' ?>"
-                        ><?php echo isset($examen_medico['extremidades_inferiores']) ? $examen_medico['extremidades_inferiores'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['extremidades_inferiores']) ? $examen_medico['extremidades_inferiores'] : '' ?>"><?php echo isset($examen_medico['extremidades_inferiores']) ? $examen_medico['extremidades_inferiores'] : '' ?></textarea>
                     </div>
-                    
+
                     <div class="evaluation-item">
                         <h4>ABDOMEN</h4>
                         <textarea name="abdomen" rows="3" style="width: 100%;"
-                        value="<?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?>"
-                        ><?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?></textarea>
+                            value="<?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?>"><?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?></textarea>
                     </div>
                 </div>
             </div>
@@ -382,40 +423,39 @@ function getChecked($valor, $comparar){
 
         <div class="form-section">
             <h3>RESULTADO DE EVALUACIÓN MÉDICA</h3>
-            
+
             <div class="result-grid">
                 <div>
                     <div class="form-group">
                         <label>
-                            <input type="radio" name="resultado" value="Recomendable" 
-                            <?php echo getChecked('resultado', 'Recomendable'); ?>> Recomendable
+                            <input type="radio" name="resultado" value="Recomendable"
+                                <?php echo getChecked('resultado', 'Recomendable'); ?>> Recomendable
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
                             <input type="radio" name="resultado" value="Recomendable con restricción"
-                            <?php echo getChecked('resultado','') ?>> Recomendable con restricción
+                                <?php echo getChecked('resultado', '') ?>> Recomendable con restricción
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
                             <input type="radio" name="resultado" value="No recomendable"
-                            <?php echo getChecked('resultado','') ?>> No recomendable
+                                <?php echo getChecked('resultado', '') ?>> No recomendable
                         </label>
                     </div>
                     <div class="form-group">
                         <label>
                             <input type="radio" name="resultado" value="Se reubica (examen periódico)"
-                            <?php echo getChecked('resultado','') ?>> Se reubica (examen periódico)
+                                <?php echo getChecked('resultado', '') ?>> Se reubica (examen periódico)
                         </label>
                     </div>
                 </div>
-                
+
                 <div class="form-group">
                     <label>Recomendaciones / restricciones:</label>
                     <textarea name="recomendaciones" rows="5" style="width: 100%;"
-                    value="<?php echo isset($examen_medico['recomendaciones']) ? $examen_medico['recomendaciones'] : '' ?>"
-                    ><?php echo isset($examen_medico['recomendaciones']) ? $examen_medico['recomendaciones'] : '' ?></textarea>
+                        value="<?php echo isset($examen_medico['recomendaciones']) ? $examen_medico['recomendaciones'] : '' ?>"><?php echo isset($examen_medico['recomendaciones']) ? $examen_medico['recomendaciones'] : '' ?></textarea>
                 </div>
             </div>
         </div>
@@ -440,7 +480,7 @@ function getChecked($valor, $comparar){
         function calcularIMC() {
             const talla = parseFloat(document.getElementById('talla').value) / 100; // Convertir cm a m
             const peso = parseFloat(document.getElementById('peso').value);
-            
+
             if (talla > 0 && peso > 0) {
                 const imc = peso / (talla * talla);
                 document.getElementById('imc_display').textContent = imc.toFixed(2);
@@ -457,4 +497,5 @@ function getChecked($valor, $comparar){
         });
     </script>
 </body>
+
 </html>

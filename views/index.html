@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
 
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Consultorio Médico</title>
   <style>
     body {
@@ -29,12 +30,19 @@
       max-width: 1000px;
       margin: 40px auto;
       padding: 20px;
-      animation: fadeInContainer 0.8s cubic-bezier(.39,.575,.565,1.000);
+      animation: fadeInContainer 0.8s cubic-bezier(.39, .575, .565, 1.000);
     }
 
     @keyframes fadeInContainer {
-      from { opacity: 0; transform: translateY(40px);}
-      to   { opacity: 1; transform: translateY(0);}
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
     .grid {
@@ -71,22 +79,24 @@
     }
   </style>
 </head>
+
 <body>
 
-<header>
-  <h1>Consultorio Médico - Panel Principal</h1>
-</header>
+  <header>
+    <h1>Consultorio Médico - Panel Principal</h1>
+  </header>
 
-<div class="container">
-  <div class="grid">
-    <a href="registro_paciente.php" class="button">Registrar Paciente</a>
-    <a href="ver_pacientes.php" class="button">Ver Pacientes</a>
+  <div class="container">
+    <div class="grid">
+      <a href="registro_paciente.php" class="button">Registrar Paciente</a>
+      <a href="ver_pacientes.php" class="button">Ver Pacientes</a>
+    </div>
   </div>
-</div>
 
-<footer>
-  Sistema desarrollado por Gabriel Orozco - Prototipo
-</footer>
+  <footer>
+    Sistema desarrollado por Gabriel Orozco - Prototipo
+  </footer>
 
 </body>
+
 </html>

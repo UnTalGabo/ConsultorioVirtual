@@ -25,7 +25,7 @@ try {
     foreach ($enfermedades_marcadas as $enfermedad) {
         $nombre_real = $_POST["nombre_enfermedad_$enfermedad"] ?? $enfermedad;
         $parentesco = $_POST[$enfermedad . '_quien'] ?? null;
-        
+
         if (!empty($parentesco)) {
             $stmt_insert->bind_param("iss", $id_empleado, $nombre_real, $parentesco);
             $stmt_insert->execute();
@@ -43,4 +43,3 @@ try {
 $stmt_delete->close();
 $stmt_insert->close();
 $conn->close();
-?>

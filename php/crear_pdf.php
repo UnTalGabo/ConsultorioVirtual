@@ -11,7 +11,8 @@ if (!$id_empleado) {
 }
 
 // Consulta de datos
-function obtenerDatos($tabla, $id_empleado) {
+function obtenerDatos($tabla, $id_empleado)
+{
     global $conn; // Asegúrate de que la conexión esté disponible
     $query = "SELECT * FROM $tabla WHERE id_empleado = ?";
     $stmt = $conn->prepare($query);
@@ -91,4 +92,3 @@ $pdf->useTemplate($tplIdx);
 
 // Salida
 $pdf->Output('I', 'historia_clinica.pdf');
-?>

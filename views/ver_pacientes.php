@@ -7,6 +7,7 @@ $resultado = $conn->query($sql);
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Pacientes Registrados</title>
@@ -14,23 +15,48 @@ $resultado = $conn->query($sql);
   <style>
     /* Animación de fade-in para el contenedor principal */
     .container {
-      animation: fadeInContainer 0.8s cubic-bezier(.39,.575,.565,1.000);
+      animation: fadeInContainer 0.8s cubic-bezier(.39, .575, .565, 1.000);
     }
+
     @keyframes fadeInContainer {
-      from { opacity: 0; transform: translateY(40px);}
-      to   { opacity: 1; transform: translateY(0);}
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     /* Animación para las filas de la tabla */
     tbody tr {
       opacity: 0;
       transform: translateY(20px);
       animation: fadeInRow 0.6s forwards;
     }
-    tbody tr:nth-child(1) { animation-delay: 0.1s; }
-    tbody tr:nth-child(2) { animation-delay: 0.2s; }
-    tbody tr:nth-child(3) { animation-delay: 0.3s; }
-    tbody tr:nth-child(4) { animation-delay: 0.4s; }
-    tbody tr:nth-child(5) { animation-delay: 0.5s; }
+
+    tbody tr:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    tbody tr:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    tbody tr:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    tbody tr:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    tbody tr:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
     /* ...agrega más si esperas más filas... */
     @keyframes fadeInRow {
       to {
@@ -38,6 +64,7 @@ $resultado = $conn->query($sql);
         transform: translateY(0);
       }
     }
+
     /* Animación al enfocar el input de búsqueda */
     #buscador:focus {
       border-color: #2e3c81;
@@ -46,6 +73,7 @@ $resultado = $conn->query($sql);
     }
   </style>
 </head>
+
 <body class="bg-light">
 
   <div class="container py-5">
@@ -87,7 +115,7 @@ $resultado = $conn->query($sql);
                   <a href="../php/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">Eliminar</a>
                 </td>
                 <td>
-                  <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado'];?>" class="btn btn-primary">Generar PDF</a>
+                  <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-primary">Generar PDF</a>
                 </td>
               </tr>
             <?php endwhile; ?>
@@ -115,7 +143,7 @@ $resultado = $conn->query($sql);
       var filas = tabla.getElementsByTagName("tr");
       for (var i = 1; i < filas.length; i++) { // Empieza en 1 para saltar el encabezado
         var celdaNombre = filas[i].getElementsByTagName("td")[1]; // Columna de nombre
-        var celdaId = filas[i].getElementsByTagName("td")[0];     // Columna de ID empleado
+        var celdaId = filas[i].getElementsByTagName("td")[0]; // Columna de ID empleado
         if (celdaNombre && celdaId) {
           var textoNombre = celdaNombre.textContent || celdaNombre.innerText;
           var textoId = celdaId.textContent || celdaId.innerText;
@@ -134,6 +162,7 @@ $resultado = $conn->query($sql);
     document.getElementById("buscador").addEventListener("keyup", buscarPaciente);
   </script>
 </body>
+
 </html>
 
 <?php $conn->close(); ?>

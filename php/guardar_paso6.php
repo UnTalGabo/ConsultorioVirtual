@@ -21,8 +21,8 @@ $observaciones = $_POST['observaciones'] ?? null;
 // Procesar enfermedades adicionales (si se especificaron)
 $enfermedades_extra = [];
 if (!empty($_POST["otra_enfermedad_4"])) {
-        $enfermedades[] = $_POST["otra_enfermedad_4"];
-    }
+    $enfermedades[] = $_POST["otra_enfermedad_4"];
+}
 
 // Iniciar transacción para asegurar integridad de datos
 $conn->begin_transaction();
@@ -39,7 +39,7 @@ try {
     if (!empty($enfermedades)) {
         $sql_insert = "INSERT INTO enfermedades_patologicas (id_empleado, enfermedad) VALUES (?, ?)";
         $stmt_insert = $conn->prepare($sql_insert);
-        
+
         foreach ($enfermedades as $enfermedad) {
             $stmt_insert->bind_param("is", $id_empleado, $enfermedad);
             $stmt_insert->execute();
@@ -53,7 +53,7 @@ try {
     $stmt_check->bind_param("i", $id_empleado);
     $stmt_check->execute();
     $result = $stmt_check->get_result();
-    
+
     if ($result->num_rows > 0) {
         // Actualizar registro existente
         $sql = "UPDATE antecedentes_patologicos SET 
@@ -79,9 +79,9 @@ try {
                 fecha_actualizacion
             ) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
     }
-    
+
     $stmt = $conn->prepare($sql);
-    
+
     if ($result->num_rows > 0) {
         $stmt->bind_param(
             "ssssssi",
@@ -105,17 +105,16 @@ try {
             $observaciones
         );
     }
-    
+
     $stmt->execute();
     $stmt->close();
-    
+
     // Confirmar todos los cambios
     $conn->commit();
-    
+
     // Redirigir al siguiente paso (o al panel principal)
     header("Location: ../views/paso7.php?id=" . $id_empleado);
     exit();
-    
 } catch (Exception $e) {
     // Revertir cambios en caso de error
     $conn->rollback();
@@ -123,4 +122,3 @@ try {
 }
 
 $conn->close();
-?>
