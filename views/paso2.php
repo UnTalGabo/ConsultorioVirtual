@@ -17,14 +17,28 @@ $id_empleado = $_GET['id'];
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
         }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
+        }
+
         .aviso-box {
             border: 1px solid #ddd;
             padding: 15px;
             margin-bottom: 20px;
             background: white;
             border-radius: 5px;
+            /* Animación de entrada para la caja de aviso */
+            animation: fadeInAviso 1s cubic-bezier(.39,.575,.565,1.000);
         }
+        @keyframes fadeInAviso {
+            from { opacity: 0; transform: scale(0.97);}
+            to   { opacity: 1; transform: scale(1);}
+        }
+
         .button-next {
             background-color: #2e3c81;
             color: white;
@@ -33,9 +47,23 @@ $id_empleado = $_GET['id'];
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
+            transition: background-color 0.3s, transform 0.1s;
         }
         .button-next:disabled {
             background-color: #cccccc;
+        }
+
+        /* Animación al enfocar el checkbox */
+        input[type="checkbox"]:focus {
+            outline: 2px solid #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
+            transition: box-shadow 0.3s, outline 0.3s;
+        }
+
+        /* Animación de botón al hacer clic */
+        .button-next:active {
+            transform: scale(0.97);
+            transition: transform 0.1s;
         }
     </style>
 </head>

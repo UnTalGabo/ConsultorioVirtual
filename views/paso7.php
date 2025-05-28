@@ -49,24 +49,49 @@ function getChecked($valor){
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+        }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
         }
         .form-container {
             background: white;
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInForm 0.8s 0.2s forwards;
+        }
+        @keyframes fadeInForm {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-section {
             margin-bottom: 30px;
             padding-bottom: 20px;
             border-bottom: 1px solid #eee;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInSection 0.7s forwards;
         }
-        .form-section h3 {
-            color: #2e3c81;
-            margin-top: 0;
+        .form-section:nth-child(1) { animation-delay: 0.3s; }
+        .form-section:nth-child(2) { animation-delay: 0.4s; }
+        @keyframes fadeInSection {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group {
             margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInGroup 0.6s forwards;
         }
         .form-group label {
             display: block;
@@ -83,6 +108,14 @@ function getChecked($valor){
             border: 1px solid #ddd;
             border-radius: 4px;
             box-sizing: border-box;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
         }
         .checkbox-group {
             display: flex;
@@ -103,21 +136,43 @@ function getChecked($valor){
         .button-next {
             background-color: #2e3c81;
             color: white;
-            padding: 10px 20px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             font-size: 16px;
         }
         .btn-salir {
-            background-color: #dc3545;
+            background-color:rgb(172, 45, 45);
             color: white;
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            text-decoration: none;
-            display: inline-block;
+            font-size: 16px;
+        }
+        .button-next:active, .btn-salir:active {
+            transform: scale(0.97);
+        }
+        /* Animación para campos condicionales */
+        .conditional-field {
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: opacity 0.4s, max-height 0.4s;
+        }
+        .conditional-field.show {
+            display: block;
+            opacity: 1;
+            max-height: 500px;
+            transition: opacity 0.4s, max-height 0.4s;
+        }
+        @keyframes fadeInGroup {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>

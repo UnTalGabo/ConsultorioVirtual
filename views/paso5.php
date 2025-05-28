@@ -31,15 +31,26 @@ $stmt->close();
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+        }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
         }
         .form-container {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInForm 0.8s 0.2s forwards;
         }
-        .form-column {
-            flex: 1;
-            min-width: 300px;
+        @keyframes fadeInForm {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group {
             margin-bottom: 15px;
@@ -47,6 +58,23 @@ $stmt->close();
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInGroup 0.7s forwards;
+        }
+        .form-group:nth-child(1) { animation-delay: 0.2s; }
+        .form-group:nth-child(2) { animation-delay: 0.3s; }
+        .form-group:nth-child(3) { animation-delay: 0.4s; }
+        .form-group:nth-child(4) { animation-delay: 0.5s; }
+        .form-group:nth-child(5) { animation-delay: 0.6s; }
+        .form-group:nth-child(6) { animation-delay: 0.7s; }
+        .form-group:nth-child(7) { animation-delay: 0.8s; }
+        .form-group:nth-child(8) { animation-delay: 0.9s; }
+        @keyframes fadeInGroup {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group label {
             display: block;
@@ -64,11 +92,25 @@ $stmt->close();
             border-radius: 4px;
             box-sizing: border-box;
             margin-bottom: 10px;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
         }
         .button-container {
             width: 100%;
             text-align: center;
             margin-top: 20px;
+        }
+        .button-next, .btn-salir {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .button-next:active, .btn-salir:active {
+            transform: scale(0.97);
         }
         .button-next {
             background-color: #2e3c81;

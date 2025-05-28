@@ -50,6 +50,86 @@ function getChecked($valor, $comparar){
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+        }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
+        }
+        .form-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInForm 0.8s 0.2s forwards;
+        }
+        @keyframes fadeInForm {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .form-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInSection 0.7s forwards;
+        }
+        .form-section:nth-child(1) { animation-delay: 0.3s; }
+        .form-section:nth-child(2) { animation-delay: 0.4s; }
+        .form-section:nth-child(3) { animation-delay: 0.5s; }
+        @keyframes fadeInSection {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .form-group {
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInGroup 0.6s forwards;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="date"],
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+            transition: box-shadow 0.3s, border-color 0.3s;
+        }
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
+        }
+        .button-next, .btn-salir {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .button-next:active, .btn-salir:active {
+            transform: scale(0.97);
+        }
+        @keyframes fadeInGroup {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-container {
             background: white;

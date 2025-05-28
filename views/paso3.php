@@ -82,7 +82,61 @@ document.addEventListener('DOMContentLoaded', function() {
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
         }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
+        }
+
+        /* Animación de entrada para columnas */
+        .contenedor-columnas {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInColumns 0.8s 0.2s forwards;
+        }
+        @keyframes fadeInColumns {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animación de entrada para tablas */
+        .columna table {
+            opacity: 0;
+            transform: scale(0.97);
+            animation: fadeInTable 0.8s 0.4s forwards;
+        }
+        .columna:nth-child(2) table {
+            animation-delay: 0.6s;
+        }
+        @keyframes fadeInTable {
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Animación al enfocar selects y checkboxes */
+        select:focus, input[type="checkbox"]:focus {
+            outline: 2px solid #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
+            transition: box-shadow 0.3s, outline 0.3s;
+        }
+
+        /* Animación de botón al hacer clic */
+        .button-next:active, .btn-salir:active {
+            transform: scale(0.97);
+            transition: transform 0.1s;
+        }
+
+        /* Animación de botón al pasar el mouse */
+        .button-next, .btn-salir {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+
         .contenedor-columnas {
             display: flex;
             gap: 20px;

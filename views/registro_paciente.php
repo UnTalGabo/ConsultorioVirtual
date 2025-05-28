@@ -21,6 +21,9 @@ if ($id_paciente > 0) {
   <meta charset="UTF-8">
   <title><?php echo $id_paciente ? 'Editar' : 'Nuevo'; ?> Paciente - Paso 1</title>
   <style>
+
+    
+
     body {
       font-family: Arial, sans-serif;
       background-color: #f4f6fa;
@@ -43,10 +46,53 @@ if ($id_paciente > 0) {
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
     }
 
+    /* Animación de fade-in para el contenedor del formulario */
+    .form-container {
+      animation: fadeInUp 0.8s cubic-bezier(.39,.575,.565,1.000);
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(40px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animación de entrada para cada sección */
     .form-section {
-      margin-bottom: 25px;
-      padding-bottom: 15px;
-      border-bottom: 1px solid #e0e0e0;
+      opacity: 0;
+      transform: translateY(30px);
+      animation: sectionFadeIn 0.7s forwards;
+    }
+    .form-section:nth-child(1) { animation-delay: 0.1s; }
+    .form-section:nth-child(2) { animation-delay: 0.2s; }
+    .form-section:nth-child(3) { animation-delay: 0.3s; }
+    .form-section:nth-child(4) { animation-delay: 0.4s; }
+    .form-section:nth-child(5) { animation-delay: 0.5s; }
+
+    @keyframes sectionFadeIn {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Animación al enfocar inputs */
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #2e3c81;
+      box-shadow: 0 0 0 2px #2e3c8133;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+
+    /* Animación de botón al hacer clic */
+    .button-next:active, .btn-salir:active {
+      transform: scale(0.97);
+      transition: transform 0.1s;
     }
 
     .form-section h3 {
@@ -304,7 +350,7 @@ if ($id_paciente > 0) {
       </div>
 
       <div class="button-container">
-        <a href="../index.html" class="btn-salir">Salir</a>
+        <a href="ver_pacientes.php" class="btn-salir">Salir</a>
         <button type="submit" class="button-next"><?php echo $id_paciente ? 'Actualizar' : 'Guardar'; ?> y Continuar &raquo;</button>
       </div>
     </form>

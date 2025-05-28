@@ -37,6 +37,12 @@ $stmt->close();
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+        }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
         }
         .form-group {
             margin-bottom: 15px;
@@ -44,6 +50,23 @@ $stmt->close();
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInGroup 0.7s forwards;
+        }
+        .form-group:nth-child(1) { animation-delay: 0.1s; }
+        .form-group:nth-child(2) { animation-delay: 0.2s; }
+        .form-group:nth-child(3) { animation-delay: 0.3s; }
+        .form-group:nth-child(4) { animation-delay: 0.4s; }
+        .form-group:nth-child(5) { animation-delay: 0.5s; }
+        .form-group:nth-child(6) { animation-delay: 0.6s; }
+        .form-group:nth-child(7) { animation-delay: 0.7s; }
+        .form-group:nth-child(8) { animation-delay: 0.8s; }
+        @keyframes fadeInGroup {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group label {
             display: block;
@@ -59,6 +82,10 @@ $stmt->close();
             cursor: pointer;
             font-size: 16px;
             margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .button-next:active {
+            transform: scale(0.97);
         }
         .btn-salir {
             background-color:rgb(150, 38, 38);
@@ -69,11 +96,30 @@ $stmt->close();
             cursor: pointer;
             font-size: 16px;
             margin-top: 20px;
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .btn-salir:active {
+            transform: scale(0.97);
         }
         .conditional-field {
             margin-left: 20px;
             margin-top: 10px;
             display: none;
+            opacity: 0;
+            max-height: 0;
+            transition: opacity 0.4s, max-height 0.4s;
+        }
+        .conditional-field.show {
+            display: block;
+            opacity: 1;
+            max-height: 200px;
+            transition: opacity 0.4s, max-height 0.4s;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
+            transition: box-shadow 0.3s, border-color 0.3s;
         }
     </style>
 </head>
@@ -194,33 +240,42 @@ $stmt->close();
 </form>
 
 <script>
-// Mostrar campos condicionales
+// Mostrar campos condicionales con animación
+function toggleField(checkboxId, fieldId) {
+    var cb = document.getElementById(checkboxId);
+    var field = document.getElementById(fieldId);
+    if (cb && field) {
+        if (cb.checked) {
+            field.classList.add('show');
+        } else {
+            field.classList.remove('show');
+        }
+    }
+}
+
 document.getElementById('fuma').addEventListener('change', function() {
-    document.getElementById('fuma_fields').style.display = this.checked ? 'block' : 'none';
+    toggleField('fuma', 'fuma_fields');
 });
-
 document.getElementById('bebe').addEventListener('change', function() {
-    document.getElementById('bebe_fields').style.display = this.checked ? 'block' : 'none';
+    toggleField('bebe', 'bebe_fields');
 });
-
 document.getElementById('drogas').addEventListener('change', function() {
-    document.getElementById('drogas_fields').style.display = this.checked ? 'block' : 'none';
+    toggleField('drogas', 'drogas_fields');
 });
-
 document.getElementById('deporte').addEventListener('change', function() {
-    document.getElementById('deporte_fields').style.display = this.checked ? 'block' : 'none';
+    toggleField('deporte', 'deporte_fields');
 });
-
 document.getElementById('transfusiones').addEventListener('change', function() {
-    document.getElementById('transfusiones_fields').style.display = this.checked ? 'block' : 'none';
+    toggleField('transfusiones', 'transfusiones_fields');
 });
 
-// Inicializar estado
+// Inicializar estado al cargar
 document.addEventListener('DOMContentLoaded', function() {
-    document.getElementById('fuma').dispatchEvent(new Event('change'));
-    document.getElementById('bebe').dispatchEvent(new Event('change'));
-    document.getElementById('drogas').dispatchEvent(new Event('change'));
-    document.getElementById('deportes').dispatchEvent(new Event('change'));
+    toggleField('fuma', 'fuma_fields');
+    toggleField('bebe', 'bebe_fields');
+    toggleField('drogas', 'drogas_fields');
+    toggleField('deporte', 'deporte_fields');
+    toggleField('transfusiones', 'transfusiones_fields');
 });
 </script>
 

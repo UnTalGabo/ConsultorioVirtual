@@ -1,0 +1,36 @@
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-section {
+  animation: fadeInUp 0.8s;
+  animation-fill-mode: both;
+}
+
+.form-section:nth-child(1) { animation-delay: 0.1s; }
+.form-section:nth-child(2) { animation-delay: 0.2s; }
+.form-section:nth-child(3) { animation-delay: 0.3s; }
+.form-section:nth-child(4) { animation-delay: 0.4s; }
+.form-section:nth-child(5) { animation-delay: 0.5s; }
+
+input:focus, select:focus, textarea:focus {
+  border-color: #2e3c81;
+  box-shadow: 0 0 8px #2e3c8133;
+  transition: box-shadow 0.3s, border-color 0.3s;
+}
+
+.button-next, .btn-salir {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.button-next:hover, .btn-salir:hover {
+  transform: translateY(-2px) scale(1.04);
+  box-shadow: 0 4px 16px rgba(30,42,120,0.12);
+}

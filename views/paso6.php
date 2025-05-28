@@ -57,16 +57,44 @@ function getChecked($efnfermedad){
             padding: 20px;
             background-color: #f4f6fa;
             color: #1e2a78;
+            /* Animación de fade-in para el contenido principal */
+            animation: fadeInBody 0.7s cubic-bezier(.39,.575,.565,1.000);
+        }
+        @keyframes fadeInBody {
+            from { opacity: 0; transform: translateY(30px);}
+            to   { opacity: 1; transform: translateY(0);}
         }
         .form-container {
             display: flex;
             flex-wrap: wrap;
             gap: 15px;
             margin-bottom: 20px;
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInForm 0.8s 0.2s forwards;
+        }
+        @keyframes fadeInForm {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-column {
             flex: 1;
             min-width: 250px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInColumn 0.7s forwards;
+        }
+        .form-column:nth-child(1) { animation-delay: 0.3s; }
+        .form-column:nth-child(2) { animation-delay: 0.4s; }
+        .form-column:nth-child(3) { animation-delay: 0.5s; }
+        .form-column:nth-child(4) { animation-delay: 0.6s; }
+        @keyframes fadeInColumn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group {
             margin-bottom: 15px;
@@ -74,6 +102,24 @@ function getChecked($efnfermedad){
             background: white;
             border-radius: 8px;
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInGroup 0.7s forwards;
+        }
+        .form-group:nth-child(1) { animation-delay: 0.7s; }
+        .form-group:nth-child(2) { animation-delay: 0.8s; }
+        .form-group:nth-child(3) { animation-delay: 0.9s; }
+        .form-group:nth-child(4) { animation-delay: 1s; }
+        .form-group:nth-child(5) { animation-delay: 1.1s; }
+        .form-group:nth-child(6) { animation-delay: 1.2s; }
+        .form-group:nth-child(7) { animation-delay: 1.3s; }
+        .form-group:nth-child(8) { animation-delay: 1.4s; }
+        .form-group.full-width { animation-delay: 1.5s; }
+        @keyframes fadeInGroup {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
         .form-group label {
             display: block;
@@ -90,8 +136,22 @@ function getChecked($efnfermedad){
             border-radius: 4px;
             box-sizing: border-box;
             margin-bottom: 10px;
+            transition: box-shadow 0.3s, border-color 0.3s;
         }
-        .full-width {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #2e3c81;
+            box-shadow: 0 0 0 2px #2e3c8133;
+        }
+        .button-next, .btn-salir {
+            transition: background-color 0.3s, transform 0.1s;
+        }
+        .button-next:active, .btn-salir:active {
+            transform: scale(0.97);
+        }
+        .form-group.full-width {
             width: 100%;
         }
         .button-container {

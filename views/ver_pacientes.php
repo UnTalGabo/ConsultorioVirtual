@@ -11,15 +11,59 @@ $resultado = $conn->query($sql);
   <meta charset="UTF-8">
   <title>Pacientes Registrados</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    /* Animación de fade-in para el contenedor principal */
+    .container {
+      animation: fadeInContainer 0.8s cubic-bezier(.39,.575,.565,1.000);
+    }
+    @keyframes fadeInContainer {
+      from { opacity: 0; transform: translateY(40px);}
+      to   { opacity: 1; transform: translateY(0);}
+    }
+    /* Animación para las filas de la tabla */
+    tbody tr {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeInRow 0.6s forwards;
+    }
+    tbody tr:nth-child(1) { animation-delay: 0.1s; }
+    tbody tr:nth-child(2) { animation-delay: 0.2s; }
+    tbody tr:nth-child(3) { animation-delay: 0.3s; }
+    tbody tr:nth-child(4) { animation-delay: 0.4s; }
+    tbody tr:nth-child(5) { animation-delay: 0.5s; }
+    /* ...agrega más si esperas más filas... */
+    @keyframes fadeInRow {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Animación al enfocar el input de búsqueda */
+    #buscador:focus {
+      border-color: #2e3c81;
+      box-shadow: 0 0 0 2px #2e3c8133;
+      transition: box-shadow 0.3s, border-color 0.3s;
+    }
+  </style>
 </head>
 <body class="bg-light">
 
   <div class="container py-5">
     <h2 class="text-center mb-4 text-primary">Pacientes Registrados</h2>
 
+    <!-- Buscador de pacientes -->
+    <div class="row mb-4 justify-content-center">
+      <div class="col-md-6">
+        <div class="input-group">
+          <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre o número de empleado...">
+        </div>
+      </div>
+    </div>
+    <!-- Fin buscador -->
+
     <?php if ($resultado->num_rows > 0): ?>
       <div class="table-responsive">
-        <table class="table table-striped table-bordered align-middle">
+        <table class="table table-striped table-bordered align-middle" id="tablaPacientes">
           <thead class="table-primary">
             <tr>
               <th scope="col">ID Empleado</th>
@@ -27,6 +71,7 @@ $resultado = $conn->query($sql);
               <th scope="col">Teléfono</th>
               <th scope="col">Área</th>
               <th scope="col">Acciones</th>
+              <th scope="col">PDF</th>
             </tr>
           </thead>
           <tbody>
@@ -37,14 +82,12 @@ $resultado = $conn->query($sql);
                 <td><?php echo $fila['telefono']; ?></td>
                 <td><?php echo $fila['area']; ?></td>
                 <td>
-                  
                   <a href="registro_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-warning">Editar</a>
                   <a href="paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-info text-white">Examen Medico</a>
                   <a href="../php/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">Eliminar</a>
                 </td>
                 <td>
                   <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado'];?>" class="btn btn-primary">Generar PDF</a>
-                  <!-- Otros botones -->
                 </td>
               </tr>
             <?php endwhile; ?>
@@ -63,7 +106,33 @@ $resultado = $conn->query($sql);
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
+  <script>
+    // Buscador de pacientes por nombre o número de empleado
+    function buscarPaciente() {
+      var input = document.getElementById("buscador");
+      var filtro = input.value.toLowerCase();
+      var tabla = document.getElementById("tablaPacientes");
+      var filas = tabla.getElementsByTagName("tr");
+      for (var i = 1; i < filas.length; i++) { // Empieza en 1 para saltar el encabezado
+        var celdaNombre = filas[i].getElementsByTagName("td")[1]; // Columna de nombre
+        var celdaId = filas[i].getElementsByTagName("td")[0];     // Columna de ID empleado
+        if (celdaNombre && celdaId) {
+          var textoNombre = celdaNombre.textContent || celdaNombre.innerText;
+          var textoId = celdaId.textContent || celdaId.innerText;
+          if (
+            textoNombre.toLowerCase().indexOf(filtro) > -1 ||
+            textoId.toLowerCase().indexOf(filtro) > -1
+          ) {
+            filas[i].style.display = "";
+          } else {
+            filas[i].style.display = "none";
+          }
+        }
+      }
+    }
+    // Buscar en tiempo real al escribir
+    document.getElementById("buscador").addEventListener("keyup", buscarPaciente);
+  </script>
 </body>
 </html>
 
