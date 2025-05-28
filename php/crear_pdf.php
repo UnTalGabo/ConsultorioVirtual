@@ -20,7 +20,8 @@ function obtenerDatos($tabla, $id_empleado)
     return $result->fetch_assoc();
     $stmt->close();
 }
-function obtenerFecha($fechas){
+function obtenerFecha($fechas)
+{
     if ($fechas) {
         $fecha = new DateTime($fechas);
         return $fecha->format('d/m/Y');
@@ -28,7 +29,8 @@ function obtenerFecha($fechas){
         return '';
     }
 }
-function obtenerHora($fechas){
+function obtenerHora($fechas)
+{
     if ($fechas) {
         $fecha = new DateTime($fechas);
         return $fecha->format('H:i');
@@ -36,7 +38,8 @@ function obtenerHora($fechas){
         return '';
     }
 }
-function obtenerEdad($fecha_nacimiento){
+function obtenerEdad($fecha_nacimiento)
+{
     if ($fecha_nacimiento) {
         $fecha = new DateTime($fecha_nacimiento);
         $hoy = new DateTime();
@@ -45,6 +48,26 @@ function obtenerEdad($fecha_nacimiento){
     } else {
         return '';
     }
+}
+function getChecked($efnfermedad)
+{
+    global $enfermedadesH;
+    foreach ($enfermedadesH as $enfermedad) {
+        if ($enfermedad['enfermedad'] == $efnfermedad) {
+            return 'X';
+        }
+    }
+    return '';
+}
+function obtenerQuien($enfermedad)
+{
+    global $enfermedadesH;
+    foreach ($enfermedadesH as $enfermedadH) {
+        if ($enfermedadH['enfermedad'] == $enfermedad) {
+            return $enfermedadH['parentesco'];
+        }
+    }
+    return '';
 }
 
 // Consulta de datos
@@ -105,26 +128,183 @@ $pdf = new Fpdi();
 // Estilo del texto
 $pdf->SetFont('Helvetica');
 $pdf->SetTextColor(0, 0, 0);
-$pdf->SetFontSize(10);
+$pdf->SetFontSize(9);
 
 
 $pdf->AddPage();
-$pdf->setSourceFile('../media/HC laboral.pdf');
+$pdf->setSourceFile('../media/formato.pdf');
 $tplIdx = $pdf->importPage(1);
 $pdf->useTemplate($tplIdx);
 
 // Insertar texto por coordenadas (X, Y)
-$pdf->SetXY(33, 72);
+$pdf->SetXY(35, 49.5);
 $pdf->Write(0, utf8_decode($paciente['nombre_completo']));
 
-$pdf->SetXY(126, 47);
+$pdf->SetXY(140, 26.5);
 $pdf->Write(0, obtenerFecha($examenMedico['fecha_actualizacion']));
 
-$pdf->SetXY(126, 52);
+$pdf->SetXY(140, 31);
 $pdf->Write(0, obtenerHora($examenMedico['fecha_actualizacion']));
 
+$pdf->SetXY(35, 59);
+$pdf->Write(0, utf8_decode(obtenerEdad($paciente['fecha_nacimiento']) . ' años'));
+
+if ($paciente['genero'] === 'Masculino') {
+    $pdf->SetXY(107.5, 59);
+    $pdf->Write(0, ('X'));
+} else {
+    $pdf->SetXY(154.6, 59);
+    $pdf->Write(0, ('X'));
+}
+
+$pdf->SetXY(50, 63.5);
+$pdf->Write(0, obtenerFecha($paciente['fecha_nacimiento']));
+
+$pdf->SetXY(116, 63.5);
+$pdf->Write(0, $paciente['telefono']);
+
+$pdf->SetXY(160, 63);
+$pdf->Write(0, $paciente['estado_civil']);
+
+$pdf->SetXY(32, 68);
+$pdf->Write(0, utf8_decode($paciente['calle'] . ' ' . $paciente['numero'] . ',    ' . $paciente['colonia']));
+
+$pdf->SetFontSize(7.5);
+$pdf->SetXY(54, 73);
+$pdf->Write(0, utf8_decode($paciente['contacto_emergencia']));
+$pdf->SetFontSize(9);
+
+$pdf->SetXY(138, 73);
+$pdf->Write(0, utf8_decode($paciente['parentesco'] . '   ' . $paciente['telefono_emergencia']));
+
+$pdf->SetXY(19, 77.5);
+$pdf->Write(0, utf8_decode($paciente['puesto']));
+
+$pdf->SetXY(127, 77.5);
+$pdf->Write(0, utf8_decode($paciente['area']));
+
+//enfermedades heredo familiares
+
+$pdf->SetXY(42, 155.3);
+$pdf->Write(0, getChecked('Presión alta/baja'));
+$pdf->SetXY(62, 155.3);
+$pdf->Write(0, obtenerQuien('Presión alta/baja'));
+
+$pdf->SetXY(42, 160.3);
+$pdf->Write(0, getChecked('Vértigos'));
+$pdf->SetXY(62, 160.3);
+$pdf->Write(0, obtenerQuien('Vértigos'));
+
+$pdf->SetXY(42, 165.3);
+$pdf->Write(0, getChecked('Diabetes'));
+$pdf->SetXY(62, 165.3);
+$pdf->Write(0, obtenerQuien('Diabetes'));
+
+$pdf->SetXY(42, 169.8);
+$pdf->Write(0, getChecked('Enfermedades del Corazón'));
+$pdf->SetXY(62, 169.8);
+$pdf->Write(0, obtenerQuien('Enfermedades del Corazón'));
+
+$pdf->SetXY(42, 174.6);
+$pdf->Write(0, getChecked('Enfermedades Pulmonares'));
+$pdf->SetXY(62, 174.6);
+$pdf->Write(0, obtenerQuien('Enfermedades Pulmonares'));
+
+$pdf->SetXY(42, 181.3);
+$pdf->Write(0, getChecked('Enfermedades del Riñon'));
+$pdf->SetXY(62, 181.3);
+$pdf->Write(0, obtenerQuien('Enfermedades del Riñon'));
+
+$pdf->SetXY(42, 187.8);
+$pdf->Write(0, getChecked('Enfermedades del Higado'));
+$pdf->SetXY(62, 187.8);
+$pdf->Write(0, obtenerQuien('Enfermedades del Higado'));
+
+$pdf->SetXY(42, 192.5);
+$pdf->Write(0, getChecked('Alergias'));
+$pdf->SetXY(62, 192.5);
+$pdf->Write(0, obtenerQuien('Alergias'));
+
+
+$pdf->SetXY(107.6, 155.3);
+$pdf->Write(0, getChecked('Tumores o cáncer'));
+$pdf->SetXY(123, 155.3);
+$pdf->Write(0, obtenerQuien('Tumores o cáncer'));
+
+$pdf->SetXY(107.6, 160);
+$pdf->Write(0, getChecked('Asma bronquial'));
+$pdf->SetXY(123, 160);
+$pdf->Write(0, obtenerQuien('Asma bronquial'));
+
+$pdf->SetXY(107.6, 165);
+$pdf->Write(0, getChecked('Gastritis/Ulcera'));
+$pdf->SetXY(123, 165);
+$pdf->Write(0, obtenerQuien('Gastritis/Ulcera'));
+
+$pdf->SetXY(107.6, 170);
+$pdf->Write(0, getChecked('Flebitis/Várices'));
+$pdf->SetXY(123, 170);
+$pdf->Write(0, obtenerQuien('Flebitis/Várices'));
+
+$pdf->SetXY(107.6, 174.6);
+$pdf->Write(0, getChecked('Artritis'));
+$pdf->SetXY(123, 174.6);
+$pdf->Write(0, obtenerQuien('Artritis'));
+
+$pdf->SetXY(107.6, 181);
+$pdf->Write(0, getChecked('Alteraciones del sueño'));
+$pdf->SetXY(123, 183);
+$pdf->Write(0, obtenerQuien('Alteraciones del sueño'));
+
+$pdf->SetXY(107.6, 187.5);
+$pdf->Write(0, getChecked('Acufeno/Tinitus'));
+$pdf->SetXY(123, 188);
+$pdf->Write(0, obtenerQuien('Acufeno/Tinitus'));
+
+
+$pdf->SetXY(180, 155.3);
+$pdf->Write(0, getChecked('Problemas de espalda'));
+$pdf->SetXY(195, 155.3);
+$pdf->Write(0, obtenerQuien('Problemas de espalda'));
+
+$pdf->SetXY(180, 160);
+$pdf->Write(0, getChecked('Sensación de hormigueo'));
+$pdf->SetXY(195, 160);
+$pdf->Write(0, obtenerQuien('Sensación de hormigueo'));
+
+$pdf->SetXY(180, 165);
+$pdf->Write(0, getChecked('Convulsiones'));
+$pdf->SetXY(195, 165);
+$pdf->Write(0, obtenerQuien('Convulsiones'));
+
+$pdf->SetXY(180, 170);
+$pdf->Write(0, getChecked('Debilidad Muscular'));
+$pdf->SetXY(195, 170);
+$pdf->Write(0, obtenerQuien('Debilidad Muscular'));
+
+$pdf->SetXY(180, 174.6);
+$pdf->Write(0, getChecked('Osteoporosis'));
+$pdf->SetXY(195, 174.6);
+$pdf->Write(0, obtenerQuien('Osteoporosis'));
+
+$pdf->SetXY(180, 181);
+$pdf->Write(0, getChecked('Hernias'));
+$pdf->SetXY(195, 183);
+$pdf->Write(0, obtenerQuien('Hernias'));
+
+$pdf->SetXY(180, 187.5);
+$pdf->Write(0, getChecked('COVID 19'));
+$pdf->SetXY(195, 188);
+$pdf->Write(0, obtenerQuien('COVID 19'));
+
+
+
+// Antecedentes no patológicos
+
+
+
 $pdf->AddPage();
-$pdf->setSourceFile('../media/HC laboral.pdf');
+$pdf->setSourceFile('../media/formato.pdf');
 $tplIdx = $pdf->importPage(2);
 $pdf->useTemplate($tplIdx);
 
