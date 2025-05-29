@@ -303,6 +303,14 @@ $stmt->close();
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" name="fobias"
+                            <?php echo isset($antecedentes['fobias']) && $antecedentes['fobias'] == 1 ? 'checked' : ''; ?>>
+                        ¿Tiene alguna fobia o miedo?
+                    </label>
+                </div>
+
                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
                     <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
                         <i class="bi bi-save2"></i> Guardar y Salir

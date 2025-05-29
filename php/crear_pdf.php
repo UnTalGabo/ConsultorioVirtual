@@ -270,21 +270,65 @@ $pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? '' : 'X'
 
 $pdf->SetXY(87.5, 221);
 $pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? 'X' : '');
-$pdf->SetXY(62.5, 220.5);
+$pdf->SetXY(124.5, 221);
 $pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? '' : 'X');
 
+$pdf->SetXY(160, 221);
+if ($antecedentesNoPatologicos['usa_drogas']) {
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_droga']));
+} else {
+    $pdf->Write(0, '');
+}
 
 
+$pdf->SetXY(87.5, 225.8);
+$pdf->Write(0, $antecedentesNoPatologicos['practica_deporte'] ? 'X' : '');
+$pdf->SetXY(124.5, 225.8);
+$pdf->Write(0, $antecedentesNoPatologicos['practica_deporte'] ? '' : 'X');
+
+$pdf->SetXY(150, 225.8);
+if ($antecedentesNoPatologicos['practica_deporte']) {
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_deporte']));
+} else {
+    $pdf->Write(0, '');
+}
 
 
+$pdf->SetXY(87.5, 230.5);
+$pdf->Write(0, $antecedentesNoPatologicos['tatuajes'] ? 'X' : '');
+$pdf->SetXY(124.5, 230.5);
+$pdf->Write(0, $antecedentesNoPatologicos['tatuajes'] ? '' : 'X');
 
 
+$pdf->SetXY(87.5, 235.3);
+$pdf->Write(0, $antecedentesNoPatologicos['transfusiones'] ? 'X' : '');
+$pdf->SetXY(124.5, 235.3);
+$pdf->Write(0, $antecedentesNoPatologicos['transfusiones'] ? '' : 'X');
+
+$pdf->SetXY(180, 235.3);
+$pdf->Write(0, $antecedentesNoPatologicos['transfusiones_recibidas'] ? 'Si' : 'No');
+
+
+$pdf->SetXY(87.5, 240);
+$pdf->Write(0, $antecedentesNoPatologicos['fobias'] ? 'X' : '');
+$pdf->SetXY(124.5, 240);
+$pdf->Write(0, $antecedentesNoPatologicos['fobias'] ? '' : 'X');
 
 
 $pdf->AddPage();
-$pdf->setSourceFile('../media/formato.pdf');
 $tplIdx = $pdf->importPage(2);
 $pdf->useTemplate($tplIdx);
+
+if ($paciente['genero'] == 'Femenino') {
+    $pdf->SetXY(60, 26);
+    $pdf->write(0, $antecedentesGineco['edad_inicio_regla']);
+
+    $pdf->SetXY(115, 26);
+    $pdf->Write(0, utf8_decode($antecedentesGineco['ritmo_ciclo_menstrual'] . ' días'));
+
+    $pdf->SetXY(150, 26);
+    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_menstruacion']));
+}
 
 // Salida
 $pdf->Output('I', 'historia_clinica.pdf');

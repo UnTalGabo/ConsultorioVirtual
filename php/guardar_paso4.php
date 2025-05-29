@@ -34,6 +34,7 @@ $tipo_deporte = isset($_POST['tipo_deporte']) ? $_POST['tipo_deporte'] : null;
 $tatuajes = isset($_POST['tatuajes']) ? 1 : 0;
 $transfusiones = isset($_POST['transfusiones']) ? 1 : 0;
 $transfusiones_recibidas = isset($_POST['transfusiones_recibidas']) ? 1 : 0;
+$fobias = isset($_POST['fobias']) ? 1 : 0;
 
 // Verificar si ya existe un registro para este paciente
 $sql_check = "SELECT id FROM antecedentes_no_patologicos WHERE id_empleado = ?";
@@ -58,7 +59,8 @@ if ($result->num_rows > 0) {
             tipo_deporte = ?, 
             tatuajes = ?, 
             transfusiones = ?, 
-            transfusiones_recibidas = ? 
+            transfusiones_recibidas = ?, 
+            fobias = ?
             WHERE id_empleado = ?";
 } else {
     // Insertar nuevo registro
@@ -77,8 +79,9 @@ if ($result->num_rows > 0) {
             tipo_deporte, 
             tatuajes, 
             transfusiones, 
-            transfusiones_recibidas
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            transfusiones_recibidas,
+            fobias
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
 
 // Preparar y ejecutar la consulta
@@ -86,7 +89,7 @@ $stmt = $conn->prepare($sql);
 
 if ($result->num_rows > 0) {
     $stmt->bind_param(
-        "iiiiisiisisiiii",
+        "iiiiisiisisiiiii",
         $fuma,
         $cigarros_dia,
         $anos_fumando,
@@ -101,11 +104,12 @@ if ($result->num_rows > 0) {
         $tatuajes,
         $transfusiones,
         $transfusiones_recibidas,
+        $fobias,
         $id_empleado
     );
 } else {
     $stmt->bind_param(
-        "iiiiiisiisisiii",
+        "iiiiiisiisisiiii",
         $id_empleado,
         $fuma,
         $cigarros_dia,
@@ -120,7 +124,8 @@ if ($result->num_rows > 0) {
         $tipo_deporte,
         $tatuajes,
         $transfusiones,
-        $transfusiones_recibidas
+        $transfusiones_recibidas,
+        $fobias
     );
 }
 
