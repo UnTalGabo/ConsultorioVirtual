@@ -253,7 +253,7 @@ $stmt->close();
                 <div class="form-group">
                     <label class="form-label">
                         <input type="checkbox" name="usa_drogas" id="drogas"
-                            <?php echo isset($antecedentes['drogas']) && $antecedentes['drogas'] == 1 ? 'checked' : ''; ?>>
+                            <?php echo isset($antecedentes['usa_drogas']) && $antecedentes['usa_drogas'] == 1 ? 'checked' : ''; ?>>
                         ¿Ha usado drogas?
                     </label>
                     <div id="drogas_fields" class="conditional-field">
@@ -267,7 +267,7 @@ $stmt->close();
                 <div class="form-group">
                     <label class="form-label">
                         <input type="checkbox" name="practica_deporte" id="deporte"
-                            <?php echo isset($antecedentes['deporte']) && $antecedentes['deporte'] == 1 ? 'checked' : ''; ?>>
+                            <?php echo isset($antecedentes['practica_deporte']) && $antecedentes['practica_deporte'] == 1 ? 'checked' : ''; ?>>
                         ¿Practica deporte?
                     </label>
                     <div id="deporte_fields" class="conditional-field">

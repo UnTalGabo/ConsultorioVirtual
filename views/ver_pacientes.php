@@ -123,7 +123,7 @@ $resultado = $conn->query($sql);
                   <a href="../php/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">Eliminar</a>
                 </td>
                 <td>
-                  <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-primary">Generar PDF</a>
+                  <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-primary" target="_blank">Generar PDF</a>
                 </td>
               </tr>
             <?php endwhile; ?>
