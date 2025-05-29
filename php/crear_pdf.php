@@ -175,9 +175,9 @@ $pdf->Write(0, utf8_decode($paciente['contacto_emergencia']));
 $pdf->SetFontSize(9);
 
 $pdf->SetXY(138, 73);
-$pdf->Write(0, utf8_decode($paciente['parentesco'] . '   ' . $paciente['telefono_emergencia']));
+$pdf->Write(0, utf8_decode($paciente['parentesco'] . '        ' . $paciente['telefono_emergencia']));
 
-$pdf->SetXY(19, 77.5);
+$pdf->SetXY(35, 77.5);
 $pdf->Write(0, utf8_decode($paciente['puesto']));
 
 $pdf->SetXY(127, 77.5);
@@ -185,121 +185,99 @@ $pdf->Write(0, utf8_decode($paciente['area']));
 
 //enfermedades heredo familiares
 
-$pdf->SetXY(42, 155.3);
-$pdf->Write(0, getChecked('Presión alta/baja'));
-$pdf->SetXY(62, 155.3);
-$pdf->Write(0, obtenerQuien('Presión alta/baja'));
+// Función para escribir check y parentesco en el PDF
+function escribirEnfermedad($pdf, $xCheck, $yCheck, $xPar, $yPar, $nombre)
+{
+    $pdf->SetXY($xCheck, $yCheck);
+    $pdf->Write(0, getChecked($nombre));
+    $pdf->SetXY($xPar, $yPar);
+    $pdf->Write(0, obtenerQuien($nombre));
+}
 
-$pdf->SetXY(42, 160.3);
-$pdf->Write(0, getChecked('Vértigos'));
-$pdf->SetXY(62, 160.3);
-$pdf->Write(0, obtenerQuien('Vértigos'));
+// Array de enfermedades con coordenadas
+$enfermedades = [
+    // Columna 1
+    [42, 155.3, 62, 155.3, 'Presión alta/baja'],
+    [42, 160.3, 62, 160.3, 'Vértigos'],
+    [42, 165.3, 62, 165.3, 'Diabetes'],
+    [42, 169.8, 62, 169.8, 'Enfermedades del Corazón'],
+    [42, 174.6, 62, 174.6, 'Enfermedades Pulmonares'],
+    [42, 181.3, 62, 181.3, 'Enfermedades del Riñon'],
+    [42, 187.8, 62, 187.8, 'Enfermedades del Higado'],
+    [42, 192.5, 62, 192.5, 'Alergias'],
+    // Columna 2
+    [107.6, 155.3, 123, 155.3, 'Tumores o cáncer'],
+    [107.6, 160, 123, 160, 'Asma bronquial'],
+    [107.6, 165, 123, 165, 'Gastritis/Ulcera'],
+    [107.6, 170, 123, 170, 'Flebitis/Várices'],
+    [107.6, 174.6, 123, 174.6, 'Artritis'],
+    [107.6, 181, 123, 183, 'Alteraciones del sueño'],
+    [107.6, 187.5, 123, 188, 'Acufeno/Tinitus'],
+    // Columna 3
+    [180, 155.3, 195, 155.3, 'Problemas de espalda'],
+    [180, 160, 195, 160, 'Sensación de hormigueo'],
+    [180, 165, 195, 165, 'Convulsiones'],
+    [180, 170, 195, 170, 'Debilidad Muscular'],
+    [180, 174.6, 195, 174.6, 'Osteoporosis'],
+    [180, 181, 195, 183, 'Hernias'],
+    [180, 187.5, 195, 188, 'COVID 19'],
+];
 
-$pdf->SetXY(42, 165.3);
-$pdf->Write(0, getChecked('Diabetes'));
-$pdf->SetXY(62, 165.3);
-$pdf->Write(0, obtenerQuien('Diabetes'));
-
-$pdf->SetXY(42, 169.8);
-$pdf->Write(0, getChecked('Enfermedades del Corazón'));
-$pdf->SetXY(62, 169.8);
-$pdf->Write(0, obtenerQuien('Enfermedades del Corazón'));
-
-$pdf->SetXY(42, 174.6);
-$pdf->Write(0, getChecked('Enfermedades Pulmonares'));
-$pdf->SetXY(62, 174.6);
-$pdf->Write(0, obtenerQuien('Enfermedades Pulmonares'));
-
-$pdf->SetXY(42, 181.3);
-$pdf->Write(0, getChecked('Enfermedades del Riñon'));
-$pdf->SetXY(62, 181.3);
-$pdf->Write(0, obtenerQuien('Enfermedades del Riñon'));
-
-$pdf->SetXY(42, 187.8);
-$pdf->Write(0, getChecked('Enfermedades del Higado'));
-$pdf->SetXY(62, 187.8);
-$pdf->Write(0, obtenerQuien('Enfermedades del Higado'));
-
-$pdf->SetXY(42, 192.5);
-$pdf->Write(0, getChecked('Alergias'));
-$pdf->SetXY(62, 192.5);
-$pdf->Write(0, obtenerQuien('Alergias'));
-
-
-$pdf->SetXY(107.6, 155.3);
-$pdf->Write(0, getChecked('Tumores o cáncer'));
-$pdf->SetXY(123, 155.3);
-$pdf->Write(0, obtenerQuien('Tumores o cáncer'));
-
-$pdf->SetXY(107.6, 160);
-$pdf->Write(0, getChecked('Asma bronquial'));
-$pdf->SetXY(123, 160);
-$pdf->Write(0, obtenerQuien('Asma bronquial'));
-
-$pdf->SetXY(107.6, 165);
-$pdf->Write(0, getChecked('Gastritis/Ulcera'));
-$pdf->SetXY(123, 165);
-$pdf->Write(0, obtenerQuien('Gastritis/Ulcera'));
-
-$pdf->SetXY(107.6, 170);
-$pdf->Write(0, getChecked('Flebitis/Várices'));
-$pdf->SetXY(123, 170);
-$pdf->Write(0, obtenerQuien('Flebitis/Várices'));
-
-$pdf->SetXY(107.6, 174.6);
-$pdf->Write(0, getChecked('Artritis'));
-$pdf->SetXY(123, 174.6);
-$pdf->Write(0, obtenerQuien('Artritis'));
-
-$pdf->SetXY(107.6, 181);
-$pdf->Write(0, getChecked('Alteraciones del sueño'));
-$pdf->SetXY(123, 183);
-$pdf->Write(0, obtenerQuien('Alteraciones del sueño'));
-
-$pdf->SetXY(107.6, 187.5);
-$pdf->Write(0, getChecked('Acufeno/Tinitus'));
-$pdf->SetXY(123, 188);
-$pdf->Write(0, obtenerQuien('Acufeno/Tinitus'));
-
-
-$pdf->SetXY(180, 155.3);
-$pdf->Write(0, getChecked('Problemas de espalda'));
-$pdf->SetXY(195, 155.3);
-$pdf->Write(0, obtenerQuien('Problemas de espalda'));
-
-$pdf->SetXY(180, 160);
-$pdf->Write(0, getChecked('Sensación de hormigueo'));
-$pdf->SetXY(195, 160);
-$pdf->Write(0, obtenerQuien('Sensación de hormigueo'));
-
-$pdf->SetXY(180, 165);
-$pdf->Write(0, getChecked('Convulsiones'));
-$pdf->SetXY(195, 165);
-$pdf->Write(0, obtenerQuien('Convulsiones'));
-
-$pdf->SetXY(180, 170);
-$pdf->Write(0, getChecked('Debilidad Muscular'));
-$pdf->SetXY(195, 170);
-$pdf->Write(0, obtenerQuien('Debilidad Muscular'));
-
-$pdf->SetXY(180, 174.6);
-$pdf->Write(0, getChecked('Osteoporosis'));
-$pdf->SetXY(195, 174.6);
-$pdf->Write(0, obtenerQuien('Osteoporosis'));
-
-$pdf->SetXY(180, 181);
-$pdf->Write(0, getChecked('Hernias'));
-$pdf->SetXY(195, 183);
-$pdf->Write(0, obtenerQuien('Hernias'));
-
-$pdf->SetXY(180, 187.5);
-$pdf->Write(0, getChecked('COVID 19'));
-$pdf->SetXY(195, 188);
-$pdf->Write(0, obtenerQuien('COVID 19'));
-
+// Escribir todas las enfermedades con un solo ciclo
+foreach ($enfermedades as $e) {
+    escribirEnfermedad($pdf, $e[0], $e[1], $e[2], $e[3], $e[4]);
+}
 
 
 // Antecedentes no patológicos
+
+$pdf->SetXY(25, 201.5);
+$pdf->Write(0, utf8_decode($paciente['escolaridad']));
+
+$pdf->SetXY(62.5, 206.5);
+$pdf->Write(0, $antecedentesNoPatologicos['fuma'] ? 'X' : '');
+if ($antecedentesNoPatologicos['fuma']) {
+    $pdf->SetXY(136.5, 206.5);
+    $pdf->Write(0, $antecedentesNoPatologicos['cigarros_dia'] . ' cigarros');
+    $pdf->SetXY(180, 206.5);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['anos_fumando'] . ' años'));
+} else {
+    $pdf->SetXY(107.5, 206.5);
+    $pdf->Write(0, '');
+}
+$pdf->SetXY(107.5, 206.5);
+$pdf->Write(0, $antecedentesNoPatologicos['fuma'] ? '' : 'X');
+
+$pdf->SetXY(62.5, 211.2);
+$pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? 'X' : '');
+if ($antecedentesNoPatologicos['bebe']) {
+    $pdf->SetXY(133.5, 211.2);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['frecuencia_alcohol']));
+    $pdf->SetXY(180, 211.2);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['anos_bebiendo'] . ' años'));
+} else {
+    $pdf->SetXY(107.5, 211.2);
+    $pdf->Write(0, '');
+}
+$pdf->SetXY(107.5, 211.2);
+$pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? '' : 'X');
+
+
+$pdf->SetXY(124.5, 216);
+$pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? 'X' : '');
+$pdf->SetXY(180, 216);
+$pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? '' : 'X');
+
+$pdf->SetXY(87.5, 221);
+$pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? 'X' : '');
+$pdf->SetXY(62.5, 220.5);
+$pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? '' : 'X');
+
+
+
+
+
+
 
 
 
@@ -307,14 +285,6 @@ $pdf->AddPage();
 $pdf->setSourceFile('../media/formato.pdf');
 $tplIdx = $pdf->importPage(2);
 $pdf->useTemplate($tplIdx);
-
-
-
-
-
-
-
-// Continúa con más campos según el diseño del PDF...
 
 // Salida
 $pdf->Output('I', 'historia_clinica.pdf');
