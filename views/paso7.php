@@ -323,7 +323,8 @@ function getChecked($valor)
             <div class="form-group">
                 <label for="equipo_proteccion">Equipo de protección personal utilizado:</label>
                 <textarea name="equipo_proteccion" id="equipo_proteccion" rows="3"
-                    value="<?php echo isset($antecedentes['equipo_proteccion']) ? $antecedentes['equipo_proteccion'] : ''; ?>"></textarea>
+                    value="<?php echo isset($antecedentes['equipo_proteccion']) ? $antecedentes['equipo_proteccion'] : ''; ?>"
+                    ><?php echo isset($antecedentes['equipo_proteccion']) ? $antecedentes['equipo_proteccion'] : ''; ?></textarea>
             </div>
         </div>
 
@@ -348,7 +349,7 @@ function getChecked($valor)
                 </div>
             </div>
 
-            <div id="accidentesFields" class="conditional-field">
+            <div id="accidentesFields" class="conditional-field<?php echo (isset($antecedentes['accidentes']) && $antecedentes['accidentes'] == 1) ? ' show' : ''; ?>">
                 <div class="form-group">
                     <label for="fecha_accidente">Fecha del accidente:</label>
                     <input type="date" name="fecha_accidente" id="fecha_accidente"
@@ -357,7 +358,8 @@ function getChecked($valor)
 
                 <div class="form-group">
                     <label for="lesion">Lesión:</label>
-                    <input type="text" name="lesion" id="lesion">
+                    <input type="text" name="lesion" id="lesion"
+                        value="<?php echo isset($antecedentes['lesion']) ? htmlspecialchars($antecedentes['lesion']) : ''; ?>">
                 </div>
 
                 <div class="form-group">
@@ -378,7 +380,7 @@ function getChecked($valor)
                     </div>
                 </div>
 
-                <div id="pagosFields" class="conditional-field">
+                <div id="pagosFields" class="conditional-field<?php echo (isset($antecedentes['pagos_accidente']) && $antecedentes['pagos_accidente'] == 1) ? ' show' : ''; ?>">
                     <div class="form-group">
                         <label>Pagado por:</label>
                         <div class="checkbox-group">
@@ -414,15 +416,16 @@ function getChecked($valor)
                     </div>
                 </div>
 
-                <div id="secuelasFields" class="conditional-field">
+                <div id="secuelasFields" class="conditional-field<?php echo (isset($antecedentes['secuelas']) && $antecedentes['secuelas'] == 1) ? ' show' : ''; ?>">
                     <div class="form-group">
                         <label for="fecha_secuela">Fecha de secuela:</label>
-                        <input type="date" name="fecha_secuela" id="fecha_secuela">
+                        <input type="date" name="fecha_secuela" id="fecha_secuela"
+                            value="<?php echo isset($antecedentes['fecha_secuela']) ? $antecedentes['fecha_secuela'] : ''; ?>">
                     </div>
 
                     <div class="form-group">
                         <label for="secuela">Secuela:</label>
-                        <textarea name="secuela" id="secuela" rows="3"></textarea>
+                        <textarea name="secuela" id="secuela" rows="3"><?php echo isset($antecedentes['secuela']) ? htmlspecialchars($antecedentes['secuela']) : ''; ?></textarea>
                     </div>
                 </div>
             </div>
@@ -440,7 +443,11 @@ function getChecked($valor)
             const accidentesSi = document.getElementById('accidentes_si').checked;
             const accidentesFields = document.getElementById('accidentesFields');
 
-            accidentesFields.style.display = accidentesSi ? 'block' : 'none';
+            if (accidentesSi) {
+                accidentesFields.classList.add('show');
+            } else {
+                accidentesFields.classList.remove('show');
+            }
 
             // Resetear campos si se ocultan
             if (!accidentesSi) {
@@ -462,9 +469,11 @@ function getChecked($valor)
         // Función para mostrar/ocultar campos de pagos
         function togglePagosFields() {
             const pagosSi = document.getElementById('pagos_si').checked;
-            document.getElementById('pagosFields').style.display = pagosSi ? 'block' : 'none';
-
-            if (!pagosSi) {
+            const pagosFields = document.getElementById('pagosFields');
+            if (pagosSi) {
+                pagosFields.classList.add('show');
+            } else {
+                pagosFields.classList.remove('show');
                 document.getElementById('pagado_imss').checked = false;
                 document.getElementById('pagado_empresa').checked = false;
             }
@@ -473,9 +482,11 @@ function getChecked($valor)
         // Función para mostrar/ocultar campos de secuelas
         function toggleSecuelasFields() {
             const secuelasSi = document.getElementById('secuelas_si').checked;
-            document.getElementById('secuelasFields').style.display = secuelasSi ? 'block' : 'none';
-
-            if (!secuelasSi) {
+            const secuelasFields = document.getElementById('secuelasFields');
+            if (secuelasSi) {
+                secuelasFields.classList.add('show');
+            } else {
+                secuelasFields.classList.remove('show');
                 document.getElementById('fecha_secuela').value = '';
                 document.getElementById('secuela').value = '';
             }

@@ -273,7 +273,8 @@ function getChecked($efnfermedad)
                 </div>
 
                 <div class="enfermedad-item">
-                    <label><input type="checkbox" name="enfermedades[]" value="Enfermedades pulmonares" <?php echo getChecked('Enfermedades pulmonares') ?>> Enfermedades pulmonares </label>
+                    <label><input type="checkbox" name="enfermedades[]" value="Enfermedades pulmonares"
+                            <?php echo getChecked('Enfermedades pulmonares') ?>> Enfermedades pulmonares </label>
                 </div>
 
                 <div class="enfermedad-item">
@@ -471,26 +472,30 @@ function getChecked($efnfermedad)
         <!-- Sección de ancho completo -->
         <div class="form-group full-width">
             <label>Fracturas o esguinces</label>
-            <textarea name="fracturas_esguinces" rows="3" value="<?php echo isset($antecedentes['']) ? $antecedentes[''] : '' ?>"></textarea>
+            <textarea name="fracturas_esguinces" rows="3" 
+            value="<?php echo isset($antecedentes['fracturas_esguinces']) ? $antecedentes['fracturas_esguinces'] : '' ?>"
+            ><?php echo isset($antecedentes['fracturas_esguinces']) ? $antecedentes['fracturas_esguinces'] : '' ?></textarea>
         </div>
 
         <div class="form-group full-width">
             <label>Cirugías</label>
-            <textarea name="cirugias" rows="3"></textarea>
+            <textarea name="cirugias" rows="3" 
+            value="<?php echo isset($antecedentes['cirugias']) ? $antecedentes['cirugias'] : '' ?>"
+            ><?php echo isset($antecedentes['cirugias']) ? $antecedentes['cirugias'] : '' ?></textarea>
         </div>
 
         <div class="form-group">
             <label>Tipo de sangre</label>
             <select name="tipo_sangre">
                 <option value="">Seleccione</option>
-                <option value="A+">A+</option>
-                <option value="A-">A-</option>
-                <option value="B+">B+</option>
-                <option value="B-">B-</option>
-                <option value="AB+">AB+</option>
-                <option value="AB-">AB-</option>
-                <option value="O+">O+</option>
-                <option value="O-">O-</option>
+                <option value="A+" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'A+') ? 'selected' : ''; ?>>A+</option>
+                <option value="A-" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'A-') ? 'selected' : ''; ?>>A-</option>
+                <option value="B+" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'B+') ? 'selected' : ''; ?>>B+</option>
+                <option value="B-" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'B-') ? 'selected' : ''; ?>>B-</option>
+                <option value="AB+" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'AB+') ? 'selected' : ''; ?>>AB+</option>
+                <option value="AB-" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'AB-') ? 'selected' : ''; ?>>AB-</option>
+                <option value="O+" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'O+') ? 'selected' : ''; ?>>O+</option>
+                <option value="O-" <?php echo (isset($antecedentes['tipo_sangre']) && $antecedentes['tipo_sangre'] == 'O-') ? 'selected' : ''; ?>>O-</option>
             </select>
         </div>
 
@@ -498,17 +503,23 @@ function getChecked($efnfermedad)
             <label>
                 ¿Tiene alguna enfermedad actualmente?
             </label>
-            <textarea name="enfermedad_actual_desc" rows="3"></textarea>
+            <textarea name="enfermedad_actual_desc" rows="3" 
+            value="<?php echo isset($antecedentes['enfermedad_actual_desc']) ? $antecedentes['enfermedad_actual_desc'] : '' ?>"
+            ><?php echo isset($antecedentes['enfermedad_actual_desc']) ? $antecedentes['enfermedad_actual_desc'] : '' ?></textarea>
         </div>
 
         <div class="form-group full-width">
             <label>Medicamentos que toma</label>
-            <textarea name="medicamentos" rows="3"></textarea>
+            <textarea name="medicamentos" rows="3" 
+            value="<?php echo isset($antecedentes['medicamentos']) ? $antecedentes['medicamentos'] : '' ?>"
+            ><?php echo isset($antecedentes['medicamentos']) ? $antecedentes['medicamentos'] : '' ?></textarea>
         </div>
 
         <div class="form-group full-width">
             <label>Observaciones</label>
-            <textarea name="observaciones" rows="3"></textarea>
+            <textarea name="observaciones" rows="3" 
+            value="<?php echo isset($antecedentes['observaciones']) ? $antecedentes['observaciones'] : '' ?>"
+            ><?php echo isset($antecedentes['observaciones']) ? $antecedentes['observaciones'] : '' ?></textarea>
         </div>
 
         <div class="button-container">
