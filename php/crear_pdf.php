@@ -131,7 +131,7 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFontSize(9);
 
 
-$pdf->AddPage();
+$pdf->AddPage('P', "Letter");
 $pdf->setSourceFile('../media/formato.pdf');
 $tplIdx = $pdf->importPage(1);
 $pdf->useTemplate($tplIdx);
@@ -214,13 +214,13 @@ $enfermedades = [
     [107.6, 181, 123, 183, 'Alteraciones del sueño'],
     [107.6, 187.5, 123, 188, 'Acufeno/Tinitus'],
     // Columna 3
-    [180, 155.3, 195, 155.3, 'Problemas de espalda'],
-    [180, 160, 195, 160, 'Sensación de hormigueo'],
-    [180, 165, 195, 165, 'Convulsiones'],
-    [180, 170, 195, 170, 'Debilidad Muscular'],
-    [180, 174.6, 195, 174.6, 'Osteoporosis'],
-    [180, 181, 195, 183, 'Hernias'],
-    [180, 187.5, 195, 188, 'COVID 19'],
+    [180, 155.3, 190, 155.3, 'Problemas de espalda'],
+    [180, 160, 190, 160, 'Sensación de hormigueo'],
+    [180, 165, 190, 165, 'Convulsiones'],
+    [180, 170, 190, 170, 'Debilidad Muscular'],
+    [180, 174.6, 190, 174.6, 'Osteoporosis'],
+    [180, 181, 190, 183, 'Hernias'],
+    [180, 187.5, 190, 188, 'COVID 19'],
 ];
 
 // Escribir todas las enfermedades con un solo ciclo
@@ -270,65 +270,21 @@ $pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? '' : 'X'
 
 $pdf->SetXY(87.5, 221);
 $pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? 'X' : '');
-$pdf->SetXY(124.5, 221);
+$pdf->SetXY(62.5, 220.5);
 $pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? '' : 'X');
 
-$pdf->SetXY(160, 221);
-if ($antecedentesNoPatologicos['usa_drogas']) {
-    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_droga']));
-} else {
-    $pdf->Write(0, '');
-}
 
 
-$pdf->SetXY(87.5, 225.8);
-$pdf->Write(0, $antecedentesNoPatologicos['practica_deporte'] ? 'X' : '');
-$pdf->SetXY(124.5, 225.8);
-$pdf->Write(0, $antecedentesNoPatologicos['practica_deporte'] ? '' : 'X');
-
-$pdf->SetXY(150, 225.8);
-if ($antecedentesNoPatologicos['practica_deporte']) {
-    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_deporte']));
-} else {
-    $pdf->Write(0, '');
-}
 
 
-$pdf->SetXY(87.5, 230.5);
-$pdf->Write(0, $antecedentesNoPatologicos['tatuajes'] ? 'X' : '');
-$pdf->SetXY(124.5, 230.5);
-$pdf->Write(0, $antecedentesNoPatologicos['tatuajes'] ? '' : 'X');
 
 
-$pdf->SetXY(87.5, 235.3);
-$pdf->Write(0, $antecedentesNoPatologicos['transfusiones'] ? 'X' : '');
-$pdf->SetXY(124.5, 235.3);
-$pdf->Write(0, $antecedentesNoPatologicos['transfusiones'] ? '' : 'X');
-
-$pdf->SetXY(180, 235.3);
-$pdf->Write(0, $antecedentesNoPatologicos['transfusiones_recibidas'] ? 'Si' : 'No');
-
-
-$pdf->SetXY(87.5, 240);
-$pdf->Write(0, $antecedentesNoPatologicos['fobias'] ? 'X' : '');
-$pdf->SetXY(124.5, 240);
-$pdf->Write(0, $antecedentesNoPatologicos['fobias'] ? '' : 'X');
 
 
 $pdf->AddPage();
+$pdf->setSourceFile('../media/formato.pdf');
 $tplIdx = $pdf->importPage(2);
 $pdf->useTemplate($tplIdx);
-
-if ($paciente['genero'] == 'Femenino') {
-    $pdf->SetXY(60, 26);
-    $pdf->write(0, $antecedentesGineco['edad_inicio_regla']);
-
-    $pdf->SetXY(115, 26);
-    $pdf->Write(0, utf8_decode($antecedentesGineco['ritmo_ciclo_menstrual'] . ' días'));
-
-    $pdf->SetXY(150, 26);
-    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_menstruacion']));
-}
 
 // Salida
 $pdf->Output('I', 'historia_clinica.pdf');

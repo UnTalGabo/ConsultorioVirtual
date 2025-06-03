@@ -19,6 +19,7 @@ $numero_cesareas = !empty($_POST['numero_cesareas']) ? intval($_POST['numero_ces
 $complicaciones_menstruacion = !empty($_POST['complicaciones_menstruacion']) ? $_POST['complicaciones_menstruacion'] : null;
 $fecha_ultima_citologia = !empty($_POST['fecha_ultima_citologia']) ? $_POST['fecha_ultima_citologia'] : null;
 $mastografia = isset($_POST['mastografia']) ? 1 : 0;
+$fecha_ultima_mastografia = !empty($_POST['fecha_ultima_mastografia']) ? $_POST['fecha_ultima_mastografia'] : null;
 
 // Verificar si ya existe un registro para este paciente
 $sql_check = "SELECT id FROM antecedentes_gineco_obstetricos WHERE id_empleado = ?";
@@ -39,7 +40,8 @@ if ($result->num_rows > 0) {
             numero_cesareas = ?, 
             complicaciones_menstruacion = ?, 
             fecha_ultima_citologia = ?, 
-            mastografia = ? 
+            mastografia = ?,
+            fecha_ultima_mastografia = ?
             WHERE id_empleado = ?";
 } else {
     // Insertar nuevo registro
@@ -54,8 +56,9 @@ if ($result->num_rows > 0) {
             numero_cesareas, 
             complicaciones_menstruacion, 
             fecha_ultima_citologia, 
-            mastografia
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            mastografia,
+            fecha_ultima_mastografia
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
 
 // Preparar y ejecutar la consulta
@@ -63,7 +66,7 @@ $stmt = $conn->prepare($sql);
 
 if ($result->num_rows > 0) {
     $stmt->bind_param(
-        "iisiiiissii",
+        "iisiiiissisi",
         $edad_inicio_regla,
         $ritmo_ciclo_menstrual,
         $fecha_ultima_menstruacion,
@@ -74,11 +77,12 @@ if ($result->num_rows > 0) {
         $complicaciones_menstruacion,
         $fecha_ultima_citologia,
         $mastografia,
+        $fecha_ultima_mastografia,
         $id_empleado
     );
 } else {
     $stmt->bind_param(
-        "iiisiiiissi",
+        "iiisiiiissis",
         $id_empleado,
         $edad_inicio_regla,
         $ritmo_ciclo_menstrual,
@@ -89,7 +93,8 @@ if ($result->num_rows > 0) {
         $numero_cesareas,
         $complicaciones_menstruacion,
         $fecha_ultima_citologia,
-        $mastografia
+        $mastografia,
+        $fecha_ultima_mastografia
     );
 }
 

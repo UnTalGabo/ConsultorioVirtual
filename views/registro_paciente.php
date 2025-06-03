@@ -193,7 +193,13 @@ if ($id_paciente > 0) {
               <label for="area" class="form-label">Área/Departamento</label>
               <input type="text" name="area" class="form-control"
                 value="<?php echo isset($paciente['area']) ? $paciente['area'] : ''; ?>"
-                required placeholder="Ej. Recursos Humanos">
+                required placeholder="Ej. Desarrollo Organizacional">
+            </div>
+            <div class="col-md-4">
+              <label for="departamento" class="form-label">Departamento</label>
+              <input type="text" name="departamento" class="form-control"
+                value="<?php echo isset($paciente['departamento']) ? $paciente['departamento'] : ''; ?>"
+                placeholder="Ej. Administración">
             </div>
           </div>
         </div>
@@ -231,6 +237,20 @@ if ($id_paciente > 0) {
                 <option value="Casado/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Casado/a') ? 'selected' : ''; ?>>Casado/a</option>
                 <option value="Divorciado/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Divorciado/a') ? 'selected' : ''; ?>>Divorciado/a</option>
                 <option value="Viudo/a" <?php echo (isset($paciente['estado_civil']) && $paciente['estado_civil'] == 'Viudo/a') ? 'selected' : ''; ?>>Viudo/a</option>
+              </select>
+            </div>
+            <div class="col-md-4">
+              <label for="tipo_sangre" class="form-label">Tipo de sangre</label>
+              <select name="tipo_sangre" class="form-select" required>
+                <option value="">Seleccione...</option>
+                <option value="A+" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'A+') ? 'selected' : ''; ?>>A+</option>
+                <option value="A-" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'A-') ? 'selected' : ''; ?>>A-</option>
+                <option value="B+" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'B+') ? 'selected' : ''; ?>>B+</option>
+                <option value="B-" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'B-') ? 'selected' : ''; ?>>B-</option>
+                <option value="AB+" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'AB+') ? 'selected' : ''; ?>>AB+</option>
+                <option value="AB-" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'AB-') ? 'selected' : ''; ?>>AB-</option>
+                <option value="O+" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'O+') ? 'selected' : ''; ?>>O+</option>
+                <option value="O-" <?php echo (isset($paciente['tipo_sangre']) && $paciente['tipo_sangre'] == 'O-') ? 'selected' : ''; ?>>O-</option>
               </select>
             </div>
           </div>

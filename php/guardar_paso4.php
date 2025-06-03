@@ -27,15 +27,20 @@ $bebe = isset($_POST['bebe']) ? 1 : 0;
 $anos_bebiendo = isset($_POST['anos_bebiendo']) ? intval($_POST['anos_bebiendo']) : null;
 $frecuencia_alcohol = isset($_POST['frecuencia_alcohol']) ? $_POST['frecuencia_alcohol'] : null;
 $medicamentos_controlados = isset($_POST['medicamentos_controlados']) ? 1 : 0;
+$nombre_medicamento = isset($_POST['nombre_medicamento_controlado']) ? $_POST['nombre_medicamento_controlado'] : null;
+$desde_cuando_medicamento_controlado = isset($_POST['desde_cuando_medicamento_controlado']) ? $_POST['desde_cuando_medicamento_controlado'] : null;
 $usa_drogas = isset($_POST['usa_drogas']) ? 1 : 0;
 $tipo_droga = isset($_POST['tipo_droga']) ? $_POST['tipo_droga'] : null;
 $practica_deporte = isset($_POST['practica_deporte']) ? 1 : 0;
 $tipo_deporte = isset($_POST['tipo_deporte']) ? $_POST['tipo_deporte'] : null;
+$frecuencia_deporte = isset($_POST['frecuencia_deporte']) ? $_POST['frecuencia_deporte'] : null;
 $tatuajes = isset($_POST['tatuajes']) ? 1 : 0;
+$cantidad_tatuajes = isset($_POST['cantidad_tatuajes']) ? intval($_POST['cantidad_tatuajes']) : null;
+$ubicacion_tatuajes = isset($_POST['ubicacion_tatuajes']) ? $_POST['ubicacion_tatuajes'] : null;
 $transfusiones = isset($_POST['transfusiones']) ? 1 : 0;
 $transfusiones_recibidas = isset($_POST['transfusiones_recibidas']) ? 1 : 0;
 $fobias = isset($_POST['fobias']) ? 1 : 0;
-
+$cual_fobia = isset($_POST['cual_fobia']) ? $_POST['cual_fobia'] : null;
 // Verificar si ya existe un registro para este paciente
 $sql_check = "SELECT id FROM antecedentes_no_patologicos WHERE id_empleado = ?";
 $stmt_check = $conn->prepare($sql_check);
@@ -53,14 +58,20 @@ if ($result->num_rows > 0) {
             anos_bebiendo = ?, 
             frecuencia_alcohol = ?, 
             medicamentos_controlados = ?, 
+            nombre_medicamento_controlado = ?,
+            desde_cuando_medicamento_controlado = ?,
             usa_drogas = ?, 
             tipo_droga = ?, 
             practica_deporte = ?, 
             tipo_deporte = ?, 
+            frecuencia_deporte = ?,
             tatuajes = ?, 
+            cantidad_tatuajes = ?,
+            ubicacion_tatuajes = ?,
             transfusiones = ?, 
             transfusiones_recibidas = ?, 
-            fobias = ?
+            fobias = ?,
+            cual_fobia = ?
             WHERE id_empleado = ?";
 } else {
     // Insertar nuevo registro
@@ -73,15 +84,21 @@ if ($result->num_rows > 0) {
             anos_bebiendo, 
             frecuencia_alcohol, 
             medicamentos_controlados, 
+            nombre_medicamento_controlado,
+            desde_cuando_medicamento_controlado,
             usa_drogas, 
             tipo_droga, 
             practica_deporte, 
             tipo_deporte, 
+            frecuencia_deporte,
             tatuajes, 
+            cantidad_tatuajes,
+            ubicacion_tatuajes,
             transfusiones, 
             transfusiones_recibidas,
-            fobias
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            fobias,
+            cual_fobia
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
 
 // Preparar y ejecutar la consulta
@@ -89,7 +106,7 @@ $stmt = $conn->prepare($sql);
 
 if ($result->num_rows > 0) {
     $stmt->bind_param(
-        "iiiiisiisisiiiii",
+        "iiiiisissisissiisiiisi",
         $fuma,
         $cigarros_dia,
         $anos_fumando,
@@ -97,19 +114,25 @@ if ($result->num_rows > 0) {
         $anos_bebiendo,
         $frecuencia_alcohol,
         $medicamentos_controlados,
+        $nombre_medicamento,
+        $desde_cuando_medicamento_controlado,
         $usa_drogas,
         $tipo_droga,
         $practica_deporte,
         $tipo_deporte,
+        $frecuencia_deporte,
         $tatuajes,
+        $cantidad_tatuajes,
+        $ubicacion_tatuajes,
         $transfusiones,
         $transfusiones_recibidas,
         $fobias,
+        $cual_fobia,
         $id_empleado
     );
 } else {
     $stmt->bind_param(
-        "iiiiiisiisisiiii",
+        "iiiiiisissisissiisiiis",
         $id_empleado,
         $fuma,
         $cigarros_dia,
@@ -118,14 +141,20 @@ if ($result->num_rows > 0) {
         $anos_bebiendo,
         $frecuencia_alcohol,
         $medicamentos_controlados,
+        $nombre_medicamento,
+        $desde_cuando_medicamento_controlado,
         $usa_drogas,
         $tipo_droga,
         $practica_deporte,
         $tipo_deporte,
+        $frecuencia_deporte,
         $tatuajes,
+        $cantidad_tatuajes,
+        $ubicacion_tatuajes,
         $transfusiones,
         $transfusiones_recibidas,
-        $fobias
+        $fobias,
+        $cual_fobia
     );
 }
 

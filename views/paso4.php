@@ -243,10 +243,20 @@ $stmt->close();
                 <!-- Medicamentos controlados -->
                 <div class="form-group">
                     <label class="form-label">
-                        <input type="checkbox" name="medicamentos_controlados"
+                        <input type="checkbox" name="medicamentos_controlados" id="medicamentos_controlados"
                             <?php echo isset($antecedentes['medicamentos_controlados']) && $antecedentes['medicamentos_controlados'] == 1 ? 'checked' : ''; ?>>
                         ¿Usa medicamentos controlados?
                     </label>
+                    <div id="medicamentos_fields" class="conditional-field">
+                        <label class="form-label">¿Cuál medicamento?
+                            <input type="text" name="nombre_medicamento_controlado" class="form-control"
+                                value="<?php echo isset($antecedentes['nombre_medicamento_controlado']) ? $antecedentes['nombre_medicamento_controlado'] : ''; ?>">
+                        </label>
+                        <label class="form-label">¿Desde cuándo?
+                            <input type="date" name="desde_cuando_medicamento_controlado" class="form-control"
+                                value="<?php echo isset($antecedentes['desde_cuando_medicamento_controlado']) ? $antecedentes['desde_cuando_medicamento_controlado'] : ''; ?>">
+                        </label>
+                    </div>
                 </div>
 
                 <!-- Otras preguntas -->
@@ -275,16 +285,33 @@ $stmt->close();
                             <input type="text" name="tipo_deporte" class="form-control"
                                 value="<?php echo isset($antecedentes['tipo_deporte']) ? $antecedentes['tipo_deporte'] : ''; ?>">
                         </label>
+                        <label class="form-label">Frecuencia:
+                            <select name="frecuencia_deporte" class="form-select">
+                                <option value="">Selecciona</option>
+                                <option value="Ocasional" <?php echo (isset($antecedentes['frecuencia_deporte']) && $antecedentes['frecuencia_deporte'] == 'Ocasional') ? 'selected' : ''; ?>>Ocasional</option>
+                                <option value="Semanal" <?php echo (isset($antecedentes['frecuencia_deporte']) && $antecedentes['frecuencia_deporte'] == 'Semanal') ? 'selected' : ''; ?>>Semanal</option>
+                                <option value="Diario" <?php echo (isset($antecedentes['frecuencia_deporte']) && $antecedentes['frecuencia_deporte'] == 'Diario') ? 'selected' : ''; ?>>Diario</option>
+                            </select>
+                        </label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="form-label">
-                        <input type="checkbox" name="tatuajes"
-                            <?php echo isset($antecedentes['tatuajes']) &&
-                                $antecedentes['tatuajes'] == 1 ? 'checked' : ''; ?>>
+                        <input type="checkbox" name="tatuajes" id="tatuajes"
+                            <?php echo isset($antecedentes['tatuajes']) && $antecedentes['tatuajes'] == 1 ? 'checked' : ''; ?>>
                         ¿Tiene algún tatuaje?
                     </label>
+                    <div id="tatuajes_fields" class="conditional-field">
+                        <label class="form-label">¿Cuántos?
+                            <input type="number" name="cantidad_tatuajes" min="1" class="form-control"
+                                value="<?php echo isset($antecedentes['cantidad_tatuajes']) ? $antecedentes['cantidad_tatuajes'] : ''; ?>">
+                        </label>
+                        <label class="form-label">¿En dónde?
+                            <input type="text" name="ubicacion_tatuajes" class="form-control"
+                                value="<?php echo isset($antecedentes['ubicacion_tatuajes']) ? $antecedentes['ubicacion_tatuajes'] : ''; ?>">
+                        </label>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -305,10 +332,16 @@ $stmt->close();
 
                 <div class="form-group">
                     <label class="form-label">
-                        <input type="checkbox" name="fobias"
+                        <input type="checkbox" name="fobias" id="fobias"
                             <?php echo isset($antecedentes['fobias']) && $antecedentes['fobias'] == 1 ? 'checked' : ''; ?>>
                         ¿Tiene alguna fobia o miedo?
                     </label>
+                    <div id="fobias_fields" class="conditional-field">
+                        <label class="form-label">¿Cuál?
+                            <input type="text" name="cual_fobia" class="form-control"
+                                value="<?php echo isset($antecedentes['cual_fobia']) ? $antecedentes['cual_fobia'] : ''; ?>">
+                        </label>
+                    </div>
                 </div>
 
                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
@@ -348,23 +381,35 @@ $stmt->close();
         document.getElementById('bebe').addEventListener('change', function() {
             toggleField('bebe', 'bebe_fields');
         });
+        document.getElementById('medicamentos_controlados').addEventListener('change', function() {
+            toggleField('medicamentos_controlados', 'medicamentos_fields');
+        });
         document.getElementById('drogas').addEventListener('change', function() {
             toggleField('drogas', 'drogas_fields');
         });
         document.getElementById('deporte').addEventListener('change', function() {
             toggleField('deporte', 'deporte_fields');
         });
+        document.getElementById('tatuajes').addEventListener('change', function() {
+            toggleField('tatuajes', 'tatuajes_fields');
+        });
         document.getElementById('transfusiones').addEventListener('change', function() {
             toggleField('transfusiones', 'transfusiones_fields');
+        });
+        document.getElementById('fobias').addEventListener('change', function() {
+            toggleField('fobias', 'fobias_fields');
         });
 
         // Inicializar estado al cargar
         document.addEventListener('DOMContentLoaded', function() {
             toggleField('fuma', 'fuma_fields');
             toggleField('bebe', 'bebe_fields');
+            toggleField('medicamentos_controlados', 'medicamentos_fields');
             toggleField('drogas', 'drogas_fields');
             toggleField('deporte', 'deporte_fields');
+            toggleField('tatuajes', 'tatuajes_fields');
             toggleField('transfusiones', 'transfusiones_fields');
+            toggleField('fobias', 'fobias_fields');
         });
     </script>
 </body>

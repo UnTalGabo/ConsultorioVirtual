@@ -315,7 +315,20 @@ function getChecked($valor, $comparar)
 
                 <div class="form-group">
                     <label>IMC:</label>
-                    <div class="imc-display" id="imc_display"><?php echo isset($examen_medico['imc']) ? $examen_medico['imc'] : '--' ?></div>
+                    <div class="imc-display" id="imc_display"><?php
+                                                                if (isset($examen_medico['imc'])) {
+                                                                    $imc = floatval($examen_medico['imc']);
+                                                                    if ($imc < 18.5) $cat = 'Insuficiencia ponderal';
+                                                                    else if ($imc < 25) $cat = 'Intervalo normal';
+                                                                    else if ($imc < 30) $cat = 'Preobesidad';
+                                                                    else if ($imc < 35) $cat = 'Obesidad clase 1';
+                                                                    else if ($imc < 40) $cat = 'Obesidad clase 2';
+                                                                    else $cat = 'Obesidad clase 3';
+                                                                    echo "IMC " . number_format($imc, 2) . " $cat";
+                                                                } else {
+                                                                    echo '--';
+                                                                }
+                                                                ?></div>
                     <input type="hidden" name="imc" id="imc">
                 </div>
 
@@ -394,6 +407,13 @@ function getChecked($valor, $comparar)
                 </div>
 
                 <div class="evaluation-column">
+
+                    <div class="evaluation-item">
+                        <h4>ABDOMEN</h4>
+                        <textarea name="abdomen" rows="3" style="width: 100%;"
+                            value="<?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?>"><?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?></textarea>
+                    </div>
+
                     <div class="evaluation-item">
                         <h4>COLUMNA VERTEBRAL</h4>
                         <textarea name="columna" rows="3" style="width: 100%;"
@@ -412,11 +432,7 @@ function getChecked($valor, $comparar)
                             value="<?php echo isset($examen_medico['extremidades_inferiores']) ? $examen_medico['extremidades_inferiores'] : '' ?>"><?php echo isset($examen_medico['extremidades_inferiores']) ? $examen_medico['extremidades_inferiores'] : '' ?></textarea>
                     </div>
 
-                    <div class="evaluation-item">
-                        <h4>ABDOMEN</h4>
-                        <textarea name="abdomen" rows="3" style="width: 100%;"
-                            value="<?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?>"><?php echo isset($examen_medico['abdomen']) ? $examen_medico['abdomen'] : '' ?></textarea>
-                    </div>
+
                 </div>
             </div>
         </div>
@@ -480,14 +496,32 @@ function getChecked($valor, $comparar)
         function calcularIMC() {
             const talla = parseFloat(document.getElementById('talla').value) / 100; // Convertir cm a m
             const peso = parseFloat(document.getElementById('peso').value);
+            const imcInfo = document.getElementById('imc_info');
 
             if (talla > 0 && peso > 0) {
                 const imc = peso / (talla * talla);
                 document.getElementById('imc_display').textContent = imc.toFixed(2);
                 document.getElementById('imc').value = imc.toFixed(2);
+
+                let categoria = '';
+                if (imc < 18.5) {
+                    categoria = 'Insuficiencia ponderal (<18.5)';
+                } else if (imc < 25) {
+                    categoria = 'Intervalo normal (18.5 - 24.9)';
+                } else if (imc < 30) {
+                    categoria = 'Preobesidad (25 - 29.9)';
+                } else if (imc < 35) {
+                    categoria = 'Obesidad clase 1 (30 - 34.9)';
+                } else if (imc < 40) {
+                    categoria = 'Obesidad clase 2 (35 - 39.9)';
+                } else {
+                    categoria = 'Obesidad clase 3 (≥40)';
+                }
+                imcInfo.textContent = categoria;
             } else {
                 document.getElementById('imc_display').textContent = '--';
                 document.getElementById('imc').value = '';
+                imcInfo.textContent = '';
             }
         }
 

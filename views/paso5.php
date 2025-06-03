@@ -15,6 +15,13 @@ if ($resultado->num_rows == 0) {
 
 $paciente = $resultado->fetch_assoc();
 
+$sql = "SELECT * FROM antecedentes_gineco_obstetricos WHERE id_empleado = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_empleado);
+$stmt->execute();
+$resultado2 = $stmt->get_result();
+$antecedentes = $resultado2->fetch_assoc();
+
 $stmt->close();
 ?>
 
@@ -24,88 +31,81 @@ $stmt->close();
 <head>
     <meta charset="UTF-8">
     <title>Paso 5: Antecedentes Gineco-Obstétricos</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            max-width: 900px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #f4f6fa;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #e9ecef 0%, #f4f6fa 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
             color: #1e2a78;
-            /* Animación de fade-in para el contenido principal */
-            animation: fadeInBody 0.7s cubic-bezier(.39, .575, .565, 1.000);
         }
 
-        @keyframes fadeInBody {
+        .navbar {
+            background: #1e2a78;
+        }
+
+        .navbar-brand, .navbar-brand i {
+            color: #fff !important;
+            font-weight: 600;
+            letter-spacing: 1px;
+        }
+
+        .main-container {
+            max-width: 800px;
+            margin: 40px auto 0 auto;
+            padding: 0 15px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 18px;
+            box-shadow: 0 6px 32px 0 rgba(30, 42, 120, 0.10), 0 1.5px 6px 0 rgba(30, 42, 120, 0.04);
+            background: #fff;
+            animation: fadeInUp 0.8s cubic-bezier(.39, .575, .565, 1.000);
+        }
+
+        @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
             }
         }
 
-        .form-container {
+        .section-title {
+            color: #2e3c81;
+            font-weight: 700;
+            margin-bottom: 18px;
             display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            opacity: 0;
-            transform: translateY(40px);
-            animation: fadeInForm 0.8s 0.2s forwards;
-        }
-
-        @keyframes fadeInForm {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .form-group {
-            margin-bottom: 15px;
-            padding: 15px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            margin-bottom: 18px;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px 0 rgba(30, 42, 120, 0.06);
             opacity: 0;
             transform: translateY(30px);
             animation: fadeInGroup 0.7s forwards;
         }
 
-        .form-group:nth-child(1) {
-            animation-delay: 0.2s;
-        }
-
-        .form-group:nth-child(2) {
-            animation-delay: 0.3s;
-        }
-
-        .form-group:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        .form-group:nth-child(4) {
-            animation-delay: 0.5s;
-        }
-
-        .form-group:nth-child(5) {
-            animation-delay: 0.6s;
-        }
-
-        .form-group:nth-child(6) {
-            animation-delay: 0.7s;
-        }
-
-        .form-group:nth-child(7) {
-            animation-delay: 0.8s;
-        }
-
-        .form-group:nth-child(8) {
-            animation-delay: 0.9s;
-        }
+        .form-group:nth-child(n) { animation-delay: 0.1s; }
+        .form-group:nth-child(n+1) { animation-delay: 0.2s; }
+        .form-group:nth-child(n+2) { animation-delay: 0.3s; }
+        .form-group:nth-child(n+3) { animation-delay: 0.4s; }
+        .form-group:nth-child(n+4) { animation-delay: 0.5s; }
+        .form-group:nth-child(n+5) { animation-delay: 0.6s; }
+        .form-group:nth-child(n+6) { animation-delay: 0.7s; }
+        .form-group:nth-child(n+7) { animation-delay: 0.8s; }
 
         @keyframes fadeInGroup {
             to {
@@ -114,147 +114,195 @@ $stmt->close();
             }
         }
 
-        .form-group label {
+        .form-label {
+            font-weight: 500;
+            color: #1e2a78;
+        }
+
+        .conditional-field {
+            margin-left: 20px;
+            margin-top: 10px;
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            transition: opacity 0.4s, max-height 0.4s;
+        }
+
+        .conditional-field.show {
             display: block;
-            margin-bottom: 5px;
-            font-weight: bold;
+            opacity: 1;
+            max-height: 200px;
+            transition: opacity 0.4s, max-height 0.4s;
         }
 
-        .form-group input[type="text"],
-        .form-group input[type="number"],
-        .form-group input[type="date"],
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-            margin-bottom: 10px;
-            transition: box-shadow 0.3s, border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
+        .form-control:focus, .form-select:focus {
             border-color: #2e3c81;
             box-shadow: 0 0 0 2px #2e3c8133;
         }
 
-        .button-container {
-            width: 100%;
-            text-align: center;
-            margin-top: 20px;
-        }
-
-        .button-next,
-        .btn-salir {
-            transition: background-color 0.3s, transform 0.1s;
-        }
-
-        .button-next:active,
-        .btn-salir:active {
-            transform: scale(0.97);
-        }
-
-        .button-next {
+        .btn-primary {
             background-color: #2e3c81;
-            color: white;
-            padding: 12px 20px;
             border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+            font-size: 1.15rem;
+            font-weight: 500;
+            padding: 0.75rem 2.2rem;
+            border-radius: 8px;
+            transition: background 0.2s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .btn-primary:hover, .btn-primary:focus {
+            background-color: #1e2a78;
+            transform: scale(0.98);
         }
 
-        .btn-salir {
-            background-color: rgb(172, 45, 45);
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 16px;
+        .btn-danger {
+            font-size: 1.1rem;
+            padding: 0.75rem 1.8rem;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        @media (max-width: 767px) {
+            .main-container {
+                margin-top: 20px;
+            }
+            .card {
+                padding: 0.5rem;
+            }
+            .form-group {
+                padding: 10px 8px;
+            }
         }
     </style>
 </head>
 
 <body>
-
-    <h2>Paso 5: Antecedentes Gineco-Obstétricos</h2>
-    <p>Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
-
-    <form action="../php/guardar_paso5.php" method="post">
-        <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
-
-        <div class="form-container">
-            <!-- Columna 1 -->
-            <div class="form-column">
-                <div class="form-group">
-                    <label>Edad que inició su regla (años)</label>
-                    <input type="number" name="edad_inicio_regla" min="8" max="25">
-                </div>
-
-                <div class="form-group">
-                    <label>Ritmo de ciclo menstrual (días)</label>
-                    <input type="number" name="ritmo_ciclo_menstrual" min="15" max="45">
-                </div>
-
-                <div class="form-group">
-                    <label>Fecha de última menstruación</label>
-                    <input type="date" name="fecha_ultima_menstruacion">
-                </div>
-
-                <div class="form-group">
-                    <label>Número de gestas</label>
-                    <input type="number" name="numero_gestas" min="0" value="0">
-                </div>
-            </div>
-
-            <!-- Columna 2 -->
-            <div class="form-column">
-                <div class="form-group">
-                    <label>Número de partos</label>
-                    <input type="number" name="numero_partos" min="0" value="0">
-                </div>
-
-                <div class="form-group">
-                    <label>Número de abortos</label>
-                    <input type="number" name="numero_abortos" min="0" value="0">
-                </div>
-
-                <div class="form-group">
-                    <label>Número de cesáreas</label>
-                    <input type="number" name="numero_cesareas" min="0" value="0">
-                </div>
-
-                <div class="form-group">
-                    <label>Fecha de última citología cervicovaginal (Papanicolau)</label>
-                    <input type="date" name="fecha_ultima_citologia">
-                </div>
-            </div>
+    <!-- Barra de navegación superior -->
+    <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+                <i class="bi bi-hospital-fill fs-3"></i>
+                Consultorio Virtual
+            </a>
         </div>
+    </nav>
 
-        <!-- Campos de ancho completo -->
-        <div class="form-group">
-            <label>¿Complicaciones en la menstruación?</label>
-            <textarea name="complicaciones_menstruacion" rows="3"></textarea>
+    <div class="main-container">
+        <div class="card p-4 p-md-5">
+            <h2 class="section-title mb-3">
+                <i class="bi bi-gender-female"></i>
+                Paso 5: Antecedentes Gineco-Obstétricos
+            </h2>
+            <p class="mb-4">Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
+
+            <form action="../php/guardar_paso5.php" method="post">
+                <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Edad que inició su regla (años)</label>
+                            <input type="number" name="edad_inicio_regla" min="8" max="25" class="form-control"
+                                value="<?php echo isset($antecedentes['edad_inicio_regla']) ? $antecedentes['edad_inicio_regla'] : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Ritmo de ciclo menstrual (días)</label>
+                            <input type="number" name="ritmo_ciclo_menstrual" min="15" max="45" class="form-control"
+                                value="<?php echo isset($antecedentes['ritmo_ciclo_menstrual']) ? $antecedentes['ritmo_ciclo_menstrual'] : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha de última menstruación</label>
+                            <input type="date" name="fecha_ultima_menstruacion" class="form-control"
+                                value="<?php echo isset($antecedentes['fecha_ultima_menstruacion']) ? $antecedentes['fecha_ultima_menstruacion'] : ''; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Número de embarazos</label>
+                            <input type="number" name="numero_gestas" min="0" class="form-control"
+                                value="<?php echo isset($antecedentes['numero_gestas']) ? $antecedentes['numero_gestas'] : '0'; ?>">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="form-label">Número de partos</label>
+                            <input type="number" name="numero_partos" min="0" class="form-control"
+                                value="<?php echo isset($antecedentes['numero_partos']) ? $antecedentes['numero_partos'] : '0'; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Número de abortos</label>
+                            <input type="number" name="numero_abortos" min="0" class="form-control"
+                                value="<?php echo isset($antecedentes['numero_abortos']) ? $antecedentes['numero_abortos'] : '0'; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Número de cesáreas</label>
+                            <input type="number" name="numero_cesareas" min="0" class="form-control"
+                                value="<?php echo isset($antecedentes['numero_cesareas']) ? $antecedentes['numero_cesareas'] : '0'; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Fecha de última citología cervicovaginal (Papanicolau)</label>
+                            <input type="date" name="fecha_ultima_citologia" class="form-control"
+                                value="<?php echo isset($antecedentes['fecha_ultima_citologia']) ? $antecedentes['fecha_ultima_citologia'] : ''; ?>">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">¿Complicaciones en la menstruación?</label>
+                    <textarea name="complicaciones_menstruacion" rows="3" class="form-control"><?php echo isset($antecedentes['complicaciones_menstruacion']) ? $antecedentes['complicaciones_menstruacion'] : ''; ?></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">
+                        <input type="checkbox" name="mastografia" id="mastografia"
+                            <?php echo isset($antecedentes['mastografia']) && $antecedentes['mastografia'] == 1 ? 'checked' : ''; ?>>
+                        ¿Se ha realizado mastografía?
+                    </label>
+                    <div id="mastografia_fields" class="conditional-field">
+                        <label class="form-label">Fecha de última mastografía
+                            <input type="date" name="fecha_ultima_mastografia" class="form-control"
+                                value="<?php echo isset($antecedentes['fecha_ultima_mastografia']) ? $antecedentes['fecha_ultima_mastografia'] : ''; ?>">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                    <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
+                        <i class="bi bi-save2"></i> Guardar y Salir
+                    </button>
+                    <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
+                        <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
+                    </button>
+                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" name="accion" value="salir_sin_guardar">
+                        <i class="bi bi-box-arrow-left"></i> Salir
+                    </a>
+                </div>
+            </form>
         </div>
+    </div>
 
-        <div class="form-group">
-            <label>
-                <input type="checkbox" name="mastografia">
-                ¿Se ha realizado mastografía?
-            </label>
-        </div>
-
-        <div class="button-container">
-            <button type="submit" class="button-next">Guardar y Continuar</button>
-            <button type="button" class="btn-salir" onclick="window.location.href='../views/ver_pacientes.php'">Salir</button>
-        </div>
-    </form>
-
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function toggleField(checkboxId, fieldId) {
+            var cb = document.getElementById(checkboxId);
+            var field = document.getElementById(fieldId);
+            if (cb && field) {
+                if (cb.checked) {
+                    field.classList.add('show');
+                } else {
+                    field.classList.remove('show');
+                }
+            }
+        }
+        document.addEventListener('DOMContentLoaded', function () {
+            toggleField('mastografia', 'mastografia_fields');
+            document.getElementById('mastografia').addEventListener('change', function () {
+                toggleField('mastografia', 'mastografia_fields');
+            });
+        });
+    </script>
 </body>
-
 </html>

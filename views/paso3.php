@@ -243,11 +243,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="presion_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Presión alta/baja", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Presión alta/baja", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Presión alta/baja", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Presión alta/baja", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Presión alta/baja", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Presión alta/baja", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Presión alta/baja", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Presión alta/baja", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Presión alta/baja", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Presión alta/baja", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Presión alta/baja", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Presión alta/baja", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Presión alta/baja", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -260,11 +263,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="vertigos_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Vértigos", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Vértigos", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Vértigos", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Vértigos", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Vértigos", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Vértigos", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Vértigos", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Vértigos", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Vértigos", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Vértigos", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Vértigos", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Vértigos", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Vértigos", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -277,11 +283,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="diabetes_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Diabetes", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Diabetes", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Diabetes", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Diabetes", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Diabetes", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Diabetes", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Diabetes", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Diabetes", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Diabetes", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Diabetes", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Diabetes", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Diabetes", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Diabetes", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -294,11 +303,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="corazon_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Enfermedades del Corazón", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Enfermedades del Corazón", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Enfermedades del Corazón", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Enfermedades del Corazón", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Enfermedades del Corazón", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Enfermedades del Corazón", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Enfermedades del Corazón", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Enfermedades del Corazón", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Enfermedades del Corazón", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Enfermedades del Corazón", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Enfermedades del Corazón", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Enfermedades del Corazón", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Enfermedades del Corazón", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -311,11 +323,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="pulmonares_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Enfermedades Pulmonares", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Enfermedades Pulmonares", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Enfermedades Pulmonares", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Enfermedades Pulmonares", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Enfermedades Pulmonares", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Enfermedades Pulmonares", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Enfermedades Pulmonares", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Enfermedades Pulmonares", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Enfermedades Pulmonares", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Enfermedades Pulmonares", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Enfermedades Pulmonares", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Enfermedades Pulmonares", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Enfermedades Pulmonares", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -328,11 +343,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="rinon_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Enfermedades del Riñon", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Enfermedades del Riñon", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Enfermedades del Riñon", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Enfermedades del Riñon", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Enfermedades del Riñon", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Enfermedades del Riñon", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Enfermedades del Riñon", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Enfermedades del Riñon", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Enfermedades del Riñon", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Enfermedades del Riñon", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Enfermedades del Riñon", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Enfermedades del Riñon", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Enfermedades del Riñon", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -345,11 +363,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="higado_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Enfermedades del Higado", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Enfermedades del Higado", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Enfermedades del Higado", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Enfermedades del Higado", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Enfermedades del Higado", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Enfermedades del Higado", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Enfermedades del Higado", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Enfermedades del Higado", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Enfermedades del Higado", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Enfermedades del Higado", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Enfermedades del Higado", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Enfermedades del Higado", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Enfermedades del Higado", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -362,11 +383,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="alergias_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Alergias", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Alergias", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Alergias", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Alergias", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Alergias", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Alergias", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Alergias", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Alergias", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Alergias", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Alergias", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Alergias", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Alergias", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Alergias", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -379,11 +403,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="tumores_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Tumores o cáncer", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Tumores o cáncer", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Tumores o cáncer", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Tumores o cáncer", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Tumores o cáncer", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Tumores o cáncer", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Tumores o cáncer", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Tumores o cáncer", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Tumores o cáncer", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Tumores o cáncer", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Tumores o cáncer", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Tumores o cáncer", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Tumores o cáncer", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -396,11 +423,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="asma_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Asma bronquial", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Asma bronquial", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Asma bronquial", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Asma bronquial", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Asma bronquial", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Asma bronquial", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Asma bronquial", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Asma bronquial", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Asma bronquial", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Asma bronquial", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Asma bronquial", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Asma bronquial", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Asma bronquial", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -413,11 +443,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="gastritis_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Gastritis/Ulcera", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Gastritis/Ulcera", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Gastritis/Ulcera", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Gastritis/Ulcera", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Gastritis/Ulcera", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Gastritis/Ulcera", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Gastritis/Ulcera", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Gastritis/Ulcera", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Gastritis/Ulcera", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Gastritis/Ulcera", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Gastritis/Ulcera", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Gastritis/Ulcera", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Gastritis/Ulcera", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -447,11 +480,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="varices_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Flebitis/Várices", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Flebitis/Várices", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Flebitis/Várices", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Flebitis/Várices", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Flebitis/Várices", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Flebitis/Várices", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Flebitis/Várices", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Flebitis/Várices", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Flebitis/Várices", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Flebitis/Várices", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Flebitis/Várices", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Flebitis/Várices", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Flebitis/Várices", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -464,11 +500,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="artritis_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Artritis", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Artritis", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Artritis", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Artritis", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Artritis", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Artritis", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Artritis", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Artritis", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Artritis", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Artritis", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Artritis", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Artritis", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Artritis", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -481,11 +520,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="sueno_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Alteraciones del sueño", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Alteraciones del sueño", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Alteraciones del sueño", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Alteraciones del sueño", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Alteraciones del sueño", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Alteraciones del sueño", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Alteraciones del sueño", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Alteraciones del sueño", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Alteraciones del sueño", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Alteraciones del sueño", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Alteraciones del sueño", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Alteraciones del sueño", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Alteraciones del sueño", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -498,11 +540,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="tinitus_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Acufeno/Tinitus", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Acufeno/Tinitus", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Acufeno/Tinitus", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Acufeno/Tinitus", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Acufeno/Tinitus", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Acufeno/Tinitus", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Acufeno/Tinitus", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Acufeno/Tinitus", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Acufeno/Tinitus", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Acufeno/Tinitus", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Acufeno/Tinitus", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Acufeno/Tinitus", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Acufeno/Tinitus", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -515,11 +560,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="espalda_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Problemas de espalda", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Problemas de espalda", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Problemas de espalda", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Problemas de espalda", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Problemas de espalda", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Problemas de espalda", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Problemas de espalda", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Problemas de espalda", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Problemas de espalda", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Problemas de espalda", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Problemas de espalda", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Problemas de espalda", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Problemas de espalda", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -532,11 +580,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="hormigueo_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Sensación de hormigueo", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Sensación de hormigueo", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Sensación de hormigueo", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Sensación de hormigueo", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Sensación de hormigueo", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Sensación de hormigueo", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Sensación de hormigueo", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Sensación de hormigueo", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Sensación de hormigueo", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Sensación de hormigueo", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Sensación de hormigueo", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Sensación de hormigueo", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Sensación de hormigueo", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -549,11 +600,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="convulsiones_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Convulsiones", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Convulsiones", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Convulsiones", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Convulsiones", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Convulsiones", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Convulsiones", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Convulsiones", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Convulsiones", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Convulsiones", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Convulsiones", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Convulsiones", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Convulsiones", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Convulsiones", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -566,11 +620,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="debilidad_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Debilidad Muscular", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Debilidad Muscular", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Debilidad Muscular", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Debilidad Muscular", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Debilidad Muscular", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Debilidad Muscular", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Debilidad Muscular", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Debilidad Muscular", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Debilidad Muscular", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Debilidad Muscular", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Debilidad Muscular", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Debilidad Muscular", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Debilidad Muscular", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -583,11 +640,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="osteoporosis_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Osteoporosis", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Osteoporosis", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Osteoporosis", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Osteoporosis", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Osteoporosis", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Osteoporosis", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Osteoporosis", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Osteoporosis", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Osteoporosis", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Osteoporosis", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Osteoporosis", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Osteoporosis", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Osteoporosis", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -600,11 +660,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="hernias_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("Hernias", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("Hernias", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("Hernias", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("Hernias", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("Hernias", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("Hernias", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("Hernias", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("Hernias", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("Hernias", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("Hernias", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("Hernias", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("Hernias", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("Hernias", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>
@@ -617,11 +680,14 @@ function getChecked($efnfermedad)
     <td>
         <select name="covid_quien">
             <option value="">Seleccionar</option>
-            <option value="A" <?php echo getSelected("COVID 19", 'A') ?>>Abuelos (A)</option>
-            <option value="P" <?php echo getSelected("COVID 19", 'P') ?>>Padre (P)</option>
-            <option value="M" <?php echo getSelected("COVID 19", 'M') ?>>Madre (M)</option>
-            <option value="H" <?php echo getSelected("COVID 19", 'H') ?>>Hermanos (H)</option>
-            <option value="T" <?php echo getSelected("COVID 19", 'T') ?>>Tíos (T)</option>
+            <option value="APO" <?php echo getSelected("COVID 19", 'Abuelo Paterno') ?>>Abuelo Paterno</option>
+            <option value="APA" <?php echo getSelected("COVID 19", 'Abuela Paterna') ?>>Abuela Paterna</option>
+            <option value="AMO" <?php echo getSelected("COVID 19", 'Abuelo Materno') ?>>Abuelo Materno</option>
+            <option value="AMA" <?php echo getSelected("COVID 19", 'Abuela Materna') ?>>Abuela Materna</option>
+            <option value="P" <?php echo getSelected("COVID 19", 'Padre') ?>>Padre</option>
+            <option value="M" <?php echo getSelected("COVID 19", 'Madre') ?>>Madre</option>
+            <option value="H" <?php echo getSelected("COVID 19", 'Hermanos') ?>>Hermanos</option>
+            <option value="T" <?php echo getSelected("COVID 19", 'Tíos') ?>>Tíos</option>
         </select>
     </td>
 </tr>

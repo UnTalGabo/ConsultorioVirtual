@@ -7,6 +7,7 @@ $nombre = $_POST['nombre_completo'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $genero = $_POST['genero'];
 $estado_civil = $_POST['estado_civil'];
+$tipo_sangre = $_POST['tipo_sangre'] ?? null; 
 $telefono = $_POST['telefono'];
 $calle = $_POST['calle'];
 $numero = $_POST['numero'];
@@ -20,6 +21,7 @@ $telefono_emergencia = $_POST['telefono_emergencia'];
 $parentesco = $_POST['parentesco'];
 $area = $_POST['area'];
 $puesto = $_POST['puesto'];
+$departamento = $_POST['departamento'];
 
 // Validar que no exista ya un paciente con ese ID
 $verifica = $conn->query("SELECT * FROM pacientes WHERE id_empleado = $id_empleado");
@@ -30,6 +32,7 @@ if ($verifica->num_rows > 0) {
             fecha_nacimiento = ?,
             genero = ?,
             estado_civil = ?,
+            tipo_sangre = ?,
             telefono = ?,
             calle = ?,
             numero = ?,
@@ -42,15 +45,17 @@ if ($verifica->num_rows > 0) {
             telefono_emergencia = ?,
             parentesco = ?,
             area = ?,
-            puesto = ?
+            puesto = ?,
+            departamento = ?
             WHERE id_empleado = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        "sssssssssssssssssi",
+        "sssssssssssssssssssi",
         $nombre,
         $fecha_nacimiento,
         $genero,
         $estado_civil,
+        $tipo_sangre,
         $telefono,
         $calle,
         $numero,
@@ -64,6 +69,7 @@ if ($verifica->num_rows > 0) {
         $parentesco,
         $area,
         $puesto,
+        $departamento,
         $id_empleado
     );
     if ($stmt->execute()) {
@@ -77,18 +83,20 @@ if ($verifica->num_rows > 0) {
     // Si no existe, insertar un nuevo registro
     $sql = "INSERT INTO pacientes (
             id_empleado, nombre_completo, fecha_nacimiento, genero, estado_civil, 
-            telefono, calle, numero, colonia, ciudad, estado, cp, escolaridad, contacto_emergencia, telefono_emergencia, parentesco, area, puesto
+            tipo_sangre, telefono, calle, numero, colonia, ciudad, estado, cp, escolaridad, 
+            contacto_emergencia, telefono_emergencia, parentesco, area, puesto, departamento
         ) VALUES (
-            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
         )";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param(
-        "isssssssssssssssss",
+        "isssssssssssssssssss",
         $id_empleado,
         $nombre,
         $fecha_nacimiento,
         $genero,
         $estado_civil,
+        $tipo_sangre,
         $telefono,
         $calle,
         $numero,
@@ -101,7 +109,8 @@ if ($verifica->num_rows > 0) {
         $telefono_emergencia,
         $parentesco,
         $area,
-        $puesto
+        $puesto,
+        $departamento
     );
     if ($stmt->execute()) {
         // Redirigir al siguiente paso

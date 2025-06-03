@@ -12,7 +12,6 @@ $id_empleado = $_POST['id_empleado'];
 $enfermedades = $_POST['enfermedades'] ?? [];
 $fracturas_esguinces = $_POST['fracturas_esguinces'] ?? null;
 $cirugias = $_POST['cirugias'] ?? null;
-$tipo_sangre = $_POST['tipo_sangre'] ?? null;
 $enfermedad_actual = isset($_POST['enfermedad_actual']) ? 1 : 0;
 $enfermedad_actual_desc = $_POST['enfermedad_actual_desc'] ?? null;
 $medicamentos = $_POST['medicamentos'] ?? null;
@@ -59,7 +58,6 @@ try {
         $sql = "UPDATE antecedentes_patologicos SET 
                 fracturas_esguinces = ?,
                 cirugias = ?,
-                tipo_sangre = ?,
                 enfermedad_actual_desc = ?,
                 medicamentos = ?,
                 observaciones = ?,
@@ -71,7 +69,6 @@ try {
                 id_empleado,
                 fracturas_esguinces,
                 cirugias,
-                tipo_sangre,
                 enfermedad_actual_desc,
                 medicamentos,
                 observaciones,
@@ -84,10 +81,9 @@ try {
 
     if ($result->num_rows > 0) {
         $stmt->bind_param(
-            "ssssssi",
+            "sssssi",
             $fracturas_esguinces,
             $cirugias,
-            $tipo_sangre,
             $enfermedad_actual_desc,
             $medicamentos,
             $observaciones,
@@ -95,11 +91,10 @@ try {
         );
     } else {
         $stmt->bind_param(
-            "issssss",
+            "isssss",
             $id_empleado,
             $fracturas_esguinces,
             $cirugias,
-            $tipo_sangre,
             $enfermedad_actual_desc,
             $medicamentos,
             $observaciones

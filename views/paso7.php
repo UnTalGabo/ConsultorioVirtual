@@ -220,7 +220,7 @@ function getChecked($valor)
 
         <div class="form-group">
             <label for="edad_inicio_trabajo">¿A qué edad comenzó a trabajar?</label>
-            <select name="edad_inicio_trabajo" id="edad_inicio_trabajo" required>
+            <select name="edad_inicio_trabajo" id="edad_inicio_trabajo" >
                 <option value="">Seleccione una edad</option>
                 <?php
                 $edad_actual = isset($antecedentes['edad_inicio_trabajo']) ? $antecedentes['edad_inicio_trabajo'] : '';
@@ -243,7 +243,7 @@ function getChecked($valor)
 
             <div class="form-group">
                 <label for="antiguedad">Antigüedad (años):</label>
-                <select name="antiguedad" id="antiguedad" required>
+                <select name="antiguedad" id="antiguedad" >
                     <option value="">Seleccione una edad</option>
                     <?php
                     $edad_actual = isset($antecedentes['antiguedad']) ? $antecedentes['antiguedad'] : '';
