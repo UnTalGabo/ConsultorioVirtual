@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Obtener datos del formulario
 $id_empleado = $_POST['id_empleado'];
+$accion = $_POST['accion'] ?? '';
 $edad_inicio_regla = !empty($_POST['edad_inicio_regla']) ? intval($_POST['edad_inicio_regla']) : null;
 $ritmo_ciclo_menstrual = !empty($_POST['ritmo_ciclo_menstrual']) ? intval($_POST['ritmo_ciclo_menstrual']) : null;
 $fecha_ultima_menstruacion = !empty($_POST['fecha_ultima_menstruacion']) ? $_POST['fecha_ultima_menstruacion'] : null;
@@ -100,7 +101,11 @@ if ($result->num_rows > 0) {
 
 if ($stmt->execute()) {
     // Redirigir al siguiente paso (paso 6)
-    header("Location: ../views/paso6.php?id=" . $id_empleado);
+    if ($accion === 'guardar_continuar') {
+        header("Location: ../views/paso6.php?id=" . $id_empleado);
+    } else if  ($accion === 'guardar_salir') {
+        header("Location: ../views/ver_pacientes.php");
+    }
 } else {
     // Mostrar error
     die("Error al guardar los datos: " . $conn->error);

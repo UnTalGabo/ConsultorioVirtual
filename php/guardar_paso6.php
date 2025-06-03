@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Obtener datos del formulario
 $id_empleado = $_POST['id_empleado'];
+$accion = $_POST['accion'] ?? '';
 $enfermedades = $_POST['enfermedades'] ?? [];
 $fracturas_esguinces = $_POST['fracturas_esguinces'] ?? null;
 $cirugias = $_POST['cirugias'] ?? null;
@@ -108,7 +109,11 @@ try {
     $conn->commit();
 
     // Redirigir al siguiente paso (o al panel principal)
-    header("Location: ../views/paso7.php?id=" . $id_empleado);
+    if ($accion === 'guardar_continuar') {
+        header("Location: ../views/paso7.php?id=" . $id_empleado);
+    } else if  ($accion === 'guardar_salir') {
+        header("Location: ../views/ver_pacientes.php");
+    }
     exit();
 } catch (Exception $e) {
     // Revertir cambios en caso de error

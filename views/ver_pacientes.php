@@ -1,4 +1,13 @@
 <?php
+session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+) {
+    header('Location: login.php');
+    exit();
+}
+
 require_once "../php/conexion.php";
 
 $sql = "SELECT * FROM pacientes ORDER BY nombre_completo ASC";
@@ -137,7 +146,7 @@ $resultado = $conn->query($sql);
     <?php endif; ?>
 
     <div class="text-center mt-4">
-      <a href="../views/index.html" class="btn btn-secondary">Volver al panel principal</a>
+      <a href="../views/index.php" class="btn btn-secondary">Volver al panel principal</a>
     </div>
   </div>
 
@@ -212,7 +221,7 @@ $resultado = $conn->query($sql);
         }
 
         // Actualiza los hrefs de los botones
-        document.getElementById('btnDatosGenerales').href = `registro_paciente.php?id=${idSeleccionado}`;
+        document.getElementById('btnDatosGenerales').href = `paso1.php?id=${idSeleccionado}`;
         document.getElementById('btnHeredoFamiliares').href = `paso3.php?id=${idSeleccionado}`;
         document.getElementById('btnNoPatologicos').href = `paso4.php?id=${idSeleccionado}`;
         document.getElementById('btnGinecoObstetricos').href = `paso5.php?id=${idSeleccionado}`;

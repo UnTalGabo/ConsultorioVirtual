@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+) {
+    header('Location: login.php');
+    exit();
+}
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -91,6 +102,11 @@
       <a class="navbar-brand" href="#">
         <i class="bi bi-hospital"></i> Consultorio Médico
       </a>
+      <div class="d-flex">
+        <a href="../php/logout.php" class="btn btn-outline-light ms-3">
+          <i class="bi bi-box-arrow-right"></i> Cerrar sesión
+        </a>
+      </div>
     </div>
   </nav>
 
@@ -101,7 +117,7 @@
       </h2>
       <div class="row g-4">
         <div class="col-12 col-md-6">
-          <a href="registro_paciente.php" class="option-btn">
+          <a href="paso1.php" class="option-btn">
             <i class="bi bi-person-plus"></i>
             Registrar Paciente
           </a>

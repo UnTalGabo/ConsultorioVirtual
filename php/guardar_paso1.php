@@ -7,7 +7,7 @@ $nombre = $_POST['nombre_completo'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $genero = $_POST['genero'];
 $estado_civil = $_POST['estado_civil'];
-$tipo_sangre = $_POST['tipo_sangre'] ?? null; 
+$tipo_sangre = $_POST['tipo_sangre'] ?? null;
 $telefono = $_POST['telefono'];
 $calle = $_POST['calle'];
 $numero = $_POST['numero'];
@@ -114,7 +114,11 @@ if ($verifica->num_rows > 0) {
     );
     if ($stmt->execute()) {
         // Redirigir al siguiente paso
-        header("Location: ../views/paso2.php?id=" . $id_empleado);
+        if ($accion === 'guardar_salir') {
+            header("Location: ../views/ver_pacientes.php");
+        } else {
+            header("Location: ../views/paso4.php?id=$id_empleado");
+        }
         exit;
     } else {
         echo "Error al guardar: " . $stmt->error;

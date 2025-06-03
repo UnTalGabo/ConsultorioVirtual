@@ -48,6 +48,7 @@ $stmt_check->bind_param("i", $id_empleado);
 $stmt_check->execute();
 $result = $stmt_check->get_result();
 
+
 if ($result->num_rows > 0) {
     // Actualizar registro existente
     $sql = "UPDATE antecedentes_no_patologicos SET 
@@ -164,8 +165,6 @@ if ($stmt->execute()) {
         header("Location: ../views/paso5.php?id=" . $id_empleado);
     } else if ($accion === 'guardar_continuar') {
         header("Location: ../views/paso6.php?id=" . $id_empleado);
-    } else if  ($accion === 'guardar_salir') {
-        header("Location: ../views/ver_pacientes.php");
     }
 } else {
     // Mostrar error

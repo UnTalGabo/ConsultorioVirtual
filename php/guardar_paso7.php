@@ -9,6 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // Obtener datos del formulario
 $id_empleado = $_POST['id_empleado'];
+$accion = $_POST['accion'] ?? '';
 $edad_inicio_trabajo = $_POST['edad_inicio_trabajo'] ?? null;
 
 // Datos de empresa

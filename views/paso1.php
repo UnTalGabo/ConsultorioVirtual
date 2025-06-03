@@ -180,7 +180,7 @@ if ($id_paciente > 0) {
             <div class="col-md-4">
               <label for="id_empleado" class="form-label">Número de empleado</label>
               <input type="number" name="id_empleado" class="form-control"
-                value="<?php echo isset($paciente['id_empleado']) ? $paciente['id_empleado'] : ''; ?>"
+                value="<?php echo $id_paciente ?>"
                 required placeholder="Ej. 1023">
             </div>
             <div class="col-md-4">
