@@ -116,16 +116,22 @@ if (
         <i class="bi bi-person-vcard"></i> Panel Principal
       </h2>
       <div class="row g-4">
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-4">
           <a href="paso1.php" class="option-btn">
             <i class="bi bi-person-plus"></i>
             Registrar Paciente
           </a>
         </div>
-        <div class="col-12 col-md-6">
+        <div class="col-12 col-md-4">
           <a href="ver_pacientes.php" class="option-btn">
             <i class="bi bi-people"></i>
             Ver Pacientes
+          </a>
+        </div>
+        <div class="col-12 col-md-4">
+          <a href="seleccionar_paciente.php" class="option-btn">
+            <i class="bi bi-journal-medical"></i>
+            Nueva Consulta
           </a>
         </div>
       </div>
