@@ -380,9 +380,9 @@ function getChecked($efnfermedad)
                     </a>
                     <div class="ms-auto d-flex gap-2">
                         <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
-                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
+                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar 
                         </button>
-                        <button type="submit" name="guardar_salir" value="1" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
+                        <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
                             <i class="bi bi-save"></i> Guardar y Salir
                         </button>
                     </div>

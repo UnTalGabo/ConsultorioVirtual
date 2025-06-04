@@ -3,10 +3,10 @@ session_start();
 require_once '../php/conexion.php'; // Ajusta la ruta si tu archivo de conexión está en otra carpeta
 
 // Solo admin puede agregar usuarios
-/*if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
+if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
     header('Location: login.php');
     exit();
-}*/
+}
 
 $mensaje = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {

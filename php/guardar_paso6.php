@@ -75,7 +75,7 @@ try {
                 observaciones,
                 fecha_creacion,
                 fecha_actualizacion
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+            ) VALUES (?, ?, ?, ?, ?, ?, NOW(), NOW())";
     }
 
     $stmt = $conn->prepare($sql);

@@ -249,8 +249,8 @@ function getChecked($valor)
                     <div class="mb-3">
                         <label for="empresa" class="form-label">Empresa:</label>
                         <input type="text" name="empresa" id="empresa"
-                            value="Hospital Angeles Morelia" readonly
-                            class="form-control" style="background-color: #f8f9fa; cursor: not-allowed;">
+                            value="<?php echo isset($antecedentes['empresa']) ? $antecedentes['empresa'] : '' ?>"
+                            class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="antiguedad" class="form-label">Antigüedad (años):</label>
@@ -268,8 +268,8 @@ function getChecked($valor)
                     <div class="mb-3">
                         <label for="puesto" class="form-label">Puesto:</label>
                         <input type="text" name="puesto" id="puesto"
-                            value="<?php echo isset($paciente['puesto']) ? $paciente['puesto'] : '' ?>" readonly
-                            class="form-control" style="background-color: #f8f9fa; cursor: not-allowed;">
+                            value="<?php echo isset($antecedentes['puesto']) ? $antecedentes['puesto'] : '' ?>"
+                            class="form-control">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">¿Tuvo exposición a?</label>
