@@ -181,7 +181,7 @@ $pdf->SetXY(35, 77.5);
 $pdf->Write(0, utf8_decode($paciente['puesto']));
 
 $pdf->SetXY(127, 77.5);
-$pdf->Write(0, utf8_decode($paciente['area']));
+$pdf->Write(0, utf8_decode($paciente['departamento']));
 
 //enfermedades heredo familiares
 
