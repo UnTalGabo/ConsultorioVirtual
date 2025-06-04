@@ -362,7 +362,6 @@ $stmt->close();
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Mostrar campos condicionales con animación
         function toggleField(checkboxId, fieldId) {
             var cb = document.getElementById(checkboxId);
             var field = document.getElementById(fieldId);
