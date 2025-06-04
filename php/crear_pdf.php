@@ -167,7 +167,7 @@ $pdf->SetXY(160, 63);
 $pdf->Write(0, $paciente['estado_civil']);
 
 $pdf->SetXY(32, 68);
-$pdf->Write(0, utf8_decode($paciente['calle'] . ' ' . $paciente['numero'] . ',    ' . $paciente['colonia']));
+$pdf->Write(0, utf8_decode($paciente['calle'] . ' ' . $paciente['numero'] . ',    ' . $paciente['colonia'] . ',    ' . $paciente['ciudad'] . ',     Michoacan'));
 
 $pdf->SetFontSize(7.5);
 $pdf->SetXY(54, 73);

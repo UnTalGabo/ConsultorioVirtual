@@ -4,7 +4,7 @@ require_once '../php/conexion.php'; // Ajusta la ruta si tu archivo de conexión
 
 // Solo admin puede agregar usuarios
 if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
-    header('Location: login.php');
+    header('Location: index.php');
     exit();
 }
 
