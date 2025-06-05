@@ -74,7 +74,7 @@ if ($verifica->num_rows > 0) {
     );
     if ($stmt->execute()) {
         // Redirigir al siguiente paso
-        header("Location: ../views/paso3.php?id=" . $id_empleado);
+        header("Location: ../views/paso2.php?id=" . $id_empleado);
         exit;
     } else {
         echo "Error al Actualizar: " . $stmt->error;
@@ -117,7 +117,7 @@ if ($verifica->num_rows > 0) {
         if ($accion === 'guardar_salir') {
             header("Location: ../views/ver_pacientes.php");
         } else {
-            header("Location: ../views/paso4.php?id=$id_empleado");
+            header("Location: ../views/paso2.php?id=$id_empleado");
         }
         exit;
     } else {

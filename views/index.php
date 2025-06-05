@@ -128,6 +128,36 @@ if (
             Ver Pacientes
           </a>
         </div>
+        <div class="col-12 col-md-12">
+          <button type="button" class="option-btn w-100" id="btnActualizarPaciente" data-bs-toggle="modal" data-bs-target="#modalActualizarPaciente">
+            <i class="bi bi-pencil-square"></i>
+            Actualizar Paciente
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Actualizar Paciente -->
+  <div class="modal fade" id="modalActualizarPaciente" tabindex="-1" aria-labelledby="modalActualizarPacienteLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <form id="formActualizarPaciente" autocomplete="off">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalActualizarPacienteLabel">Actualizar Paciente</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+          </div>
+          <div class="modal-body">
+            <div class="mb-3">
+              <label for="numeroEmpleado" class="form-label">Número de empleado</label>
+              <input type="text" class="form-control" id="numeroEmpleado" name="numeroEmpleado" required autofocus>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Buscar</button>
+          </div>
+        </form>
       </div>
     </div>
   </div>
@@ -135,6 +165,16 @@ if (
   <footer>
     Sistema desarrollado por Gabriel Orozco - Prototipo
   </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    document.getElementById('formActualizarPaciente').addEventListener('submit', function (e) {
+      e.preventDefault();
+      const numeroEmpleado = document.getElementById('numeroEmpleado').value.trim();
+      if (numeroEmpleado) {
+        window.location.href = 'paso1.php?id=' + encodeURIComponent(numeroEmpleado);
+      }
+    });
+  </script>
 </body>
 
 </html>

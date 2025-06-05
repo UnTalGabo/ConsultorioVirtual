@@ -304,7 +304,7 @@ $stmt->close();
                     </label>
                     <div id="tatuajes_fields" class="conditional-field">
                         <label class="form-label">¿Cuántos?
-                            <input type="number" name="cantidad_tatuajes" min="1" class="form-control"
+                            <input type="number" name="cantidad_tatuajes" class="form-control"
                                 value="<?php echo isset($antecedentes['cantidad_tatuajes']) ? $antecedentes['cantidad_tatuajes'] : ''; ?>">
                         </label>
                         <label class="form-label">¿En dónde?
@@ -349,9 +349,9 @@ $stmt->close();
                         <i class="bi bi-save2"></i> Guardar y Salir
                     </button>
                     <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
-                        <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
+                        <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar
                     </button>
-                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" name="accion" value="salir_sin_guardar">
+                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
                         <i class="bi bi-box-arrow-left"></i> Salir sin guardar
                     </a>
                 </div>

@@ -379,12 +379,13 @@ function getChecked($efnfermedad)
                         <i class="bi bi-box-arrow-left"></i> Salir sin guardar
                     </a>
                     <div class="ms-auto d-flex gap-2">
-                        <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
-                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar 
-                        </button>
                         <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
                             <i class="bi bi-save"></i> Guardar y Salir
                         </button>
+                        <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar" style="background-color: #198754; border-color: #198754;">
+                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar 
+                        </button>
+                        
                     </div>
                 </div>
             </form>

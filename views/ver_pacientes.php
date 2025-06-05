@@ -38,7 +38,8 @@ $resultado = $conn->query($sql);
       background: #1e2a78;
     }
 
-    .navbar-brand, .navbar-brand i {
+    .navbar-brand,
+    .navbar-brand i {
       color: #fff !important;
       font-weight: 600;
       letter-spacing: 1px;
@@ -63,6 +64,7 @@ $resultado = $conn->query($sql);
         opacity: 0;
         transform: translateY(40px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -87,7 +89,7 @@ $resultado = $conn->query($sql);
       border-top: none;
     }
 
-    .table-striped > tbody > tr:nth-of-type(odd) {
+    .table-striped>tbody>tr:nth-of-type(odd) {
       background-color: #f4f6fa;
     }
 
@@ -104,16 +106,19 @@ $resultado = $conn->query($sql);
       color: #2e3c81 !important;
       font-weight: 500;
     }
+
     .dataTables_wrapper .dataTables_paginate .paginate_button.current {
       background: #2e3c81 !important;
       color: #fff !important;
     }
+
     .dataTables_wrapper .dataTables_filter input {
       border-radius: 8px;
       border: 1px solid #2e3c81;
       padding: 0.4rem 0.8rem;
       margin-left: 0.5em;
     }
+
     .dataTables_length select {
       border-radius: 8px;
       border: 1px solid #2e3c81;
@@ -121,44 +126,55 @@ $resultado = $conn->query($sql);
       margin-left: 0.5em;
     }
 
-    .btn-editar, .btn-info, .btn-danger, .btn-primary {
+    .btn-editar,
+    .btn-info,
+    .btn-danger,
+    .btn-primary {
       border-radius: 6px;
       font-size: 0.98rem;
       font-weight: 500;
       margin-right: 0.2rem;
       margin-bottom: 0.2rem;
     }
+
     .btn-editar {
       background: #ffe066;
       color: #7c6f00;
       border: none;
     }
+
     .btn-editar:hover {
       background: #fff3bf;
       color: #7c6f00;
     }
+
     .btn-info {
       background: #2e3c81;
       color: #fff;
       border: none;
     }
+
     .btn-info:hover {
       background: #1e2a78;
       color: #fff;
     }
+
     .btn-danger {
       background: #e03131;
       color: #fff;
       border: none;
     }
+
     .btn-danger:hover {
       background: #c92a2a;
       color: #fff;
     }
+
     .btn-primary {
       background: #228be6;
       border: none;
     }
+
     .btn-primary:hover {
       background: #1864ab;
     }
@@ -171,9 +187,11 @@ $resultado = $conn->query($sql);
       .main-container {
         margin-top: 20px;
       }
+
       .card {
         padding: 0.5rem;
       }
+
       .table-responsive {
         font-size: 0.97rem;
       }
@@ -230,15 +248,14 @@ $resultado = $conn->query($sql);
                   <td><?php echo $fila['telefono']; ?></td>
                   <td><?php echo $fila['departamento']; ?></td>
                   <td class="text-nowrap">
-                    <button 
+                    <button
                       class="btn btn-editar btn-sm"
                       data-id="<?php echo $fila['id_empleado']; ?>"
                       data-genero="<?php echo strtolower($fila['genero']); ?>"
                       data-nombre="<?php echo htmlspecialchars($fila['nombre_completo']); ?>"
                       type="button"
                       data-bs-toggle="modal"
-                      data-bs-target="#modalEditar"
-                    ><i class="bi bi-pencil-square"></i> Editar</button>
+                      data-bs-target="#modalEditar"><i class="bi bi-pencil-square"></i> Editar</button>
                     <a href="paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white">
                       <i class="bi bi-clipboard2-pulse"></i> Examen Médico
                     </a>
@@ -347,6 +364,7 @@ $resultado = $conn->query($sql);
     });
   </script>
 </body>
+
 </html>
 
 <?php $conn->close(); ?>

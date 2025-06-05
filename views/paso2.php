@@ -2,6 +2,20 @@
 require_once "../php/conexion.php";
 
 $id_empleado = $_GET['id'];
+$sql = "SELECT acepta_terminos FROM pacientes WHERE id_empleado = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_empleado);
+$stmt->execute();
+$result = $stmt->get_result();
+$paciente = $result->fetch_assoc();
+$stmt->close();
+$conn->close();
+
+if ($paciente['acepta_terminos'] == 1) {
+    // Si el paciente no ha aceptado los términos, mostrar la página de aviso de conformidad
+    header("Location: ../views/paso3.php?id=" . $id_empleado);
+    exit();
+}
 ?>
 
 <!DOCTYPE html>
