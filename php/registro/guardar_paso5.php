@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 
 // Validar que el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -102,9 +102,9 @@ if ($result->num_rows > 0) {
 if ($stmt->execute()) {
     // Redirigir al siguiente paso (paso 6)
     if ($accion === 'guardar_continuar') {
-        header("Location: ../views/paso6.php?id=" . $id_empleado);
+        header("Location: ../../views/registro/paso6.php?id=" . $id_empleado);
     } else if  ($accion === 'guardar_salir') {
-        header("Location: ../views/ver_pacientes.php");
+        header("Location: ../../views/registro/ver_pacientes.php");
     }
 } else {
     // Mostrar error

@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 // 1. Validar ID del paciente
 $id_empleado = $_GET['id'];
@@ -227,7 +227,7 @@ function getChecked($efnfermedad)
             </h2>
             <p class="mb-4">Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
 
-            <form action="../php/guardar_paso3.php" method="post" id="formPaso3">
+            <form action="../../php/registro/guardar_paso3.php" method="post" id="formPaso3">
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
                 <div class="contenedor-columnas mb-4">

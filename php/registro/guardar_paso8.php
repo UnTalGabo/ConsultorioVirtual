@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 
 // Validar que el formulario fue enviado
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -165,7 +165,7 @@ try {
     $stmt->close();
 
     $conn->commit();
-    header("Location: ../views/ver_pacientes.php?id=" . $id_empleado);
+    header("Location: ../../views/registro/ver_pacientes.php?id=" . $id_empleado);
     exit();
 } catch (Exception $e) {
     $conn->rollback();

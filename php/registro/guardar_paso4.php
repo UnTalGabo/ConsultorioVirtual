@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 
 
 // Validar que el formulario fue enviado
@@ -162,11 +162,11 @@ if ($result->num_rows > 0) {
 if ($stmt->execute()) {
     // Redirigir según el género
     if (strtolower($genero) === 'femenino' && $accion === 'guardar_continuar') {
-        header("Location: ../views/paso5.php?id=" . $id_empleado);
+        header("Location: ../../views/registro/paso5.php?id=" . $id_empleado);
     } else if ($accion === 'guardar_continuar') {
-        header("Location: ../views/paso6.php?id=" . $id_empleado);
+        header("Location: ../../views/registro/paso6.php?id=" . $id_empleado);
     } else if ($accion === 'guardar_salir') {
-        header("Location: ../views/ver_pacientes.php");
+        header("Location: ../../views/regitro/ver_pacientes.php");
     }
 } else {
     // Mostrar error

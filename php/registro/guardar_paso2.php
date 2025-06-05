@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 
 // 1. Validar datos recibidos
 if (!isset($_POST['id_empleado'])) {
@@ -16,7 +16,7 @@ $stmt->bind_param("ii", $acepta_terminos, $id_empleado);
 
 if ($stmt->execute()) {
     // 3. Redirigir al siguiente paso con el ID
-    header("Location: ../views/paso3.php?id=" . $id_empleado);
+    header("Location: ../../views/registro/paso3.php?id=" . $id_empleado);
 } else {
     echo "Error al guardar: " . $stmt->error;
 }

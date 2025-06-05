@@ -1,8 +1,9 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 
 // Obtener datos del formulario
 $id_empleado = $_POST['id_empleado'];
+$accion = $_POST['accion'] ?? '';
 $nombre = $_POST['nombre_completo'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $genero = $_POST['genero'];
@@ -73,8 +74,11 @@ if ($verifica->num_rows > 0) {
         $id_empleado
     );
     if ($stmt->execute()) {
-        // Redirigir al siguiente paso
-        header("Location: ../views/paso2.php?id=" . $id_empleado);
+        if ($accion === 'guardar_salir') {
+            header("Location: ../../views/ver_pacientes.php");
+        } else {
+            header("Location: ../../views/registro/paso2.php?id=$id_empleado");
+        }
         exit;
     } else {
         echo "Error al Actualizar: " . $stmt->error;
@@ -115,9 +119,9 @@ if ($verifica->num_rows > 0) {
     if ($stmt->execute()) {
         // Redirigir al siguiente paso
         if ($accion === 'guardar_salir') {
-            header("Location: ../views/ver_pacientes.php");
+            header("Location: ../../views/ver_pacientes.php");
         } else {
-            header("Location: ../views/paso2.php?id=$id_empleado");
+            header("Location: ../../views/registro/paso2.php?id=$id_empleado");
         }
         exit;
     } else {

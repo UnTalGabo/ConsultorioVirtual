@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 // Validar ID del paciente
 $id_empleado = $_GET['id'];
@@ -197,7 +197,7 @@ $stmt->close();
             </h2>
             <p class="mb-4">Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
 
-            <form action="../php/guardar_paso4.php" method="post">
+            <form action="../../php/registro/guardar_paso4.php" method="post">
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
                 <!-- Tabaquismo -->

@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 $id_empleado = $_GET['id'];
 $sql = "SELECT acepta_terminos FROM pacientes WHERE id_empleado = ?";
@@ -13,7 +13,7 @@ $conn->close();
 
 if ($paciente['acepta_terminos'] == 1) {
     // Si el paciente no ha aceptado los términos, mostrar la página de aviso de conformidad
-    header("Location: ../views/paso3.php?id=" . $id_empleado);
+    header("Location: paso3.php?id=" . $id_empleado);
     exit();
 }
 ?>
@@ -163,7 +163,7 @@ if ($paciente['acepta_terminos'] == 1) {
                 <p>Toda la información proporcionada estará protegida bajo el aviso de privacidad de la organización. </p>
             </div>
 
-            <form action="../php/guardar_paso2.php" method="post">
+            <form action="../../php/registro/guardar_paso2.php" method="post">
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
                 <div class="form-check mb-3">

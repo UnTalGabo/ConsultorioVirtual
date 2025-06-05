@@ -259,7 +259,7 @@ $resultado = $conn->query($sql);
                     <a href="paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white">
                       <i class="bi bi-clipboard2-pulse"></i> Examen Médico
                     </a>
-                    <a href="../php/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
+                    <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
                       <i class="bi bi-trash"></i> Eliminar
                     </a>
                   </td>
@@ -354,12 +354,12 @@ $resultado = $conn->query($sql);
         }
 
         // Actualiza los hrefs de los botones
-        document.getElementById('btnDatosGenerales').href = `paso1.php?id=${idSeleccionado}`;
-        document.getElementById('btnHeredoFamiliares').href = `paso3.php?id=${idSeleccionado}`;
-        document.getElementById('btnNoPatologicos').href = `paso4.php?id=${idSeleccionado}`;
-        document.getElementById('btnGinecoObstetricos').href = `paso5.php?id=${idSeleccionado}`;
-        document.getElementById('btnPatologicos').href = `paso6.php?id=${idSeleccionado}`;
-        document.getElementById('btnMedicoLaborales').href = `paso7.php?id=${idSeleccionado}`;
+        document.getElementById('btnDatosGenerales').href = `../views/registro/paso1.php?id=${idSeleccionado}`;
+        document.getElementById('btnHeredoFamiliares').href = `../views/registro/paso3.php?id=${idSeleccionado}`;
+        document.getElementById('btnNoPatologicos').href = `../views/registro/paso4.php?id=${idSeleccionado}`;
+        document.getElementById('btnGinecoObstetricos').href = `../views/registro/paso5.php?id=${idSeleccionado}`;
+        document.getElementById('btnPatologicos').href = `../views/registro/paso6.php?id=${idSeleccionado}`;
+        document.getElementById('btnMedicoLaborales').href = `../views/registro/paso7.php?id=${idSeleccionado}`;
       });
     });
   </script>

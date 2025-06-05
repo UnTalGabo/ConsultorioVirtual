@@ -8,7 +8,7 @@ if (
     exit();
 }
 
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 $sql = "SELECT * FROM pacientes ORDER BY nombre_completo ASC";
 $resultado = $conn->query($sql);
@@ -75,7 +75,7 @@ $resultado = $conn->query($sql);
   <!-- Barra de navegación superior -->
   <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="../index.php">
         <i class="bi bi-hospital-fill fs-3"></i>
         Consultorio Virtual
       </a>

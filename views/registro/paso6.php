@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 // Validar ID del paciente
 $id_empleado = $_GET['id'];
@@ -223,7 +223,7 @@ function getChecked($efnfermedad)
             </h2>
             <p class="mb-4 text-center">Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
 
-            <form action="../php/guardar_paso6.php" method="post" autocomplete="off">
+            <form action="../../php/registro/guardar_paso6.php" method="post" autocomplete="off">
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
                 <div class="form-section">

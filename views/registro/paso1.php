@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 $id_paciente = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $paciente = [];
@@ -170,7 +170,7 @@ if ($id_paciente > 0) {
         <i class="bi bi-person-vcard-fill me-2"></i>
         <?php echo $id_paciente ? 'Editar' : 'Nuevo'; ?> Paciente - Información Básica
       </h2>
-      <form action="../php/guardar_paso1.php" method="POST" autocomplete="off">
+      <form action="../../php/registro/guardar_paso1.php" method="POST" autocomplete="off">
         <input type="hidden" name="id_empleado" value="<?php echo $id_paciente; ?>">
 
         <!-- Sección 1: Datos del Empleado -->

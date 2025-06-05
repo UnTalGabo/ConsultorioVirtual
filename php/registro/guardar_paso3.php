@@ -1,5 +1,5 @@
 <?php
-require_once "conexion.php";
+require_once "../conexion.php";
 
 // 1. Validar datos recibidos
 $id_empleado = $_POST['id_empleado'];
@@ -35,9 +35,9 @@ try {
 
     $conn->commit(); // Confirmar cambios
     if ($accion === 'guardar_salir') {
-        header("Location: ../views/ver_pacientes.php");
+        header("Location: ../../views/ver_pacientes.php");
     } else {
-        header("Location: ../views/paso4.php?id=$id_empleado");
+        header("Location: ../../views/registro/paso4.php?id=$id_empleado");
     }
     exit;
 } catch (Exception $e) {
