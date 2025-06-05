@@ -128,6 +128,12 @@ if (
             Ver Pacientes
           </a>
         </div>
+        <div class="col-12 col-md-4">
+          <a href="seleccionar_paciente.php" class="option-btn">
+            <i class="bi bi-journal-medical"></i>
+            Nueva Consulta
+          </a>
+        </div>
         <div class="col-12 col-md-12">
           <button type="button" class="option-btn w-100" id="btnActualizarPaciente" data-bs-toggle="modal" data-bs-target="#modalActualizarPaciente">
             <i class="bi bi-pencil-square"></i>
@@ -158,12 +164,6 @@ if (
             <button type="submit" class="btn btn-primary">Buscar</button>
           </div>
         </form>
-        <div class="col-12 col-md-4">
-          <a href="seleccionar_paciente.php" class="option-btn">
-            <i class="bi bi-journal-medical"></i>
-            Nueva Consulta
-          </a>
-        </div>
       </div>
     </div>
   </div>
