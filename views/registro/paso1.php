@@ -306,7 +306,7 @@ if ($id_paciente > 0) {
             <div class="col-md-8">
               <label for="estado" class="form-label">Estado</label>
               <input type="text" name="estado" class="form-control"
-                value="<?php echo isset($paciente['estado']) ? $paciente['estado'] : ''; ?>"
+                value="<?php echo isset($paciente['estado']) ? $paciente['estado'] : 'Michoacán'; ?>"
                 required placeholder="Ej. Michoacán">
             </div>
             <div class="col-md-4">

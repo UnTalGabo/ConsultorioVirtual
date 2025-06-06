@@ -47,7 +47,8 @@ $stmt->close();
             background: #1e2a78;
         }
 
-        .navbar-brand, .navbar-brand i {
+        .navbar-brand,
+        .navbar-brand i {
             color: #fff !important;
             font-weight: 600;
             letter-spacing: 1px;
@@ -72,6 +73,7 @@ $stmt->close();
                 opacity: 0;
                 transform: translateY(40px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -98,14 +100,37 @@ $stmt->close();
             animation: fadeInGroup 0.7s forwards;
         }
 
-        .form-group:nth-child(n) { animation-delay: 0.1s; }
-        .form-group:nth-child(n+1) { animation-delay: 0.2s; }
-        .form-group:nth-child(n+2) { animation-delay: 0.3s; }
-        .form-group:nth-child(n+3) { animation-delay: 0.4s; }
-        .form-group:nth-child(n+4) { animation-delay: 0.5s; }
-        .form-group:nth-child(n+5) { animation-delay: 0.6s; }
-        .form-group:nth-child(n+6) { animation-delay: 0.7s; }
-        .form-group:nth-child(n+7) { animation-delay: 0.8s; }
+        .form-group:nth-child(n) {
+            animation-delay: 0.1s;
+        }
+
+        .form-group:nth-child(n+1) {
+            animation-delay: 0.2s;
+        }
+
+        .form-group:nth-child(n+2) {
+            animation-delay: 0.3s;
+        }
+
+        .form-group:nth-child(n+3) {
+            animation-delay: 0.4s;
+        }
+
+        .form-group:nth-child(n+4) {
+            animation-delay: 0.5s;
+        }
+
+        .form-group:nth-child(n+5) {
+            animation-delay: 0.6s;
+        }
+
+        .form-group:nth-child(n+6) {
+            animation-delay: 0.7s;
+        }
+
+        .form-group:nth-child(n+7) {
+            animation-delay: 0.8s;
+        }
 
         @keyframes fadeInGroup {
             to {
@@ -135,7 +160,8 @@ $stmt->close();
             transition: opacity 0.4s, max-height 0.4s;
         }
 
-        .form-control:focus, .form-select:focus {
+        .form-control:focus,
+        .form-select:focus {
             border-color: #2e3c81;
             box-shadow: 0 0 0 2px #2e3c8133;
         }
@@ -152,7 +178,9 @@ $stmt->close();
             align-items: center;
             gap: 0.5rem;
         }
-        .btn-primary:hover, .btn-primary:focus {
+
+        .btn-primary:hover,
+        .btn-primary:focus {
             background-color: #1e2a78;
             transform: scale(0.98);
         }
@@ -170,9 +198,11 @@ $stmt->close();
             .main-container {
                 margin-top: 20px;
             }
+
             .card {
                 padding: 0.5rem;
             }
+
             .form-group {
                 padding: 10px 8px;
             }
@@ -242,6 +272,11 @@ $stmt->close();
                                 value="<?php echo isset($antecedentes['numero_cesareas']) ? $antecedentes['numero_cesareas'] : '0'; ?>">
                         </div>
                         <div class="form-group">
+                            <label class="form-label">Fecha de último embarazo</label>
+                            <input type="date" name="fecha_ultimo_embarazo" class="form-control"
+                                value="<?php echo isset($antecedentes['fecha_ultimo_embarazo']) ? $antecedentes['fecha_ultimo_embarazo'] : ''; ?>">
+                        </div>
+                        <div class="form-group">
                             <label class="form-label">Fecha de última citología cervicovaginal (Papanicolau)</label>
                             <input type="date" name="fecha_ultima_citologia" class="form-control"
                                 value="<?php echo isset($antecedentes['fecha_ultima_citologia']) ? $antecedentes['fecha_ultima_citologia'] : ''; ?>">
@@ -269,15 +304,16 @@ $stmt->close();
                 </div>
 
                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" name="accion" value="salir_sin_guardar">
+                        <i class="bi bi-box-arrow-left"></i> Salir
+                    </a>
                     <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
                         <i class="bi bi-save2"></i> Guardar y Salir
                     </button>
                     <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
                         <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
                     </button>
-                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" name="accion" value="salir_sin_guardar">
-                        <i class="bi bi-box-arrow-left"></i> Salir
-                    </a>
+
                 </div>
             </form>
         </div>
@@ -297,12 +333,13 @@ $stmt->close();
                 }
             }
         }
-        document.addEventListener('DOMContentLoaded', function () {
+        document.addEventListener('DOMContentLoaded', function() {
             toggleField('mastografia', 'mastografia_fields');
-            document.getElementById('mastografia').addEventListener('change', function () {
+            document.getElementById('mastografia').addEventListener('change', function() {
                 toggleField('mastografia', 'mastografia_fields');
             });
         });
     </script>
 </body>
+
 </html>

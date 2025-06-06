@@ -256,7 +256,7 @@ $resultado = $conn->query($sql);
                       type="button"
                       data-bs-toggle="modal"
                       data-bs-target="#modalEditar"><i class="bi bi-pencil-square"></i> Editar</button>
-                    <a href="paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white">
+                    <a href="../views/registro/paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white">
                       <i class="bi bi-clipboard2-pulse"></i> Examen Médico
                     </a>
                     <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">

@@ -425,9 +425,11 @@ function getChecked($valor)
                                     value="<?php echo isset($antecedentes['fecha_secuela']) ? $antecedentes['fecha_secuela'] : ''; ?>">
                             </div>
                             <div class="mb-3">
-                                <label for="secuela" class="form-label">Secuela:</label>
-                                <textarea name="secuela" id="secuela" rows="3" class="form-control"><?php echo isset($antecedentes['secuela']) ? htmlspecialchars($antecedentes['secuela']) : ''; ?></textarea>
-                            </div>
+                            <label for="secuela" class="form-label">Lesión:</label>
+                            <input type="text" name="secuela" id="secuela"
+                                class="form-control"
+                                value="<?php echo isset($antecedentes['secuela']) ? htmlspecialchars($antecedentes['secuela']) : ''; ?>">
+                        </div>
                         </div>
                     </div>
                 </div>

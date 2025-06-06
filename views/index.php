@@ -171,7 +171,7 @@ if (
       e.preventDefault();
       const numeroEmpleado = document.getElementById('numeroEmpleado').value.trim();
       if (numeroEmpleado) {
-        window.location.href = 'paso1.php?id=' + encodeURIComponent(numeroEmpleado);
+        window.location.href = '../views/registro/paso1.php?id=' + encodeURIComponent(numeroEmpleado);
       }
     });
   </script>
