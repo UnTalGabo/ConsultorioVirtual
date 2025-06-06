@@ -195,7 +195,7 @@ $resultado = $conn->query($sql);
 
     document.getElementById('btnNuevaConsulta').addEventListener('click', function() {
       if (pacienteSeleccionado.id) {
-        window.location.href = 'consulta_paso1.php?id=' + pacienteSeleccionado.id;
+        window.location.href = 'paso1.php?id=' + pacienteSeleccionado.id;
       }
     });
   </script>
