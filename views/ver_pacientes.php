@@ -248,20 +248,29 @@ $resultado = $conn->query($sql);
                   <td><?php echo $fila['telefono']; ?></td>
                   <td><?php echo $fila['departamento']; ?></td>
                   <td class="text-nowrap">
-                    <button
-                      class="btn btn-editar btn-sm"
-                      data-id="<?php echo $fila['id_empleado']; ?>"
-                      data-genero="<?php echo strtolower($fila['genero']); ?>"
-                      data-nombre="<?php echo htmlspecialchars($fila['nombre_completo']); ?>"
-                      type="button"
-                      data-bs-toggle="modal"
-                      data-bs-target="#modalEditar"><i class="bi bi-pencil-square"></i> Editar</button>
-                    <a href="paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white">
-                      <i class="bi bi-clipboard2-pulse"></i> Examen Médico
-                    </a>
-                    <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
-                      <i class="bi bi-trash"></i> Eliminar
-                    </a>
+                    <div class="d-flex flex-column flex-wrap" style="min-width: 180px;">
+                      <div class="d-flex flex-row mb-1 gap-1">
+                        <button
+                          class="btn btn-editar btn-sm flex-fill"
+                          data-id="<?php echo $fila['id_empleado']; ?>"
+                          data-genero="<?php echo strtolower($fila['genero']); ?>"
+                          data-nombre="<?php echo htmlspecialchars($fila['nombre_completo']); ?>"
+                          type="button"
+                          data-bs-toggle="modal"
+                          data-bs-target="#modalEditar"><i class="bi bi-pencil-square"></i> Editar</button>
+                        <a href="../views/registro/paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white flex-fill">
+                          <i class="bi bi-clipboard2-pulse"></i> Examen Médico
+                        </a>
+                      </div>
+                      <div class="d-flex flex-row gap-1">
+                        <a href="../views/consulta/historial.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-secondary btn-sm flex-fill">
+                          <i class="bi bi-journal-medical"></i> Ver Consultas
+                        </a>
+                        <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm flex-fill" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
+                          <i class="bi bi-trash"></i> Eliminar
+                        </a>
+                      </div>
+                    </div>
                   </td>
                   <td>
                     <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-primary btn-sm" target="_blank">

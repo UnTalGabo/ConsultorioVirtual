@@ -4,13 +4,13 @@ require_once "../../php/conexion.php";
 date_default_timezone_set('America/Mexico_City');
 
 // Validar ID del empleado
-$id_paciente = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id_empleado = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Obtener nombre del paciente
-if ($id_paciente > 0) {
+if ($id_empleado > 0) {
   $sql = "SELECT * FROM pacientes WHERE id_empleado = ?";
   $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $id_paciente);
+  $stmt->bind_param("i", $id_empleado);
   $stmt->execute();
   $result = $stmt->get_result();
   $paciente = $result->fetch_assoc();
@@ -256,7 +256,7 @@ $fecha = date('Y-m-d');
                 </div>
             <?php endif; ?>
 
-            <form action="../../php/registro/guardar_paso8.php" method="post" autocomplete="off" id="formConsulta">
+            <form action="../../php/consulta/guardar_consulta.php" method="post" autocomplete="off" id="formConsulta">
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
                 <!-- Hora de entrada y salida -->
                 <div class="row mb-4">

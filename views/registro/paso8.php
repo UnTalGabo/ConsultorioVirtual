@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 // Validar ID del empleado
 $id_empleado = isset($_GET['id']) ? intval($_GET['id']) : 0;
