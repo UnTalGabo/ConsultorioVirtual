@@ -1,12 +1,12 @@
 <?php
 session_start();
-if (
+/*if (
     !isset($_SESSION['usuario_rol']) ||
     !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
 ) {
     header('Location: login.php');
     exit();
-}
+}*/
 
 require_once "../../php/conexion.php";
 
