@@ -385,13 +385,13 @@ $fecha = date('Y-m-d');
                         <div class="evaluation-column">
                             <div class="evaluation-item">
                                 <h4>Botiquin</h4>
-                                <textarea name="motivo" rows="3" class="form-control"></textarea>
+                                <textarea name="botiquin" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="evaluation-column">
                             <div class="evaluation-item">
                                 <h4>Destino</h4>
-                                <textarea name="motivo" rows="3" class="form-control"></textarea>
+                                <textarea name="destino" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
