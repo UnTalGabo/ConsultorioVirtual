@@ -174,13 +174,13 @@ $pdf->SetXY(137, 207.7);
 $pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? utf8_decode($antecedentesNoPatologicos['frecuencia_alcohol']) : '');
 $pdf->SetXY(180, 207.7);
 $pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? utf8_decode($antecedentesNoPatologicos['anos_bebiendo'] . ' años') : '');
-$pdf->SetXY(107.5, 211.2);
+$pdf->SetXY(107.5, 207.7);
 $pdf->Write(0, !$antecedentesNoPatologicos['bebe'] ? 'X' : '');
 
 $pdf->SetXY(107.6, 212.5);
 $pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? 'X' : '');
 $pdf->SetXY(138, 212.5);
-$pdf->Write(0, !$antecedentesNoPatologicos['medicamentos_controlados'] ? 'X' : '');
+$pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? 'X' : 'X');
 
 $pdf->SetXY(87.5, 222);
 $pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? 'X' : '');
@@ -392,7 +392,7 @@ $pdf->Write(0, utf8_decode($antecedentesLaborales['secuela'] ?? ''));
 $pdf->SetXY(124.5, 196);
 $pdf->Write(0, ($antecedentesLaborales['pagado_por'] == 'imss' ? 'X' : ''));
 $pdf->SetXY(176.5, 196);
-$pdf->Write(0, ($antecedentesLaborales['pagado_por'] == 'imss' && $antecedentesLaborales['pagado_por'] != null ? '' : 'X'));
+$pdf->Write(0, ($antecedentesLaborales['pagado_por'] == 'empresa' ? 'X' : ''));
 $pdf->SetXY(107.7, 201);
 $pdf->Write(0, ($antecedentesLaborales['secuelas'] ? 'X' : ''));
 $pdf->SetXY(138, 201);

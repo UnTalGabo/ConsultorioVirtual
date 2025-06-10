@@ -268,9 +268,15 @@ if ($id_paciente > 0) {
             </div>
             <div class="col-md-6">
               <label for="escolaridad" class="form-label">Escolaridad Máxima</label>
-              <input type="text" name="escolaridad" class="form-control"
-                value="<?php echo isset($paciente['escolaridad']) ? $paciente['escolaridad'] : ''; ?>"
-                required placeholder="Ej. Preparatoria, Licenciatura">
+              <select name="escolaridad" class="form-select" required>
+                <option value="">Seleccione...</option>
+                <option value="Primaria" <?php echo (isset($paciente['escolaridad']) && $paciente['escolaridad'] == 'Primaria') ? 'selected' : ''; ?>>Primaria</option>
+                <option value="Secundaria" <?php echo (isset($paciente['escolaridad']) && $paciente['escolaridad'] == 'Secundaria') ? 'selected' : ''; ?>>Secundaria</option>
+                <option value="Preparatoria" <?php echo (isset($paciente['escolaridad']) && $paciente['escolaridad'] == 'Preparatoria') ? 'selected' : ''; ?>>Preparatoria</option>
+                <option value="Licenciatura" <?php echo (isset($paciente['escolaridad']) && $paciente['escolaridad'] == 'Licenciatura') ? 'selected' : ''; ?>>Licenciatura</option>
+                <option value="Maestria" <?php echo (isset($paciente['escolaridad']) && $paciente['escolaridad'] == 'Maestria') ? 'selected' : ''; ?>>Maestría</option>
+                <option value="Doctorado" <?php echo (isset($paciente['escolaridad']) && $paciente['escolaridad'] == 'Doctorado') ? 'selected' : ''; ?>>Doctorado</option>
+              </select>
             </div>
           </div>
         </div>

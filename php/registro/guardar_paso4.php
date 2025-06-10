@@ -166,7 +166,7 @@ if ($stmt->execute()) {
     } else if ($accion === 'guardar_continuar') {
         header("Location: ../../views/registro/paso6.php?id=" . $id_empleado);
     } else if ($accion === 'guardar_salir') {
-        header("Location: ../../views/regitro/ver_pacientes.php");
+        header("Location: ../../views/ver_pacientes.php");
     }
 } else {
     // Mostrar error
