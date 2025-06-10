@@ -129,12 +129,6 @@ if (
           </a>
         </div>
         <div class="col-12 col-md-4">
-          <a href="../views/consulta/seleccionar_paciente.php" class="option-btn">
-            <i class="bi bi-journal-medical"></i>
-            Nueva Consulta
-          </a>
-        </div>
-        <div class="col-12 col-md-12">
           <button type="button" class="option-btn w-100" id="btnActualizarPaciente" data-bs-toggle="modal" data-bs-target="#modalActualizarPaciente">
             <i class="bi bi-pencil-square"></i>
             Actualizar Paciente
@@ -177,7 +171,7 @@ if (
       e.preventDefault();
       const numeroEmpleado = document.getElementById('numeroEmpleado').value.trim();
       if (numeroEmpleado) {
-        window.location.href = 'paso1.php?id=' + encodeURIComponent(numeroEmpleado);
+        window.location.href = '../views/registro/paso1.php?id=' + encodeURIComponent(numeroEmpleado);
       }
     });
   </script>

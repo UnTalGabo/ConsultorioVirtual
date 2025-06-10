@@ -256,10 +256,10 @@ function getChecked($efnfermedad)
                                 <label><input type="checkbox" name="enfermedades[]" value="Anemia/Sangrado anormal" <?php echo getChecked('Anemia/Sangrado anormal') ?>> Anemia/Sangrado anormal</label>
                             </div>
                             <div class="enfermedad-item">
-                                <label><input type="checkbox" name="enfermedades[]" value="Tuberculosos" <?php echo getChecked('Tuberculosos') ?>> Tuberculosos</label>
+                                <label><input type="checkbox" name="enfermedades[]" value="Tuberculosis" <?php echo getChecked('Tuberculosis') ?>> Tuberculosis</label>
                             </div>
                             <div class="enfermedad-item">
-                                <label><input type="checkbox" name="enfermedades[]" value="Transtornos de la pies" <?php echo getChecked('Transtornos de la pies') ?>> Transtornos de la pies</label>
+                                <label><input type="checkbox" name="enfermedades[]" value="Transtornos de la piel" <?php echo getChecked('Transtornos de la piel') ?>> Transtornos de la piel</label>
                             </div>
                             <div class="enfermedad-item">
                                 <label><input type="checkbox" name="enfermedades[]" value="Heridas/Quemaduras" <?php echo getChecked('Heridas/Quemaduras') ?>> Heridas/Quemaduras</label>
@@ -326,7 +326,7 @@ function getChecked($efnfermedad)
                                 <label><input type="checkbox" name="enfermedades[]" value="Convulsiones (Epilepsia)" <?php echo getChecked('Convulsiones (Epilepsia)') ?>> Convulsiones (Epilepsia)</label>
                             </div>
                             <div class="enfermedad-item">
-                                <label><input type="checkbox" name="enfermedades[]" value="Paroditis" <?php echo getChecked('Paroditis') ?>> Paroditis</label>
+                                <label><input type="checkbox" name="enfermedades[]" value="Parotiditis" <?php echo getChecked('Parotiditis') ?>> Parotiditis</label>
                             </div>
                             <div class="enfermedad-item">
                                 <label><input type="checkbox" name="enfermedades[]" value="Enfermedades Oculares" <?php echo getChecked('Enfermedades Oculares') ?>> Enfermedades Oculares</label>
