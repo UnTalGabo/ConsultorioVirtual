@@ -179,7 +179,7 @@ if ($id_paciente > 0) {
           <div class="row g-3">
             <div class="col-md-4">
               <label for="id_empleado" class="form-label">Número de empleado</label>
-              <input type="text" name="id_empleado" class="form-control"
+              <input type="number" name="id_empleado" class="form-control"
                 value="<?php echo isset($paciente['id_empleado']) ? $paciente['id_empleado'] : '' ?>"
                 required placeholder="Ej. 1023">
             </div>
@@ -350,7 +350,7 @@ if ($id_paciente > 0) {
         </div>
 
         <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
-          <a href="ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
+          <a href="../ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
             <i class="bi bi-box-arrow-left"></i> Salir sin guardar
           </a>
           <div class="ms-auto d-flex gap-2">

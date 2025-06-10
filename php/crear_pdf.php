@@ -17,51 +17,40 @@ function obtenerDatos($tabla, $id_empleado)
     $res = $stmt->get_result();
     $data = $res->fetch_assoc();
     $stmt->close();
-    return $data;
+    return $data ?: [];
 }
 function obtenerFecha($fecha)
 {
-    return $fecha ? (new DateTime($fecha))->format('d/m/Y') : '';
+    return ($fecha && $fecha !== '0000-00-00') ? (new DateTime($fecha))->format('d/m/Y') : '';
 }
 function obtenerHora($fecha)
 {
-    return $fecha ? (new DateTime($fecha))->format('H:i') : '';
+    return ($fecha && $fecha !== '0000-00-00') ? (new DateTime($fecha))->format('H:i') : '';
 }
 function obtenerEdad($fecha_nacimiento)
 {
-    return $fecha_nacimiento ? (new DateTime())->diff(new DateTime($fecha_nacimiento))->y : '';
+    return ($fecha_nacimiento && $fecha_nacimiento !== '0000-00-00') ? (new DateTime())->diff(new DateTime($fecha_nacimiento))->y : '';
 }
 function getChecked($nombre)
 {
     global $enfermedadesH;
-    foreach ($enfermedadesH as $e) if ($e['enfermedad'] == $nombre) return 'X';
+    foreach ($enfermedadesH as $e) if (isset($e['enfermedad']) && $e['enfermedad'] == $nombre) return 'X';
     return '';
 }
 function obtenerQuien($nombre)
 {
     global $enfermedadesH;
-    foreach ($enfermedadesH as $e) if ($e['enfermedad'] == $nombre) return $e['parentesco'];
+    foreach ($enfermedadesH as $e) if (isset($e['enfermedad']) && $e['enfermedad'] == $nombre) return $e['parentesco'] ?? '';
     return '';
 }
 
 // Datos principales
 $paciente = obtenerDatos('pacientes', $id_empleado);
-if (!$paciente) die("Paciente no encontrado.");
-
 $antecedentesNoPatologicos = obtenerDatos('antecedentes_no_patologicos', $id_empleado);
-if (!$antecedentesNoPatologicos) die("Antecedentes no patológicos no encontrados.");
-
-$antecedentesGineco = ($paciente['genero'] === 'Femenino') ? obtenerDatos('antecedentes_gineco_obstetricos', $id_empleado) : null;
-if ($paciente['genero'] === 'Femenino' && !$antecedentesGineco) die("Antecedentes gineco-obstétricos no encontrados.");
-
+$antecedentesGineco = (isset($paciente['genero']) && $paciente['genero'] === 'Femenino') ? obtenerDatos('antecedentes_gineco_obstetricos', $id_empleado) : [];
 $antecedentesPatologicos = obtenerDatos('antecedentes_patologicos', $id_empleado);
-if (!$antecedentesPatologicos) die("Antecedentes patológicos no encontrados.");
-
 $antecedentesLaborales = obtenerDatos('antecedentes_laborales', $id_empleado);
-if (!$antecedentesLaborales) die("Antecedentes laborales no encontrados.");
-
 $examenMedico = obtenerDatos('examenes_medicos', $id_empleado);
-if (!$examenMedico) die("Examen médico no encontrado.");
 
 // Enfermedades heredo familiares
 $enfermedadesH = [];
@@ -94,33 +83,46 @@ $pdf->useTemplate($tplIdx);
 
 // Datos personales
 $pdf->SetXY(35, 49.5);
-$pdf->Write(0, utf8_decode($paciente['nombre_completo']));
+$pdf->Write(0, utf8_decode($paciente['nombre_completo'] ?? ''));
 $pdf->SetXY(140, 26.5);
-$pdf->Write(0, obtenerFecha($examenMedico['fecha_actualizacion']));
+$pdf->Write(0, obtenerFecha($examenMedico['fecha_actualizacion'] ?? ''));
 $pdf->SetXY(140, 31);
-$pdf->Write(0, obtenerHora($examenMedico['fecha_actualizacion']));
+$pdf->Write(0, obtenerHora($examenMedico['fecha_actualizacion'] ?? ''));
 $pdf->SetXY(35, 59);
-$pdf->Write(0, utf8_decode(obtenerEdad($paciente['fecha_nacimiento']) . ' años'));
-$pdf->SetXY($paciente['genero'] === 'Masculino' ? 107.5 : 154.6, 59);
-$pdf->Write(0, 'X');
+if (isset($paciente['fecha_nacimiento'])) {
+    $pdf->Write(0, utf8_decode((obtenerEdad($paciente['fecha_nacimiento'])) . ' años'));
+}
+
+if (($paciente['genero'] == 'Masculino') || ($paciente['genero'] == 'Femenino')) {
+    $pdf->SetXY((isset($paciente['genero']) && $paciente['genero'] === 'Masculino') ? 107.5 : 154.6, 59);
+    $pdf->Write(0, 'X');
+}
 $pdf->SetXY(50, 63.5);
-$pdf->Write(0, obtenerFecha($paciente['fecha_nacimiento']));
+$pdf->Write(0, obtenerFecha($paciente['fecha_nacimiento'] ?? ''));
 $pdf->SetXY(116, 63.5);
-$pdf->Write(0, $paciente['telefono']);
+$pdf->Write(0, $paciente['telefono'] ?? '');
 $pdf->SetXY(160, 63);
-$pdf->Write(0, $paciente['estado_civil']);
+$pdf->Write(0, $paciente['estado_civil'] ?? '');
 $pdf->SetXY(32, 68);
-$pdf->Write(0, utf8_decode($paciente['calle'] . ' ' . $paciente['numero'] . ',    ' . $paciente['colonia'] . ',    ' . $paciente['ciudad'] . ',     Michoacan'));
+$domicilio = [];
+if (!empty($paciente['calle'])) $domicilio[] = $paciente['calle'];
+if (!empty($paciente['numero'])) $domicilio[] = $paciente['numero'];
+if (!empty($paciente['colonia'])) $domicilio[] = $paciente['colonia'];
+if (!empty($paciente['ciudad'])) $domicilio[] = $paciente['ciudad'];
+$domicilio_str = implode(', ', $domicilio);
+if ($domicilio_str !== '') {
+    $pdf->Write (0, utf8_decode(($domicilio_str) . ', Michoacán'));
+}
 $pdf->SetFontSize(7.5);
 $pdf->SetXY(54, 73);
-$pdf->Write(0, utf8_decode($paciente['contacto_emergencia']));
+$pdf->Write(0, utf8_decode($paciente['contacto_emergencia'] ?? ''));
 $pdf->SetFontSize(9);
 $pdf->SetXY(123, 73);
-$pdf->Write(0, utf8_decode($paciente['parentesco'] . '        ' . $paciente['telefono_emergencia']));
+$pdf->Write(0, utf8_decode(($paciente['parentesco'] ?? '') . '        ' . ($paciente['telefono_emergencia'] ?? '')));
 $pdf->SetXY(35, 77.5);
-$pdf->Write(0, utf8_decode($paciente['puesto']));
+$pdf->Write(0, utf8_decode($paciente['puesto'] ?? ''));
 $pdf->SetXY(127, 77.5);
-$pdf->Write(0, utf8_decode($paciente['departamento']));
+$pdf->Write(0, utf8_decode($paciente['departamento'] ?? ''));
 
 // Enfermedades heredo familiares
 function escribirEnfermedad($pdf, $xCheck, $yCheck, $xPar, $yPar, $nombre)
@@ -157,71 +159,71 @@ $enfermedades = [
 foreach ($enfermedades as $e) escribirEnfermedad($pdf, ...$e);
 
 // Antecedentes no patológicos
-$pdf->SetXY(25, 198);
-$pdf->Write(0, utf8_decode($paciente['escolaridad'] ?? ''));
-$pdf->SetXY(62.5, 203);
-$pdf->Write(0, $antecedentesNoPatologicos['fuma'] ? 'X' : '');
-$pdf->SetXY(136.5, 203);
-$pdf->Write(0, $antecedentesNoPatologicos['fuma'] ? $antecedentesNoPatologicos['cigarros_dia'] . ' cigarros' : '');
-$pdf->SetXY(180, 203);
-$pdf->Write(0, $antecedentesNoPatologicos['fuma'] ? utf8_decode($antecedentesNoPatologicos['anos_fumando'] . ' años') : '');
-$pdf->SetXY(107.5, 203);
-$pdf->Write(0, !$antecedentesNoPatologicos['fuma'] ? 'X' : '');
+if (!empty(array_filter($antecedentesPatologicos))) {
+    $pdf->SetXY(25, 198);
+    $pdf->Write(0, utf8_decode($paciente['escolaridad'] ?? ''));
+    $pdf->SetXY(62.5, 203);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['fuma']) ? 'X' : '');
+    $pdf->SetXY(136.5, 203);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['fuma']) ? ($antecedentesNoPatologicos['cigarros_dia'] ?? '') . ' cigarros' : '');
+    $pdf->SetXY(180, 203);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['fuma']) ? utf8_decode(($antecedentesNoPatologicos['anos_fumando'] ?? '') . ' años') : '');
+    $pdf->SetXY(107.5, 203);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['fuma']) ? 'X' : '');
 
-$pdf->SetXY(62.5, 207.7);
-$pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? 'X' : '');
-$pdf->SetXY(137, 207.7);
-$pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? utf8_decode($antecedentesNoPatologicos['frecuencia_alcohol']) : '');
-$pdf->SetXY(180, 207.7);
-$pdf->Write(0, $antecedentesNoPatologicos['bebe'] ? utf8_decode($antecedentesNoPatologicos['anos_bebiendo'] . ' años') : '');
-$pdf->SetXY(107.5, 207.7);
-$pdf->Write(0, !$antecedentesNoPatologicos['bebe'] ? 'X' : '');
+    $pdf->SetXY(62.5, 207.7);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['bebe']) ? 'X' : '');
+    $pdf->SetXY(137, 207.7);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['bebe']) ? utf8_decode($antecedentesNoPatologicos['frecuencia_alcohol'] ?? '') : '');
+    $pdf->SetXY(180, 207.7);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['bebe']) ? utf8_decode(($antecedentesNoPatologicos['anos_bebiendo'] ?? '') . ' años') : '');
+    $pdf->SetXY(107.5, 207.7);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['bebe']) ? 'X' : '');
 
-$pdf->SetXY(107.6, 212.5);
-$pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? 'X' : '');
-$pdf->SetXY(138, 212.5);
-$pdf->Write(0, $antecedentesNoPatologicos['medicamentos_controlados'] ? 'X' : 'X');
+    $pdf->SetXY(107.6, 212.5);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['medicamentos_controlados']) ? 'X' : '');
+    $pdf->SetXY(138, 212.5);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['medicamentos_controlados']) ? 'X' : '');
 
-$pdf->SetXY(87.5, 222);
-$pdf->Write(0, $antecedentesNoPatologicos['usa_drogas'] ? 'X' : '');
-$pdf->SetXY(124.5, 222);
-$pdf->Write(0, !$antecedentesNoPatologicos['usa_drogas'] ? 'X' : '');
-$pdf->SetXY(160, 222);
-$pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_droga'] ?? ''));
+    $pdf->SetXY(87.5, 222);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['usa_drogas']) ? 'X' : '');
+    $pdf->SetXY(124.5, 222);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['usa_drogas']) ? 'X' : '');
+    $pdf->SetXY(160, 222);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_droga'] ?? ''));
 
-$pdf->SetXY(87.5, 226.7);
-$pdf->Write(0, $antecedentesNoPatologicos['practica_deporte'] ? 'X' : '');
-$pdf->SetXY(124.5, 226.7);
-$pdf->Write(0, !$antecedentesNoPatologicos['practica_deporte'] ? 'X' : '');
-$pdf->SetXY(30, 231);
-$pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_deporte'] ?? ''));
-$pdf->SetXY(120, 231);
-$pdf->Write(0, utf8_decode($antecedentesNoPatologicos['frecuencia_deporte'] ?? ''));
+    $pdf->SetXY(87.5, 226.7);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['practica_deporte']) ? 'X' : '');
+    $pdf->SetXY(124.5, 226.7);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['practica_deporte']) ? 'X' : '');
+    $pdf->SetXY(30, 231);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['tipo_deporte'] ?? ''));
+    $pdf->SetXY(120, 231);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['frecuencia_deporte'] ?? ''));
 
-$pdf->SetXY(87.5, 236);
-$pdf->Write(0, $antecedentesNoPatologicos['tatuajes'] ? 'X' : '');
-$pdf->SetXY(124.5, 236);
-$pdf->Write(0, !$antecedentesNoPatologicos['tatuajes'] ? 'X' : '');
-$pdf->SetXY(25, 240.5);
-$pdf->Write(0, utf8_decode($antecedentesNoPatologicos['cantidad_tatuajes'] ?? ''));
-$pdf->SetXY(70, 240.5);
-$pdf->Write(0, utf8_decode($antecedentesNoPatologicos['ubicacion_tatuajes'] ?? ''));
+    $pdf->SetXY(87.5, 236);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['tatuajes']) ? 'X' : '');
+    $pdf->SetXY(124.5, 236);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['tatuajes']) ? 'X' : '');
+    $pdf->SetXY(25, 240.5);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['cantidad_tatuajes'] ?? ''));
+    $pdf->SetXY(70, 240.5);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['ubicacion_tatuajes'] ?? ''));
 
-$pdf->SetXY(87.5, 245.5);
-$pdf->Write(0, $antecedentesNoPatologicos['transfusiones'] ? 'X' : '');
-$pdf->SetXY(124.5, 245.5);
-$pdf->Write(0, !$antecedentesNoPatologicos['transfusiones'] ? 'X' : '');
-$pdf->SetXY(188, 245.5);
-$pdf->Write(0, $antecedentesNoPatologicos['transfusiones_recibidas'] ? 'X' : '');
+    $pdf->SetXY(87.5, 245.5);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['transfusiones']) ? 'X' : '');
+    $pdf->SetXY(124.5, 245.5);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['transfusiones']) ? 'X' : '');
+    $pdf->SetXY(188, 245.5);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['transfusiones_recibidas']) ? 'X' : '');
 
-$pdf->SetXY(87.5, 250.5);
-$pdf->Write(0, $antecedentesNoPatologicos['fobias'] ? 'X' : '');
-$pdf->SetXY(124.5, 250.5);
-$pdf->Write(0, !$antecedentesNoPatologicos['fobias'] ? 'X' : '');
-$pdf->SetXY(40, 255);
-$pdf->Write(0, utf8_decode($antecedentesNoPatologicos['cual_fobia'] ?? ''));
-
-
+    $pdf->SetXY(87.5, 250.5);
+    $pdf->Write(0, !empty($antecedentesNoPatologicos['fobias']) ? 'X' : '');
+    $pdf->SetXY(124.5, 250.5);
+    $pdf->Write(0, empty($antecedentesNoPatologicos['fobias']) ? 'X' : '');
+    $pdf->SetXY(40, 255);
+    $pdf->Write(0, utf8_decode($antecedentesNoPatologicos['cual_fobia'] ?? ''));
+}
 
 $pdf->AddPage();
 $pdf->setSourceFile('../media/formato.pdf');
@@ -229,47 +231,45 @@ $tplIdx = $pdf->importPage(2);
 $pdf->useTemplate($tplIdx);
 
 // Antecedentes gineco-obstétricos
-if ($paciente['genero'] === 'Femenino') {
-    // Antecedentes gineco-obstétricos
+if (isset($paciente['genero']) && $paciente['genero'] === 'Femenino' && !empty($antecedentesGineco)) {
     $pdf->SetXY(58, 26);
-    $pdf->Write(0, ($antecedentesGineco['edad_inicio_regla']));
+    $pdf->Write(0, $antecedentesGineco['edad_inicio_regla'] ?? '');
     $pdf->SetXY(115, 26);
-    $pdf->Write(0, utf8_decode($antecedentesGineco['ritmo_ciclo_menstrual'] . ' días'));
+    $pdf->Write(0, utf8_decode(($antecedentesGineco['ritmo_ciclo_menstrual'] ?? '') . ' días'));
     $pdf->SetXY(150, 26);
-    $pdf->Write(0, (obtenerFecha($antecedentesGineco['fecha_ultima_menstruacion'])));
+    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_menstruacion'] ?? ''));
 
     $pdf->SetXY(15, 30);
-    $pdf->Write(0, ($antecedentesGineco['numero_gestas']));
+    $pdf->Write(0, $antecedentesGineco['numero_gestas'] ?? '');
     $pdf->SetXY(28, 30);
-    $pdf->Write(0, ($antecedentesGineco['numero_partos']));
+    $pdf->Write(0, $antecedentesGineco['numero_partos'] ?? '');
     $pdf->SetXY(41, 30);
-    $pdf->Write(0, ($antecedentesGineco['numero_abortos']));
+    $pdf->Write(0, $antecedentesGineco['numero_abortos'] ?? '');
     $pdf->SetXY(54, 30);
-    $pdf->Write(0, ($antecedentesGineco['numero_cesareas']));
+    $pdf->Write(0, $antecedentesGineco['numero_cesareas'] ?? '');
     $pdf->SetXY(120, 30.5);
-    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultimo_embarazo']));
+    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultimo_embarazo'] ?? ''));
 
     $pdf->SetXY(62, 35);
-    $pdf->Write(0, utf8_decode($antecedentesGineco['complicaciones_menstruacion']));
+    $pdf->Write(0, utf8_decode($antecedentesGineco['complicaciones_menstruacion'] ?? ''));
 
     $pdf->SetXY(72, 39.5);
-    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_citologia']));
+    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_citologia'] ?? ''));
 
     $pdf->SetXY(62.5, 48.2);
-    $pdf->Write(0, ($antecedentesGineco['mastografia'] ? 'X' : ''));
+    $pdf->Write(0, !empty($antecedentesGineco['mastografia']) ? 'X' : '');
     $pdf->SetXY(108, 48.2);
-    $pdf->Write(0, ($antecedentesGineco['mastografia'] ? '' : 'X'));
+    $pdf->Write(0, empty($antecedentesGineco['mastografia']) ? 'X' : '');
     $pdf->SetXY(135, 48.2);
-    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_mastografia']));
+    $pdf->Write(0, obtenerFecha($antecedentesGineco['fecha_ultima_mastografia'] ?? ''));
 }
 
-
-
+// Enfermedades personales patológicas
 function escribirPatologica($pdf, $x, $y, $nombre)
 {
     global $enfermedadesP;
     foreach ($enfermedadesP as $e) {
-        if (strcasecmp($e['enfermedad'], $nombre) === 0) {
+        if (isset($e['enfermedad']) && strcasecmp($e['enfermedad'], $nombre) === 0) {
             $pdf->SetXY($x, $y);
             $pdf->Write(0, 'X');
             return;
@@ -277,9 +277,7 @@ function escribirPatologica($pdf, $x, $y, $nombre)
     }
 }
 
-
 $enfermedades_patologicas = [
-    // x, y, nombre
     [54.5, 61.5,  'Varicela/Rubeola/Sarampión'],
     [54.5, 67.5,  'Enfermedades respiratorias'],
     [54.5, 73,  'Enfermedades pulmonares'],
@@ -321,86 +319,112 @@ foreach ($enfermedades_patologicas as [$x, $y, $nombre]) {
     escribirPatologica($pdf, $x, $y, $nombre);
 }
 
+// Imprimir enfermedades no listadas en el PDF
+$pdf->SetXY(25, 130);
+$enfermedades_nombres = array_map(function ($e) {
+    return $e[2];
+}, $enfermedades_patologicas);
+$otras_enfermedades = [];
+foreach ($enfermedadesP as $e) {
+    $nombre = $e['enfermedad'] ?? '';
+    $encontrada = false;
+    foreach ($enfermedades_nombres as $pdf_nombre) {
+        if (strcasecmp($nombre, $pdf_nombre) === 0) {
+            $encontrada = true;
+            break;
+        }
+    }
+    if (!$encontrada && $nombre !== '') {
+        $otras_enfermedades[] = $nombre;
+    }
+}
+if (!empty($otras_enfermedades)) {
+    $pdf->Write(0, utf8_decode('Otras: ' . implode(', ', $otras_enfermedades)));
+}
 
+// Resto del llenado del PDF (con isset/?? para evitar errores)
 $pdf->SetXY(38, 113);
-$pdf->Write(0, utf8_decode($antecedentesPatologicos['fracturas_esguinces']));
+$pdf->Write(0, utf8_decode($antecedentesPatologicos['fracturas_esguinces'] ?? ''));
 $pdf->SetXY(38, 118);
-$pdf->Write(0, utf8_decode($antecedentesPatologicos['cirugias']));
+$pdf->Write(0, utf8_decode($antecedentesPatologicos['cirugias'] ?? ''));
 $pdf->SetXY(165, 118);
-$pdf->Write(0, utf8_decode($paciente['tipo_sangre']));
+$pdf->Write(0, utf8_decode($paciente['tipo_sangre'] ?? ''));
 
 $pdf->SetXY(68, 122.5);
-$pdf->Write(0, utf8_decode($antecedentesPatologicos['enfermedad_actual_desc']));
+$pdf->Write(0, utf8_decode($antecedentesPatologicos['enfermedad_actual_desc'] ?? ''));
 
 $pdf->SetXY(42, 127);
-$pdf->Write(0, utf8_decode($antecedentesPatologicos['medicamentos']));
+$pdf->Write(0, utf8_decode($antecedentesPatologicos['medicamentos'] ?? ''));
 
 $pdf->SetXY(30, 131.5);
-$pdf->Write(0, utf8_decode($antecedentesPatologicos['observaciones']));
-
+$pdf->Write(0, utf8_decode($antecedentesPatologicos['observaciones'] ?? ''));
 
 // Antecedentes laborales
-$pdf->SetXY(75, 145.7);
-$pdf->Write(0, ($antecedentesLaborales['edad_inicio_trabajo']));
+if (!empty(array_filter($antecedentesPatologicos))) {
+    $pdf->SetXY(75, 145.7);
+    $pdf->Write(0, $antecedentesLaborales['edad_inicio_trabajo'] ?? '');
 
-$pdf->SetXY(25, 150);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['empresa']));
-$pdf->SetXY(75, 150);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['antiguedad'] . ' años'));
-$pdf->SetXY(120, 150);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['puesto']));
+    $pdf->SetXY(25, 150);
+    $pdf->Write(0, utf8_decode($antecedentesLaborales['empresa'] ?? ''));
+    $pdf->SetXY(75, 150);
+    $pdf->Write(0, utf8_decode(($antecedentesLaborales['antiguedad'] ?? '') . ' años'));
+    $pdf->SetXY(120, 150);
+    $pdf->Write(0, utf8_decode($antecedentesLaborales['puesto'] ?? ''));
 
-$pdf->SetXY(39.5 - 4.5, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['polvo'] ? 'X' : ''));
-$pdf->SetXY(39.5 - 4.5, 164 + 1);
-$pdf->Write(0, ($antecedentesLaborales['movimiento_repetitivo'] ? 'X' : ''));
-$pdf->SetXY(56 - 4, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['ruido'] ? 'X' : ''));
-$pdf->SetXY(56 - 4, 164 + 1);
-$pdf->Write(0, ($antecedentesLaborales['cargas'] ? 'X' : ''));
-$pdf->SetXY(92.5 - 4, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['humo'] ? 'X' : ''));
-$pdf->SetXY(92.5 - 4, 164 + 1);
-$pdf->Write(0, ($antecedentesLaborales['riesgos_psicosociales'] ? 'X' : ''));
-$pdf->SetXY(115.3 - 4, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['radiacion'] ? 'X' : ''));
-$pdf->SetXY(151.8 - 4, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['quimicos_solventes'] ? 'X' : ''));
-$pdf->SetXY(172.5 - 4, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['vibracion'] ? 'X' : ''));
-$pdf->SetXY(195 - 5.8, 159.5 + 1);
-$pdf->Write(0, ($antecedentesLaborales['calor_frio'] ? 'X' : ''));
+    $pdf->SetXY(35, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['polvo']) ? 'X' : '');
+    $pdf->SetXY(35, 165);
+    $pdf->Write(0, !empty($antecedentesLaborales['movimiento_repetitivo']) ? 'X' : '');
+    $pdf->SetXY(52, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['ruido']) ? 'X' : '');
+    $pdf->SetXY(52, 165);
+    $pdf->Write(0, !empty($antecedentesLaborales['cargas']) ? 'X' : '');
+    $pdf->SetXY(88.5, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['humo']) ? 'X' : '');
+    $pdf->SetXY(88.5, 165);
+    $pdf->Write(0, !empty($antecedentesLaborales['riesgos_psicosociales']) ? 'X' : '');
+    $pdf->SetXY(111.3, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['radiacion']) ? 'X' : '');
+    $pdf->SetXY(147.8, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['quimicos_solventes']) ? 'X' : '');
+    $pdf->SetXY(168.5, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['vibracion']) ? 'X' : '');
+    $pdf->SetXY(189.2, 160.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['calor_frio']) ? 'X' : '');
 
-$pdf->SetXY(60, 169.5);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['equipo_proteccion']));
+    $pdf->SetXY(60, 169.5);
+    $pdf->Write(0, utf8_decode($antecedentesLaborales['equipo_proteccion'] ?? ''));
 
-$pdf->SetXY(75.7, 182);
-$pdf->Write(0, ($antecedentesLaborales['accidentes'] ? 'X' : ''));
-$pdf->SetXY(115.7, 182);
-$pdf->Write(0, ($antecedentesLaborales['accidentes'] ? '' : 'X'));
-$pdf->SetXY(150, 182);
-$pdf->Write(0, obtenerFecha($antecedentesLaborales['fecha_accidente'] ?? ''));
-$pdf->SetXY(20, 187);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['lesion'] ?? ''));
+    $pdf->SetXY(75.7, 182);
+    $pdf->Write(0, !empty($antecedentesLaborales['accidentes']) ? 'X' : '');
+    $pdf->SetXY(115.7, 182);
+    $pdf->Write(0, empty($antecedentesLaborales['accidentes']) ? 'X' : '');
+    $pdf->SetXY(150, 182);
+    $pdf->Write(0, obtenerFecha($antecedentesLaborales['fecha_accidente'] ?? ''));
+    $pdf->SetXY(20, 187);
+    $pdf->Write(0, utf8_decode($antecedentesLaborales['lesion'] ?? ''));
 
-$pdf->SetXY(107.7, 191.5);
-$pdf->Write(0, ($antecedentesLaborales['pagos_accidente'] ? 'X' : ''));
-$pdf->SetXY(138, 191.5);
-$pdf->Write(0, ($antecedentesLaborales['pagos_accidente'] ? '' : 'X'));
-$pdf->SetXY(20, 196);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['secuela'] ?? ''));
-$pdf->SetXY(124.5, 196);
-$pdf->Write(0, ($antecedentesLaborales['pagado_por'] == 'imss' ? 'X' : ''));
-$pdf->SetXY(176.5, 196);
-$pdf->Write(0, ($antecedentesLaborales['pagado_por'] == 'empresa' ? 'X' : ''));
-$pdf->SetXY(107.7, 201);
-$pdf->Write(0, ($antecedentesLaborales['secuelas'] ? 'X' : ''));
-$pdf->SetXY(138, 201);
-$pdf->Write(0, ($antecedentesLaborales['secuelas'] ? '' : 'X'));
-$pdf->SetXY(20, 205.5);
-$pdf->Write(0, obtenerFecha($antecedentesLaborales['fecha_secuela'] ?? ''));
-$pdf->SetXY(70, 205.5);
-$pdf->Write(0, utf8_decode($antecedentesLaborales['secuela'] ?? ''));
+    $pdf->SetXY(107.7, 191.5);
+    $pdf->Write(0, !empty($antecedentesLaborales['pagos_accidente']) ? 'X' : '');
+    $pdf->SetXY(138, 191.5);
+    $pdf->Write(0, empty($antecedentesLaborales['pagos_accidente']) ? 'X' : '');
+    $pdf->SetXY(20, 196);
+    $pdf->Write(0, utf8_decode($antecedentesLaborales['secuela'] ?? ''));
+    $pdf->SetXY(124.5, 196);
+    $pdf->Write(0, (isset($antecedentesLaborales['pagado_por']) && $antecedentesLaborales['pagado_por'] == 'imss') ? 'X' : '');
+    $pdf->SetXY(176.5, 196);
+    $pdf->Write(0, (isset($antecedentesLaborales['pagado_por']) && $antecedentesLaborales['pagado_por'] == 'empresa') ? 'X' : '');
+    $pdf->SetXY(107.7, 201);
+    $pdf->Write(0, !empty($antecedentesLaborales['secuelas']) ? 'X' : '');
+    $pdf->SetXY(138, 201);
+    $pdf->Write(0, empty($antecedentesLaborales['secuelas']) ? 'X' : '');
+    $pdf->SetXY(20, 205.5);
+    $pdf->Write(0, obtenerFecha($antecedentesLaborales['fecha_secuela'] ?? ''));
+    $pdf->SetXY(70, 205.5);
+    $pdf->Write(0, utf8_decode($antecedentesLaborales['secuela'] ?? ''));
+}
+
+
 
 $pdf->AddPage();
 $pdf->setSourceFile('../media/formato.pdf');
@@ -408,46 +432,45 @@ $tplIdx = $pdf->importPage(3);
 $pdf->useTemplate($tplIdx);
 
 $pdf->SetXY(43, 31);
-$pdf->Write(0, ($examenMedico['talla']) . ' cm');
+$pdf->Write(0, (isset($examenMedico['talla']) ? $examenMedico['talla'] . ' cm' : ''));
 $pdf->SetXY(68, 31);
-$pdf->Write(0, ($examenMedico['peso']) . ' kg');
+$pdf->Write(0, (isset($examenMedico['peso']) ? $examenMedico['peso'] . ' kg' : ''));
 $pdf->SetXY(94, 31);
-$pdf->Write(0, ($examenMedico['imc']));
+$pdf->Write(0, $examenMedico['imc'] ?? '');
 $pdf->SetXY(115, 31);
-$pdf->Write(0, ($examenMedico['fc']) . ' lpm');
+$pdf->Write(0, (isset($examenMedico['fc']) ? $examenMedico['fc'] . ' lpm' : ''));
 $pdf->SetXY(138, 31);
-$pdf->Write(0, ($examenMedico['fr']) . ' rpm');
+$pdf->Write(0, (isset($examenMedico['fr']) ? $examenMedico['fr'] . ' rpm' : ''));
 $pdf->SetXY(161, 31);
-$pdf->Write(0, ($examenMedico['temp']) . ' C');
+$pdf->Write(0, (isset($examenMedico['temp']) ? $examenMedico['temp'] . ' C' : ''));
 
 $pdf->SetXY(64, 40.5);
-$pdf->Write(0, ($examenMedico['perimetro_abdominal'] . ' cm'));
+$pdf->Write(0, (isset($examenMedico['perimetro_abdominal']) ? $examenMedico['perimetro_abdominal'] . ' cm' : ''));
 $pdf->SetXY(105, 40.5);
-$pdf->Write(0, ($examenMedico['presion_arterial']));
+$pdf->Write(0, $examenMedico['presion_arterial'] ?? '');
 $pdf->SetXY(155, 40.5);
-$pdf->Write(0, ($examenMedico['spo2']));
-
+$pdf->Write(0, $examenMedico['spo2'] ?? '');
 
 $pdf->SetXY(20, 54.5);
-$pdf->Write(0, utf8_decode($examenMedico['cabeza']));
+$pdf->Write(0, utf8_decode($examenMedico['cabeza'] ?? ''));
 $pdf->SetXY(15, 63.7);
-$pdf->Write(0, utf8_decode($examenMedico['oido']));
+$pdf->Write(0, utf8_decode($examenMedico['oido'] ?? ''));
 $pdf->SetXY(30, 72.9);
-$pdf->Write(0, utf8_decode($examenMedico['cavidad_oral']));
+$pdf->Write(0, utf8_decode($examenMedico['cavidad_oral'] ?? ''));
 $pdf->SetXY(20, 82.1);
-$pdf->Write(0, utf8_decode($examenMedico['cuello']));
+$pdf->Write(0, utf8_decode($examenMedico['cuello'] ?? ''));
 $pdf->SetXY(20, 91.3);
-$pdf->Write(0, utf8_decode($examenMedico['torax']));
+$pdf->Write(0, utf8_decode($examenMedico['torax'] ?? ''));
 
 $pdf->SetXY(42, 101);
-$pdf->Write(0, utf8_decode($examenMedico['columna_vertebral']));
+$pdf->Write(0, utf8_decode($examenMedico['columna_vertebral'] ?? ''));
 $pdf->SetXY(53, 110.5);
-$pdf->Write(0, utf8_decode($examenMedico['extremidades_superiores']));
+$pdf->Write(0, utf8_decode($examenMedico['extremidades_superiores'] ?? ''));
 $pdf->SetXY(51, 120);
-$pdf->Write(0, utf8_decode($examenMedico['extremidades_inferiores']));
+$pdf->Write(0, utf8_decode($examenMedico['extremidades_inferiores'] ?? ''));
 
 $pdf->SetXY(23, 134.2);
-$pdf->Write(0, utf8_decode($examenMedico['abdomen']));
+$pdf->Write(0, utf8_decode($examenMedico['abdomen'] ?? ''));
 
 $pdf->Output('I', 'historia_clinica.pdf');
 $conn->close();

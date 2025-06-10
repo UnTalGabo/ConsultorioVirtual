@@ -129,7 +129,7 @@ if (
           </a>
         </div>
         <div class="col-12 col-md-4">
-          <a href="../consulta/seleccionar_paciente.php" class="option-btn">
+          <a href="consulta/seleccionar_paciente.php" class="option-btn">
             <i class="bi bi-journal-medical"></i>
             Nueva Consulta
           </a>
@@ -177,7 +177,7 @@ if (
       e.preventDefault();
       const numeroEmpleado = document.getElementById('numeroEmpleado').value.trim();
       if (numeroEmpleado) {
-        window.location.href = 'paso1.php?id=' + encodeURIComponent(numeroEmpleado);
+        window.location.href = '../views/registro/paso1.php?id=' + encodeURIComponent(numeroEmpleado);
       }
     });
   </script>

@@ -351,7 +351,7 @@ $stmt->close();
                     <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
                         <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar
                     </button>
-                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
+                    <a href="../ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
                         <i class="bi bi-box-arrow-left"></i> Salir sin guardar
                     </a>
                 </div>

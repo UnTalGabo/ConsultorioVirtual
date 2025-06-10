@@ -398,8 +398,8 @@ $fecha = date('Y-m-d');
                 </div>
 
                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
-                    <a href="../../views/index.php" class="btn btn-danger btn-lg">
-                        <i class="bi bi-box-arrow-left"></i> Salir
+                    <a href="seleccionar_paciente.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
+                        <i class="bi bi-box-arrow-left"></i> Salir sin guardar
                     </a>
                     <div class="ms-auto d-flex gap-2">
                         <button type="submit" class="btn btn-success btn-lg">

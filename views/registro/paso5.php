@@ -304,8 +304,8 @@ $stmt->close();
                 </div>
 
                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
-                    <a href="../views/ver_pacientes.php" class="btn btn-danger btn-lg" name="accion" value="salir_sin_guardar">
-                        <i class="bi bi-box-arrow-left"></i> Salir
+                    <a href="../ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
+                        <i class="bi bi-box-arrow-left"></i> Salir sin guardar
                     </a>
                     <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
                         <i class="bi bi-save2"></i> Guardar y Salir
