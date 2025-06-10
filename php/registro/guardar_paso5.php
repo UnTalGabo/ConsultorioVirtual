@@ -17,6 +17,7 @@ $numero_gestas = !empty($_POST['numero_gestas']) ? intval($_POST['numero_gestas'
 $numero_partos = !empty($_POST['numero_partos']) ? intval($_POST['numero_partos']) : 0;
 $numero_abortos = !empty($_POST['numero_abortos']) ? intval($_POST['numero_abortos']) : 0;
 $numero_cesareas = !empty($_POST['numero_cesareas']) ? intval($_POST['numero_cesareas']) : 0;
+$fecha_ultimo_embarazo = !empty($_POST['fecha_ultimo_embarazo']) ? $_POST['fecha_ultimo_embarazo'] : null;
 $complicaciones_menstruacion = !empty($_POST['complicaciones_menstruacion']) ? $_POST['complicaciones_menstruacion'] : null;
 $fecha_ultima_citologia = !empty($_POST['fecha_ultima_citologia']) ? $_POST['fecha_ultima_citologia'] : null;
 $mastografia = isset($_POST['mastografia']) ? 1 : 0;
@@ -39,6 +40,7 @@ if ($result->num_rows > 0) {
             numero_partos = ?, 
             numero_abortos = ?, 
             numero_cesareas = ?, 
+            fecha_ultimo_embarazo = ?,
             complicaciones_menstruacion = ?, 
             fecha_ultima_citologia = ?, 
             mastografia = ?,
@@ -55,11 +57,12 @@ if ($result->num_rows > 0) {
             numero_partos, 
             numero_abortos, 
             numero_cesareas, 
+            fecha_ultimo_embarazo,
             complicaciones_menstruacion, 
             fecha_ultima_citologia, 
             mastografia,
             fecha_ultima_mastografia
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 }
 
 // Preparar y ejecutar la consulta
@@ -67,7 +70,7 @@ $stmt = $conn->prepare($sql);
 
 if ($result->num_rows > 0) {
     $stmt->bind_param(
-        "iisiiiissisi",
+        "iisiiiisssisi",
         $edad_inicio_regla,
         $ritmo_ciclo_menstrual,
         $fecha_ultima_menstruacion,
@@ -75,6 +78,7 @@ if ($result->num_rows > 0) {
         $numero_partos,
         $numero_abortos,
         $numero_cesareas,
+        $fecha_ultimo_embarazo,
         $complicaciones_menstruacion,
         $fecha_ultima_citologia,
         $mastografia,
@@ -83,7 +87,7 @@ if ($result->num_rows > 0) {
     );
 } else {
     $stmt->bind_param(
-        "iiisiiiissis",
+        "iiisiiiisssis",
         $id_empleado,
         $edad_inicio_regla,
         $ritmo_ciclo_menstrual,
@@ -92,6 +96,7 @@ if ($result->num_rows > 0) {
         $numero_partos,
         $numero_abortos,
         $numero_cesareas,
+        $fecha_ultimo_embarazo,
         $complicaciones_menstruacion,
         $fecha_ultima_citologia,
         $mastografia,

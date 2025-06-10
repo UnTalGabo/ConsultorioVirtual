@@ -329,6 +329,9 @@ $pdf->Write(0, utf8_decode($antecedentesPatologicos['cirugias']));
 $pdf->SetXY(165, 118);
 $pdf->Write(0, utf8_decode($paciente['tipo_sangre']));
 
+$pdf->SetXY(68, 122.5);
+$pdf->Write(0, utf8_decode($antecedentesPatologicos['enfermedad_actual_desc']));
+
 $pdf->SetXY(42, 127);
 $pdf->Write(0, utf8_decode($antecedentesPatologicos['medicamentos']));
 
@@ -399,6 +402,52 @@ $pdf->Write(0, obtenerFecha($antecedentesLaborales['fecha_secuela'] ?? ''));
 $pdf->SetXY(70, 205.5);
 $pdf->Write(0, utf8_decode($antecedentesLaborales['secuela'] ?? ''));
 
+$pdf->AddPage();
+$pdf->setSourceFile('../media/formato.pdf');
+$tplIdx = $pdf->importPage(3);
+$pdf->useTemplate($tplIdx);
+
+$pdf->SetXY(43, 31);
+$pdf->Write(0, ($examenMedico['talla']) . ' cm');
+$pdf->SetXY(68, 31);
+$pdf->Write(0, ($examenMedico['peso']) . ' kg');
+$pdf->SetXY(94, 31);
+$pdf->Write(0, ($examenMedico['imc']));
+$pdf->SetXY(115, 31);
+$pdf->Write(0, ($examenMedico['fc']) . ' lpm');
+$pdf->SetXY(138, 31);
+$pdf->Write(0, ($examenMedico['fr']) . ' rpm');
+$pdf->SetXY(161, 31);
+$pdf->Write(0, ($examenMedico['temp']) . ' C');
+
+$pdf->SetXY(64, 40.5);
+$pdf->Write(0, ($examenMedico['perimetro_abdominal'] . ' cm'));
+$pdf->SetXY(105, 40.5);
+$pdf->Write(0, ($examenMedico['presion_arterial']));
+$pdf->SetXY(155, 40.5);
+$pdf->Write(0, ($examenMedico['spo2']));
+
+
+$pdf->SetXY(20, 54.5);
+$pdf->Write(0, utf8_decode($examenMedico['cabeza']));
+$pdf->SetXY(15, 63.7);
+$pdf->Write(0, utf8_decode($examenMedico['oido']));
+$pdf->SetXY(30, 72.9);
+$pdf->Write(0, utf8_decode($examenMedico['cavidad_oral']));
+$pdf->SetXY(20, 82.1);
+$pdf->Write(0, utf8_decode($examenMedico['cuello']));
+$pdf->SetXY(20, 91.3);
+$pdf->Write(0, utf8_decode($examenMedico['torax']));
+
+$pdf->SetXY(42, 101);
+$pdf->Write(0, utf8_decode($examenMedico['columna_vertebral']));
+$pdf->SetXY(53, 110.5);
+$pdf->Write(0, utf8_decode($examenMedico['extremidades_superiores']));
+$pdf->SetXY(51, 120);
+$pdf->Write(0, utf8_decode($examenMedico['extremidades_inferiores']));
+
+$pdf->SetXY(23, 134.2);
+$pdf->Write(0, utf8_decode($examenMedico['abdomen']));
 
 $pdf->Output('I', 'historia_clinica.pdf');
 $conn->close();
