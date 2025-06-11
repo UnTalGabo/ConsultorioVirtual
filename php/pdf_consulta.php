@@ -37,8 +37,8 @@ $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFontSize(9);
 
 $pdf->AddPage();
-$pdf->setSourceFile('../media/formato.pdf');
-$tplIdx = $pdf->importPage(3);
+$pdf->setSourceFile('../media/formato2.pdf');
+$tplIdx = $pdf->importPage(1);
 $pdf->useTemplate($tplIdx);
 
 
@@ -62,26 +62,17 @@ $pdf->Write(0, $consulta['presion_arterial'] ?? '');
 $pdf->SetXY(155, 40.5);
 $pdf->Write(0, $consulta['spo2'] ?? '');
 
-$pdf->SetXY(20, 54.5);
-$pdf->Write(0, utf8_decode($consulta['cabeza'] ?? ''));
-$pdf->SetXY(15, 63.7);
-$pdf->Write(0, utf8_decode($consulta['oido'] ?? ''));
-$pdf->SetXY(30, 72.9);
-$pdf->Write(0, utf8_decode($consulta['cavidad_oral'] ?? ''));
-$pdf->SetXY(20, 82.1);
-$pdf->Write(0, utf8_decode($consulta['cuello'] ?? ''));
-$pdf->SetXY(20, 91.3);
-$pdf->Write(0, utf8_decode($consulta['torax'] ?? ''));
+$pdf->SetXY(15, 47.5);
+$pdf->MultiCell(170, 3.5, ($consulta['motivo'] ?? ''), 0, 'L');
 
-$pdf->SetXY(42, 101);
-$pdf->Write(0, utf8_decode($consulta['columna_vertebral'] ?? ''));
-$pdf->SetXY(53, 110.5);
-$pdf->Write(0, utf8_decode($consulta['extremidades_superiores'] ?? ''));
-$pdf->SetXY(51, 120);
-$pdf->Write(0, utf8_decode($consulta['extremidades_inferiores'] ?? ''));
+$pdf->SetXY(15, 66.5);
+$pdf->MultiCell(170, 3.5, ($consulta['evaluacion_fisica'] ?? ''), 0, 'L');
 
-$pdf->SetXY(23, 134.2);
-$pdf->Write(0, utf8_decode($consulta['abdomen'] ?? ''));
+$pdf->SetXY(8, 238);
+$pdf->MultiCell(87, 3.5, ($consulta['botiquin'] ?? ''), 0, 'L');
+
+$pdf->SetXY(121, 238);
+$pdf->MultiCell(87, 3.5, ($consulta['destino'] ?? ''), 0, 'L');
 
 $pdf->Output('I', 'historia_clinica.pdf');
 $conn->close();

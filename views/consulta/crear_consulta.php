@@ -8,13 +8,13 @@ $id_empleado = isset($_GET['id']) ? intval($_GET['id']) : 0;
 
 // Obtener nombre del paciente
 if ($id_empleado > 0) {
-  $sql = "SELECT * FROM pacientes WHERE id_empleado = ?";
-  $stmt = $conn->prepare($sql);
-  $stmt->bind_param("i", $id_empleado);
-  $stmt->execute();
-  $result = $stmt->get_result();
-  $paciente = $result->fetch_assoc();
-  $stmt->close();
+    $sql = "SELECT * FROM pacientes WHERE id_empleado = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_empleado);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $paciente = $result->fetch_assoc();
+    $stmt->close();
 }
 
 $hora = date('H:i');
@@ -252,7 +252,7 @@ $fecha = date('Y-m-d');
             </h2>
             <?php if ($paciente['nombre_completo']): ?>
                 <div class="alert alert-info text-center mb-4">
-                    <strong>Paciente:</strong> <?php echo $paciente['nombre_completo']?>
+                    <strong>Paciente:</strong> <?php echo $paciente['nombre_completo'] ?>
                 </div>
             <?php endif; ?>
 
@@ -262,12 +262,12 @@ $fecha = date('Y-m-d');
                 <div class="row mb-4">
                     <div class="col-md-4">
                         <label for="hora_salida" class="form-label">Fecha:</label>
-                        <input type="date" class="form-control" id="fecha" name="fecha" 
-                        value="<?php echo $fecha ?>" readonly>
+                        <input type="date" class="form-control" id="fecha" name="fecha"
+                            value="<?php echo $fecha ?>" readonly>
                     </div>
                     <div class="col-md-4">
                         <label for="hora_entrada" class="form-label">Hora de entrada:</label>
-                        <input type="text" class="form-control" id="hora_entrada" name="hora_entrada" 
+                        <input type="text" class="form-control" id="hora_entrada" name="hora_entrada"
                             value="<?php echo $hora; ?>" readonly>
                     </div>
                     <div class="col-md-4">
@@ -327,7 +327,7 @@ $fecha = date('Y-m-d');
                     <div class="evaluation-grid">
                         <div class="evaluation-column" style="grid-column: 1 / -1;">
                             <div class="evaluation-item">
-                                <h4>Motivo</h4>
+                                <h4><i class="bi bi-journal-text"></i> Motivo</h4>
                                 <textarea name="motivo" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
@@ -335,46 +335,11 @@ $fecha = date('Y-m-d');
                 </div>
 
                 <div class="form-section">
-                    <h3><i class="bi bi-person-vcard"></i> EVALUACIÓN FÍSICA</h3>
                     <div class="evaluation-grid">
-                        <div class="evaluation-column">
+                        <div class="evaluation-column" style="grid-column: 1 / -1;">
                             <div class="evaluation-item">
-                                <h4>CABEZA</h4>
-                                <textarea name="cabeza" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>OÍDO</h4>
-                                <textarea name="oido" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>CAVIDAD ORAL</h4>
-                                <textarea name="cavidad_oral" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>CUELLO</h4>
-                                <textarea name="cuello" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>TÓRAX</h4>
-                                <textarea name="torax" rows="3" class="form-control"></textarea>
-                            </div>
-                        </div>
-                        <div class="evaluation-column">
-                            <div class="evaluation-item">
-                                <h4>ABDOMEN</h4>
-                                <textarea name="abdomen" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>COLUMNA VERTEBRAL</h4>
-                                <textarea name="columna" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>EXTREMIDADES SUPERIORES</h4>
-                                <textarea name="extremidades_superiores" rows="3" class="form-control"></textarea>
-                            </div>
-                            <div class="evaluation-item">
-                                <h4>EXTREMIDADES INFERIORES</h4>
-                                <textarea name="extremidades_inferiores" rows="3" class="form-control"></textarea>
+                                <h4><i class="bi bi-person-vcard"></i> Evaluacion Fisica</h4>
+                                <textarea name="evaluacion_fisica" rows="5" class="form-control"></textarea>
                             </div>
                         </div>
                     </div>
@@ -384,13 +349,13 @@ $fecha = date('Y-m-d');
                     <div class="evaluation-grid">
                         <div class="evaluation-column">
                             <div class="evaluation-item">
-                                <h4>Botiquin</h4>
+                                <h4><i class="bi bi-capsule-pill"></i> Botiquin</h4>
                                 <textarea name="botiquin" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
                         <div class="evaluation-column">
                             <div class="evaluation-item">
-                                <h4>Destino</h4>
+                                <h4><i class="bi bi-geo-alt"></i> Destino</h4>
                                 <textarea name="destino" rows="3" class="form-control"></textarea>
                             </div>
                         </div>
@@ -450,7 +415,9 @@ $fecha = date('Y-m-d');
         // Mostrar la hora de salida en tiempo real
         function actualizarHoraSalida() {
             const now = new Date();
-            const hora = now.toLocaleTimeString('es-MX', { hour12: false }).slice(0,5);
+            const hora = now.toLocaleTimeString('es-MX', {
+                hour12: false
+            }).slice(0, 5);
             document.getElementById('hora_salida').value = hora;
         }
         setInterval(actualizarHoraSalida, 1000);
@@ -460,8 +427,8 @@ $fecha = date('Y-m-d');
             actualizarHoraSalida(); // Asegura que esté actualizada justo al enviar
         });
 
-        document.addEventListener('DOMContentLoaded', function () {
-            document.querySelectorAll('.form-section').forEach(function (section, i) {
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('.form-section').forEach(function(section, i) {
                 setTimeout(() => {
                     section.style.opacity = 1;
                     section.style.transform = 'translateY(0)';

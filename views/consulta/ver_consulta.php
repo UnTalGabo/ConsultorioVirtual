@@ -272,50 +272,15 @@ $fecha = $consulta ? $consulta['fecha'] : date('Y-m-d');
                     </div>
 
                     <div class="form-section">
-                        <h3><i class="bi bi-person-vcard"></i> EVALUACIÓN FÍSICA</h3>
-                        <div class="evaluation-grid">
-                            <div class="evaluation-column">
-                                <div class="evaluation-item">
-                                    <h4>CABEZA</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['cabeza']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>OÍDO</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['oido']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>CAVIDAD ORAL</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['cavidad_oral']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>CUELLO</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['cuello']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>TÓRAX</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['torax']); ?></textarea>
-                                </div>
-                            </div>
-                            <div class="evaluation-column">
-                                <div class="evaluation-item">
-                                    <h4>ABDOMEN</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['abdomen']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>COLUMNA VERTEBRAL</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['columna']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>EXTREMIDADES SUPERIORES</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['extremidades_superiores']); ?></textarea>
-                                </div>
-                                <div class="evaluation-item">
-                                    <h4>EXTREMIDADES INFERIORES</h4>
-                                    <textarea rows="3" class="form-control" readonly><?php echo htmlspecialchars($consulta['extremidades_inferiores']); ?></textarea>
-                                </div>
+                    <div class="evaluation-grid">
+                        <div class="evaluation-column" style="grid-column: 1 / -1;">
+                            <div class="evaluation-item">
+                                <h4><i class="bi bi-person-vcard"></i> Evaluacion Fisica</h4>
+                                <textarea name="evaluacion_fisica" rows="5" class="form-control" readonly><?php echo htmlspecialchars($consulta['evaluacion_fisica']); ?></textarea>
                             </div>
                         </div>
                     </div>
+                </div>
 
                     <div class="form-section">
                         <div class="evaluation-grid">

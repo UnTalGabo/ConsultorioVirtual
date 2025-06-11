@@ -23,15 +23,7 @@ $presion_arterial  = $_POST['presion_arterial'] ?? null;
 $spo2              = $_POST['spo2'] ?? null;
 
 $motivo            = $_POST['motivo'] ?? '';
-$cabeza            = $_POST['cabeza'] ?? '';
-$oido              = $_POST['oido'] ?? '';
-$cavidad_oral      = $_POST['cavidad_oral'] ?? '';
-$cuello            = $_POST['cuello'] ?? '';
-$torax             = $_POST['torax'] ?? '';
-$abdomen           = $_POST['abdomen'] ?? '';
-$columna           = $_POST['columna'] ?? '';
-$extremidades_superiores = $_POST['extremidades_superiores'] ?? '';
-$extremidades_inferiores = $_POST['extremidades_inferiores'] ?? '';
+$evaluacion_fisica = $_POST['evaluacion_fisica'] ?? '';
 
 // Puedes agregar aquí los campos de botiquin y destino si los renombras en el formulario
 $botiquin          = $_POST['botiquin'] ?? '';
@@ -53,22 +45,14 @@ $sql = "INSERT INTO consultas (
     presion_arterial, 
     spo2,
     motivo, 
-    cabeza, 
-    oido, 
-    cavidad_oral, 
-    cuello, 
-    torax, 
-    abdomen, 
-    columna, 
-    extremidades_superiores, 
-    extremidades_inferiores, 
+    evaluacion_fisica,
     botiquin, 
     destino
-) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param(
-    "isssddddddsssssssssssssss",
+    "isssddddddsssssss",
     $id_empleado,
     $fecha,
     $hora_entrada,
@@ -83,15 +67,7 @@ $stmt->bind_param(
     $presion_arterial,
     $spo2,
     $motivo,
-    $cabeza,
-    $oido,
-    $cavidad_oral,
-    $cuello,
-    $torax,
-    $abdomen,
-    $columna,
-    $extremidades_superiores,
-    $extremidades_inferiores,
+    $evaluacion_fisica,
     $botiquin,
     $destino
 );
