@@ -1,5 +1,12 @@
 <?php
 session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+) {
+    header('Location: login.php');
+    exit();
+}
 require_once '../php/conexion.php'; // Ajusta la ruta si tu archivo de conexión está en otra carpeta
 
 // Solo admin puede agregar usuarios

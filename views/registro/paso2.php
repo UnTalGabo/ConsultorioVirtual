@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+) {
+    header('Location: login.php');
+    exit();
+}
 require_once "../../php/conexion.php";
 
 $id_empleado = $_GET['id'];

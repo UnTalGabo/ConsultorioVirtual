@@ -176,7 +176,12 @@ try {
     $stmt->close();
 
     $conn->commit();
-    header("Location: ../../views/ver_pacientes.php?id=" . $id_empleado);
+    // Redirigir al siguiente paso (o al panel principal)
+    if ($accion === 'guardar_continuar') {
+        header("Location: ../../views/registro/paso8.php?id=" . $id_empleado);
+    } else if  ($accion === 'guardar_salir') {
+        header("Location: ../../views/ver_pacientes.php");
+    }
     exit();
 } catch (Exception $e) {
     $conn->rollback();

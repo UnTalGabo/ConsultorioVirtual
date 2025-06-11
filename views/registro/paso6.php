@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+) {
+    header('Location: login.php');
+    exit();
+}
 require_once "../../php/conexion.php";
 
 // Validar ID del paciente
@@ -20,6 +28,14 @@ $stmt->bind_param("i", $id_empleado);
 $stmt->execute();
 $resultado2 = $stmt->get_result();
 $antecedentes = $resultado2->fetch_assoc();
+
+$sql = "SELECT * FROM vacunas WHERE id_empleado = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_empleado);
+$stmt->execute();
+$result = $stmt->get_result();
+$vacunas = $result->fetch_assoc() ?: [];
+$vacunas_fecha = $vacunas;
 
 $sql = "SELECT enfermedad FROM enfermedades_patologicas WHERE id_empleado = ?";
 $stmt = $conn->prepare($sql);
@@ -208,7 +224,7 @@ function getChecked($efnfermedad)
     <!-- Barra de navegación superior -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="../index.php">
                 <i class="bi bi-hospital-fill fs-3"></i>
                 Consultorio Virtual
             </a>
@@ -352,6 +368,296 @@ function getChecked($efnfermedad)
                 </div>
 
                 <div class="form-section">
+                    <h3><i class="bi bi-shield-plus"></i> Vacunas recibidas</h3>
+                    <div class="row g-3">
+                        <div class="col-md-6">
+                            <!-- COVID-19 -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">COVID-19</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[covid]" id="vacuna_covid"
+                                        <?php echo !empty($vacunas['covid']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_covid">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Penúltima aplicación</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[covid_penultima]"
+                                            value="<?php echo isset($vacunas_fecha['covid_penultima']) ? $vacunas_fecha['covid_penultima'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Última aplicación</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[covid_ultima]"
+                                            value="<?php echo isset($vacunas_fecha['covid_ultima']) ? $vacunas_fecha['covid_ultima'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- INFLUENZA -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">INFLUENZA</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[influenza]" id="vacuna_influenza"
+                                        <?php echo !empty($vacunas['influenza']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_influenza">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Penúltima aplicación</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[influenza_penultima]"
+                                            value="<?php echo isset($vacunas_fecha['influenza_penultima']) ? $vacunas_fecha['influenza_penultima'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Última aplicación</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[influenza_ultima]"
+                                            value="<?php echo isset($vacunas_fecha['influenza_ultima']) ? $vacunas_fecha['influenza_ultima'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- SARAMPION, RUBEOLA Y PAROTIDITIS -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Sarampión, Rubeola y Parotiditis</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[sarampion]" id="vacuna_sarampion"
+                                        <?php echo !empty($vacunas['sarampion']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_sarampion">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[sarampion_1]"
+                                            value="<?php echo isset($vacunas_fecha['sarampion_1']) ? $vacunas_fecha['sarampion_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[sarampion_2]"
+                                            value="<?php echo isset($vacunas_fecha['sarampion_2']) ? $vacunas_fecha['sarampion_2'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- TETANOS, DIFTERIA Y TOS FERINA -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Tétanos, Difteria y Tos Ferina</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[tetanos]" id="vacuna_tetanos"
+                                        <?php echo !empty($vacunas['tetanos']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_tetanos">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[tetanos_1]"
+                                            value="<?php echo isset($vacunas_fecha['tetanos_1']) ? $vacunas_fecha['tetanos_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[tetanos_2]"
+                                            value="<?php echo isset($vacunas_fecha['tetanos_2']) ? $vacunas_fecha['tetanos_2'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 3</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[tetanos_3]"
+                                            value="<?php echo isset($vacunas_fecha['tetanos_3']) ? $vacunas_fecha['tetanos_3'] : ''; ?>">
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Último refuerzo</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[tetanos_refuerzo]"
+                                            value="<?php echo isset($vacunas_fecha['tetanos_refuerzo']) ? $vacunas_fecha['tetanos_refuerzo'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- VARICELA -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Varicela</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[varicela]" id="vacuna_varicela"
+                                        <?php echo !empty($vacunas['varicela']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_varicela">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[varicela_1]"
+                                            value="<?php echo isset($vacunas_fecha['varicela_1']) ? $vacunas_fecha['varicela_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[varicela_2]"
+                                            value="<?php echo isset($vacunas_fecha['varicela_2']) ? $vacunas_fecha['varicela_2'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- HERPES ZOSTER -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Herpes Zoster</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[herpes]" id="vacuna_herpes"
+                                        <?php echo !empty($vacunas['herpes']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_herpes">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[herpes_1]"
+                                            value="<?php echo isset($vacunas_fecha['herpes_1']) ? $vacunas_fecha['herpes_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[herpes_2]"
+                                            value="<?php echo isset($vacunas_fecha['herpes_2']) ? $vacunas_fecha['herpes_2'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <!-- VPH -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">VPH</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[vph]" id="vacuna_vph"
+                                        <?php echo !empty($vacunas['vph']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_vph">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[vph_1]"
+                                            value="<?php echo isset($vacunas_fecha['vph_1']) ? $vacunas_fecha['vph_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[vph_2]"
+                                            value="<?php echo isset($vacunas_fecha['vph_2']) ? $vacunas_fecha['vph_2'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 3</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[vph_3]"
+                                            value="<?php echo isset($vacunas_fecha['vph_3']) ? $vacunas_fecha['vph_3'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Hepatitis A -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Hepatitis A</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[hepatitis_a]" id="vacuna_hepatitis_a"
+                                        <?php echo !empty($vacunas['hepatitis_a']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_hepatitis_a">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[hepatitis_a_1]"
+                                            value="<?php echo isset($vacunas_fecha['hepatitis_a_1']) ? $vacunas_fecha['hepatitis_a_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[hepatitis_a_2]"
+                                            value="<?php echo isset($vacunas_fecha['hepatitis_a_2']) ? $vacunas_fecha['hepatitis_a_2'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Hepatitis B -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Hepatitis B</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[hepatitis_b]" id="vacuna_hepatitis_b"
+                                        <?php echo !empty($vacunas['hepatitis_b']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_hepatitis_b">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Dosis 1</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[hepatitis_b_1]"
+                                            value="<?php echo isset($vacunas_fecha['hepatitis_b_1']) ? $vacunas_fecha['hepatitis_b_1'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 2</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[hepatitis_b_2]"
+                                            value="<?php echo isset($vacunas_fecha['hepatitis_b_2']) ? $vacunas_fecha['hepatitis_b_2'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Dosis 3</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[hepatitis_b_3]"
+                                            value="<?php echo isset($vacunas_fecha['hepatitis_b_3']) ? $vacunas_fecha['hepatitis_b_3'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Neumococo -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Neumococo</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[neumococo]" id="vacuna_neumococo"
+                                        <?php echo !empty($vacunas['neumococo']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_neumococo">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Penúltima aplicación</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[neumococo_penultima]"
+                                            value="<?php echo isset($vacunas_fecha['neumococo_penultima']) ? $vacunas_fecha['neumococo_penultima'] : ''; ?>">
+                                    </div>
+                                    <div class="col">
+                                        <label class="form-label">Última aplicación</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[neumococo_ultima]"
+                                            value="<?php echo isset($vacunas_fecha['neumococo_ultima']) ? $vacunas_fecha['neumococo_ultima'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Meningococo -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Meningococo</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[meningococo]" id="vacuna_meningococo"
+                                        <?php echo !empty($vacunas['meningococo']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_meningococo">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Fecha</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[meningococo_1]"
+                                            value="<?php echo isset($vacunas_fecha['meningococo_1']) ? $vacunas_fecha['meningococo_1'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Rabia -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Rabia</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[rabia]" id="vacuna_rabia"
+                                        <?php echo !empty($vacunas['rabia']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_rabia">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Fecha</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[rabia_1]"
+                                            value="<?php echo isset($vacunas_fecha['rabia_1']) ? $vacunas_fecha['rabia_1'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Fiebre Amarilla -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">Fiebre Amarilla</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="vacunas[fiebre_amarilla]" id="vacuna_fiebre_amarilla"
+                                        <?php echo !empty($vacunas['fiebre_amarilla']) ? 'checked' : ''; ?>>
+                                    <label class="form-check-label" for="vacuna_fiebre_amarilla">Recibida</label>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col">
+                                        <label class="form-label">Fecha</label>
+                                        <input type="date" class="form-control" name="vacunas_fecha[fiebre_amarilla_1]"
+                                            value="<?php echo isset($vacunas_fecha['fiebre_amarilla_1']) ? $vacunas_fecha['fiebre_amarilla_1'] : ''; ?>">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-section">
                     <div class="mb-3">
                         <label class="form-label">Fracturas o esguinces</label>
                         <textarea name="fracturas_esguinces" rows="3" class="form-control"><?php echo isset($antecedentes['fracturas_esguinces']) ? $antecedentes['fracturas_esguinces'] : '' ?></textarea>
@@ -383,9 +689,9 @@ function getChecked($efnfermedad)
                             <i class="bi bi-save"></i> Guardar y Salir
                         </button>
                         <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar" style="background-color: #198754; border-color: #198754;">
-                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar 
+                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar
                         </button>
-                        
+
                     </div>
                 </div>
             </form>
@@ -396,8 +702,8 @@ function getChecked($efnfermedad)
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         // Animación de fade-in para las secciones
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelectorAll('.form-section').forEach(function (section, i) {
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.form-section').forEach(function(section, i) {
                 setTimeout(() => {
                     section.style.opacity = 1;
                     section.style.transform = 'translateY(0)';
@@ -405,6 +711,30 @@ function getChecked($efnfermedad)
             });
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Selecciona todos los checkboxes de vacunas
+    document.querySelectorAll('.form-check-input[name^="vacunas["]').forEach(function(checkbox) {
+        // Encuentra el contenedor de fechas (el .mb-3 más cercano)
+        const mb3 = checkbox.closest('.mb-3');
+        if (!mb3) return;
+        // Encuentra todos los campos de Dosis dentro de este .mb-3
+        const dateRows = mb3.querySelectorAll('.row.mt-2');
+
+        function toggleFechas() {
+            dateRows.forEach(function(row) {
+                row.style.display = checkbox.checked ? '' : 'none';
+            });
+        }
+
+        // Inicializa el estado al cargar la página
+        toggleFechas();
+
+        // Escucha cambios en el checkbox
+        checkbox.addEventListener('change', toggleFechas);
+    });
+});
+</script>
 </body>
 
 </html>

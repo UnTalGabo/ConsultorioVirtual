@@ -4,6 +4,7 @@ require_once "../conexion.php";
 // Obtener datos del formulario
 $id_empleado = $_POST['id_empleado'];
 $accion = $_POST['accion'] ?? '';
+$accion2= $_POST['accion2'] ?? '';
 $nombre = $_POST['nombre_completo'];
 $fecha_nacimiento = $_POST['fecha_nacimiento'];
 $genero = $_POST['genero'];
@@ -27,7 +28,13 @@ $departamento = $_POST['departamento'];
 // Validar que no exista ya un paciente con ese ID
 $verifica = $conn->query("SELECT * FROM pacientes WHERE id_empleado = $id_empleado");
 
-if ($verifica->num_rows > 0) {
+$verifica = $conn->query("SELECT * FROM pacientes WHERE id_empleado = $id_empleado");
+
+if ($verifica->num_rows > 0 && $accion2 === 'nuevo') {
+    // Redirige al formulario con mensaje de error
+    header("Location: ../../views/registro/crear_paciente.php?error=existe");
+    exit;
+} else if ($verifica->num_rows > 0) {
     $sql = "UPDATE pacientes SET 
             nombre_completo = ?, 
             fecha_nacimiento = ?,

@@ -1,12 +1,12 @@
 <?php
-/*session_start();
+session_start();
 if (
     !isset($_SESSION['usuario_rol']) ||
     !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
 ) {
     header('Location: login.php');
     exit();
-}*/
+}
 ?>
 
 <!DOCTYPE html>
@@ -116,29 +116,24 @@ if (
         <i class="bi bi-person-vcard"></i> Panel Principal
       </h2>
       <div class="row g-4">
-        <div class="col-12 col-md-4">
-          <a href="../views/registro/paso1.php" class="option-btn">
+        <div class="col-12 col-md-6">
+          <a href="../views/registro/crear_paciente.php" class="option-btn">
             <i class="bi bi-person-plus"></i>
             Registrar Paciente
           </a>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
           <a href="ver_pacientes.php" class="option-btn">
             <i class="bi bi-people"></i>
             Ver Pacientes
           </a>
         </div>
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-12">
           <a href="consulta/seleccionar_paciente.php" class="option-btn">
             <i class="bi bi-journal-medical"></i>
             Nueva Consulta
           </a>
         </div>
-        <div class="col-12 col-md-12">
-          <button type="button" class="option-btn w-100" id="btnActualizarPaciente" data-bs-toggle="modal" data-bs-target="#modalActualizarPaciente">
-            <i class="bi bi-pencil-square"></i>
-            Actualizar Paciente
-          </button>
         </div>
       </div>
     </div>

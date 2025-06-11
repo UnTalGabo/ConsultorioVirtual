@@ -1,16 +1,18 @@
 <?php
-/*session_start();
+session_start();
 if (
-    !isset($_SESSION['usuario_rol']) ||
-    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+  !isset($_SESSION['usuario_rol']) ||
+  !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
 ) {
-    header('Location: login.php');
-    exit();
-}*/
+  header('Location: login.php');
+  exit();
+}
+
+$orden = $_GET['orden'] ?? 'nombre_completo';
 
 require_once "../php/conexion.php";
 
-$sql = "SELECT * FROM pacientes ORDER BY nombre_completo ASC";
+$sql = "SELECT * FROM pacientes ORDER BY $orden ASC";
 $resultado = $conn->query($sql);
 ?>
 
@@ -258,17 +260,17 @@ $resultado = $conn->query($sql);
                           type="button"
                           data-bs-toggle="modal"
                           data-bs-target="#modalEditar"><i class="bi bi-pencil-square"></i> Editar</button>
-                        <a href="../views/registro/paso8.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-info btn-sm text-white flex-fill">
-                          <i class="bi bi-clipboard2-pulse"></i> Examen Médico
-                        </a>
+
                       </div>
                       <div class="d-flex flex-row gap-1">
                         <a href="../views/consulta/historial.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-secondary btn-sm flex-fill">
                           <i class="bi bi-journal-medical"></i> Ver Consultas
                         </a>
-                        <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm flex-fill" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
-                          <i class="bi bi-trash"></i> Eliminar
-                        </a>
+                        <?php if ($_SESSION['usuario_rol'] === 'admin'): ?>
+                          <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm flex-fill" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
+                            <i class="bi bi-trash"></i> Eliminar
+                          </a>
+                        <?php endif; ?>
                       </div>
                     </div>
                   </td>
@@ -307,6 +309,7 @@ $resultado = $conn->query($sql);
             <a id="btnGinecoObstetricos" class="btn btn-outline-warning" href="#" style="display:none;">Antecedentes Gineco-Obstétricos</a>
             <a id="btnPatologicos" class="btn btn-outline-danger" href="#">Antecedentes Patológicos</a>
             <a id="btnMedicoLaborales" class="btn btn-outline-info" href="#">Antecedentes Médico-Laborales</a>
+            <a id="btnExamenMedico" class="btn btn-outline-primary" href="#">Examen Médico</a>
           </div>
         </div>
       </div>
@@ -369,6 +372,7 @@ $resultado = $conn->query($sql);
         document.getElementById('btnGinecoObstetricos').href = `../views/registro/paso5.php?id=${idSeleccionado}`;
         document.getElementById('btnPatologicos').href = `../views/registro/paso6.php?id=${idSeleccionado}`;
         document.getElementById('btnMedicoLaborales').href = `../views/registro/paso7.php?id=${idSeleccionado}`;
+        document.getElementById('btnExamenMedico').href = `../views/registro/paso8.php?id=${idSeleccionado}`;
       });
     });
   </script>

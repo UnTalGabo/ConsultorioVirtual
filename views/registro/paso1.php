@@ -1,4 +1,12 @@
 <?php
+session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+) {
+    header('Location: login.php');
+    exit();
+}
 require_once "../../php/conexion.php";
 
 $id_paciente = isset($_GET['id']) ? intval($_GET['id']) : 0;
@@ -13,6 +21,7 @@ if ($id_paciente > 0) {
   $paciente = $result->fetch_assoc();
   $stmt->close();
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -20,7 +29,7 @@ if ($id_paciente > 0) {
 
 <head>
   <meta charset="UTF-8">
-  <title><?php echo $id_paciente ? 'Editar' : 'Nuevo'; ?> Paciente - Paso 1</title>
+  <title>Editar Paciente - Paso 1</title>
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
   <!-- Bootstrap Icons -->
@@ -157,7 +166,7 @@ if ($id_paciente > 0) {
   <!-- Barra de navegación superior -->
   <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center gap-2" href="index.php">
+      <a class="navbar-brand d-flex align-items-center gap-2" href="../index.php">
         <i class="bi bi-hospital-fill fs-3"></i>
         Consultorio Virtual
       </a>

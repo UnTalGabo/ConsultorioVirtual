@@ -237,7 +237,7 @@ $fecha = date('Y-m-d');
     <!-- Barra de navegación superior -->
     <nav class="navbar navbar-expand-lg navbar-dark shadow-sm">
         <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+            <a class="navbar-brand d-flex align-items-center gap-2" href="../index.php">
                 <i class="bi bi-hospital-fill fs-3"></i>
                 Consultorio Virtual
             </a>

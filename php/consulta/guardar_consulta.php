@@ -97,9 +97,14 @@ $stmt->bind_param(
 );
 
 if ($stmt->execute()) {
+    $consulta_id = $conn->insert_id; // Obtiene el ID autoincremental de la consulta
     $stmt->close();
     $conn->close();
-    header("Location: ../../views/index.php?id=$id_empleado&success=1");
+    // Imprime JS para abrir el PDF y luego redirige
+    echo "<script>
+        window.open('../pdf_consulta.php?id=$consulta_id', '_blank');
+        window.location.href = '../../views/consulta/ver_consulta.php?id_consulta=$consulta_id';
+    </script>";
     exit;
 } else {
     $error = $stmt->error;
