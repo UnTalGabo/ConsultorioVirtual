@@ -14,6 +14,13 @@ if ($id_empleado > 0) {
     $stmt->execute();
     $result = $stmt->get_result();
     $paciente = $result->fetch_assoc();
+
+    $sql = "SELECT * FROM examenes_medicos WHERE id_empleado = ?";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_empleado);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $examen = $result->fetch_assoc();
     $stmt->close();
 }
 
@@ -282,8 +289,8 @@ $fecha = date('Y-m-d');
                     <div class="row g-3">
                         <div class="col-md-4">
                             <label for="talla" class="form-label">Talla (cm):</label>
-                            <input type="number" name="talla" id="talla" step="0.01" class="form-control"
-                                oninput="calcularIMC()">
+                            <input type="number" name="talla" id="talla" step="1" class="form-control"
+                                oninput="calcularIMC()" value="<?php echo isset($examen['talla']) ? $examen['talla'] : '' ?>">
                         </div>
                         <div class="col-md-4">
                             <label for="peso" class="form-label">Peso (kg):</label>

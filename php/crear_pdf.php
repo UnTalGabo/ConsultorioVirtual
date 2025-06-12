@@ -7,6 +7,8 @@ use setasign\Fpdi\Fpdi;
 $id_empleado = $_GET['id'] ?? null;
 if (!$id_empleado) die("ID de empleado no proporcionado.");
 
+$carpeta_destino = __DIR__ . '../../media/examenes_pdf/';
+
 // Utilidades
 function obtenerDatos($tabla, $id_empleado)
 {
@@ -472,5 +474,28 @@ $pdf->Write(0, utf8_decode($examenMedico['extremidades_inferiores'] ?? ''));
 $pdf->SetXY(23, 134.2);
 $pdf->Write(0, utf8_decode($examenMedico['abdomen'] ?? ''));
 
-$pdf->Output('I', 'historia_clinica.pdf');
+$nombre_archivo = 'examen_' . $id_empleado . '_' . date('dmY') . '.pdf';
+$ruta_relativa = 'consultoriovirtual/media/examenes_pdf/' . $nombre_archivo;
+$ruta_completa = $carpeta_destino . $nombre_archivo;
+
+// Guardar el PDF en el servidor
+$pdf->Output($ruta_completa, 'F'); // 'F' para guardar en archivo
+
+
+$tipo_pdf = 'examen_medico'; // O el tipo que corresponda
+
+// Eliminar registro anterior con la misma ruta
+$stmt = $conn->prepare("DELETE FROM pdf WHERE ruta_pdf = ?");
+$stmt->bind_param("s", $ruta_relativa);
+$stmt->execute();
+$stmt->close();
+
+$stmt = $conn->prepare("INSERT INTO pdf (id_empleado, tipo_pdf, ruta_pdf, fecha_creacion) VALUES (?, ?, ?, NOW())");
+$stmt->bind_param("iss", $id_empleado, $tipo_pdf, $ruta_relativa);
+$stmt->execute();
+$stmt->close();
+
+header('Location: ../../' . $ruta_relativa);
+exit();
+
 $conn->close();

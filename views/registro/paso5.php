@@ -311,17 +311,18 @@ $stmt->close();
                     </div>
                 </div>
 
-                <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
+                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
                     <a href="../ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">
                         <i class="bi bi-box-arrow-left"></i> Salir sin guardar
                     </a>
-                    <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
-                        <i class="bi bi-save2"></i> Guardar y Salir
-                    </button>
-                    <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
-                        <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar &raquo;
-                    </button>
-
+                    <div class="ms-auto d-flex gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg" name="accion" value="guardar_salir">
+                            <i class="bi bi-save2"></i> Guardar y Salir
+                        </button>
+                        <button type="submit" class="btn btn-success btn-lg" name="accion" value="guardar_continuar">
+                            <i class="bi bi-arrow-right-circle"></i> Guardar y Continuar
+                        </button>
+                    </div>
                 </div>
             </form>
         </div>
@@ -348,6 +349,18 @@ $stmt->close();
             });
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('form');
+  const btnContinuar = form.querySelector('button[name="accion"][value="guardar_continuar"]');
+  form.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      btnContinuar.click();
+    }
+  });
+});
+</script>
 </body>
 
 </html>

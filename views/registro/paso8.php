@@ -444,7 +444,7 @@ function getChecked($valor, $comparar)
                     </a>
                     <div class="ms-auto d-flex gap-2">
                         <button type="submit" class="btn btn-success btn-lg">
-                            <i class="bi bi-save"></i> Guardar Resultados
+                            <i class="bi bi-save"></i> Guardar y generar PDF
                         </button>
                     </div>
                 </div>
@@ -497,6 +497,7 @@ function getChecked($valor, $comparar)
             });
         });
     </script>
+    
 </body>
 
 </html>

@@ -15,15 +15,15 @@ if ($id_empleado > 0) {
     $stmt->close();
 }
 
-// Obtener historial de consultas
-$consultas = [];
+// Obtener historial de examenes
+$examenes = [];
 if ($id_empleado > 0) {
-    $stmt = $conn->prepare("SELECT id_consulta, fecha, motivo FROM consultas WHERE id_empleado = ? ORDER BY fecha DESC, id_consulta DESC");
+    $stmt = $conn->prepare("SELECT * FROM pdf WHERE id_empleado = ? AND tipo_pdf = 'examen' ORDER BY fecha_creacion DESC, id DESC");
     $stmt->bind_param("i", $id_empleado);
     $stmt->execute();
     $result = $stmt->get_result();
     while ($row = $result->fetch_assoc()) {
-        $consultas[] = $row;
+        $examenes[] = $row;
     }
     $stmt->close();
 }
@@ -34,7 +34,7 @@ if ($id_empleado > 0) {
 
 <head>
     <meta charset="UTF-8">
-    <title>Historial de Consultas</title>
+    <title>Historial de examenes</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
     <style>
@@ -125,19 +125,19 @@ if ($id_empleado > 0) {
                     <i class="bi bi-arrow-left"></i> Volver a Pacientes
                 </a>
                 <?php if ($paciente): ?>
-                    <a href="../registro/historial_examenes.php?id=<?php echo $id_empleado; ?>" class="btn btn-outline-secondary btn-lg">
-                        <i class="bi bi-plus-circle"></i> Ver examenes
+                    <a href="../consulta/historial.php?id=<?php echo $id_empleado; ?>" class="btn btn-outline-secondary btn-lg">
+                        <i class="bi bi-plus-circle"></i> Ver consultas
                     </a>
                 <?php endif; ?>
                 <?php if ($paciente): ?>
-                    <a href="crear_consulta.php?id=<?php echo $id_empleado; ?>" class="btn btn-success btn-lg">
-                        <i class="bi bi-plus-circle"></i> Nueva consulta
+                    <a href="paso1.php?id=<?php echo $id_empleado; ?>" class="btn btn-success btn-lg">
+                        <i class="bi bi-plus-circle"></i> Nuevo examen
                     </a>
                 <?php endif; ?>
             </div>
             <h2 class="text-center mb-4 fw-bold text-primary">
                 <i class="bi bi-journal-medical me-2"></i>
-                Historial de Consultas
+                Historial de examenes
             </h2>
             <?php if ($paciente): ?>
                 <h5 class="text-center mb-4">
@@ -147,28 +147,26 @@ if ($id_empleado > 0) {
 
             <?php endif; ?>
 
-            <?php if (count($consultas) > 0): ?>
+            <?php if (count($examenes) > 0): ?>
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered align-middle">
                         <thead>
                             <tr>
                                 <th>Fecha</th>
-                                <th>Motivo</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($consultas as $consulta): ?>
+                            <?php foreach ($examenes as $examen): ?>
                                 <tr>
-                                    <td><?php echo htmlspecialchars($consulta['fecha']); ?></td>
-                                    <td><?php echo nl2br(htmlspecialchars($consulta['motivo'])); ?></td>
+                                    <td><?php echo date('d/m/Y', strtotime($examen['fecha_creacion'])); ?></td>
                                     <td class="text-center">
-                                        <a href="ver_consulta.php?id_consulta=<?php echo $consulta['id_consulta']; ?>" class="btn btn-primary btn-sm">
+                                        <a href="../../../<?php echo $examen['ruta_pdf'] ?>" class="btn btn-primary btn-sm" target="_blank">
                                             <i class="bi bi-eye"></i> Ver
                                         </a>
-                                        <a href="../../php/consulta/eliminar_consulta.php?id_consulta=<?php echo $consulta['id_consulta']; ?>&id_empleado=<?php echo $id_empleado; ?>"
+                                        <a href="../../php/eliminar_pdf.php?ruta=<?php echo $examen['ruta_pdf'];?>&accion=examen"
                                             class="btn btn-danger btn-sm"
-                                            onclick="return confirm('¿Seguro que deseas eliminar esta consulta?');">
+                                            onclick="return confirm('¿Seguro que deseas eliminar esta examen?');">
                                             <i class="bi bi-trash"></i> Eliminar
                                         </a>
                                     </td>
@@ -179,7 +177,7 @@ if ($id_empleado > 0) {
                 </div>
             <?php else: ?>
                 <div class="alert alert-warning text-center">
-                    No hay consultas registradas para este paciente.
+                    No hay examenes registradas para este paciente.
                 </div>
             <?php endif; ?>
         </div>

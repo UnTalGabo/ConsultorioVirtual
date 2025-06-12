@@ -239,7 +239,6 @@ $resultado = $conn->query($sql);
                 <th>Teléfono</th>
                 <th>Departamento</th>
                 <th>Acciones</th>
-                <th>PDF</th>
               </tr>
             </thead>
             <tbody>
@@ -252,6 +251,15 @@ $resultado = $conn->query($sql);
                   <td class="text-nowrap">
                     <div class="d-flex flex-column flex-wrap" style="min-width: 180px;">
                       <div class="d-flex flex-row mb-1 gap-1">
+                        <a href="../views/consulta/historial.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-secondary btn-sm flex-fill">
+                          <i class="bi bi-journal-medical"></i> Ver Consultas
+                        </a>
+                        <a href="../views/registro/historial_examenes.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-primary btn-sm flex-fill">
+                          <i class="bi bi-clipboard2-pulse"></i> Ver Examenes
+                        </a>
+
+                      </div>
+                      <div class="d-flex flex-row gap-1">
                         <button
                           class="btn btn-editar btn-sm flex-fill"
                           data-id="<?php echo $fila['id_empleado']; ?>"
@@ -260,12 +268,6 @@ $resultado = $conn->query($sql);
                           type="button"
                           data-bs-toggle="modal"
                           data-bs-target="#modalEditar"><i class="bi bi-pencil-square"></i> Editar</button>
-
-                      </div>
-                      <div class="d-flex flex-row gap-1">
-                        <a href="../views/consulta/historial.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-secondary btn-sm flex-fill">
-                          <i class="bi bi-journal-medical"></i> Ver Consultas
-                        </a>
                         <?php if ($_SESSION['usuario_rol'] === 'admin'): ?>
                           <a href="../php/registro/eliminar_paciente.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-danger btn-sm flex-fill" onclick="return confirm('¿Seguro que deseas eliminar este paciente y todos sus datos?');">
                             <i class="bi bi-trash"></i> Eliminar
@@ -273,11 +275,6 @@ $resultado = $conn->query($sql);
                         <?php endif; ?>
                       </div>
                     </div>
-                  </td>
-                  <td>
-                    <a href="../php/crear_pdf.php?id=<?php echo $fila['id_empleado']; ?>" class="btn btn-primary btn-sm" target="_blank">
-                      <i class="bi bi-file-earmark-pdf"></i> PDF
-                    </a>
                   </td>
                 </tr>
               <?php endwhile; ?>

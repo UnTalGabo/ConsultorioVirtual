@@ -526,6 +526,18 @@ function getChecked($valor)
             toggleSecuelasFields();
         });
     </script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('form');
+  const btnContinuar = form.querySelector('button[name="accion"][value="guardar_continuar"]');
+  form.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+      e.preventDefault();
+      btnContinuar.click();
+    }
+  });
+});
+</script>
 </body>
 
 </html>
