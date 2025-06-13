@@ -121,7 +121,7 @@ if ($id_empleado > 0) {
     <div class="main-container">
         <div class="card p-4 p-md-5">
             <div class="d-flex justify-content-between align-items-center mb-3">
-                <a href="../ver_pacientes.php" class="btn btn-outline-primary volver-btn">
+                <a href="../ver_pacientes.php?buscador=<?php echo $paciente['nombre_completo'] ?>" class="btn btn-outline-primary volver-btn">
                     <i class="bi bi-arrow-left"></i> Volver a Pacientes
                 </a>
                 <?php if ($paciente): ?>

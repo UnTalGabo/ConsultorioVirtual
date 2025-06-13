@@ -9,6 +9,7 @@ if (
 }
 
 $orden = $_GET['orden'] ?? 'nombre_completo';
+$buscador = $_GET['buscador'] ?? '';
 
 require_once "../php/conexion.php";
 
@@ -227,7 +228,8 @@ $resultado = $conn->query($sql);
       <?php if ($resultado->num_rows > 0): ?>
         <div class="row mb-3">
           <div class="col-md-6">
-            <input type="text" id="buscador" class="form-control" placeholder="Buscar por nombre o número de empleado...">
+            <input type="text" id="buscador" class="form-control"
+              value="<?php echo isset($buscador) ? $buscador : '' ?>" placeholder="Buscar por nombre o número de empleado...">
           </div>
         </div>
         <div class="table-responsive">
@@ -339,9 +341,16 @@ $resultado = $conn->query($sql);
         }
       }
     }
+    window.addEventListener('DOMContentLoaded', function() {
+        var input = document.getElementById("buscador");
+        if (input && input.value.trim() !== "") {
+          buscarPaciente();
+        }
+      });
     // Buscar en tiempo real al escribir
     document.getElementById("buscador").addEventListener("keyup", buscarPaciente);
   </script>
+
   <script>
     // Modal editar lógica
     let idSeleccionado = null;
