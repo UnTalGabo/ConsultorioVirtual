@@ -76,11 +76,24 @@ if ($stmt->execute()) {
     $consulta_id = $conn->insert_id; // Obtiene el ID autoincremental de la consulta
     $stmt->close();
     $conn->close();
-    // Imprime JS para abrir el PDF y luego redirige
-    echo "<script>
-        window.open('../pdf_consulta.php?id=$consulta_id', '_blank');
-        window.location.href = '../../views/consulta/historial.php?id=$id_empleado';
-    </script>";
+     ?>
+    <!DOCTYPE html>
+    <html lang="es">
+    <head>
+        <meta charset="UTF-8">
+        <title>Redirigiendo...</title>
+    </head>
+    <body>
+        <script>
+            window.open('../pdf_consulta.php?id=<?php echo $consulta_id; ?>', '_blank');
+            window.location.href = '../../views/consulta/historial.php?id=<?php echo $id_empleado; ?>';
+        </script>
+        <noscript>
+            <p>Consulta guardada. <a href="../pdf_consulta.php?id=<?php echo $consulta_id; ?>" target="_blank">Ver PDF</a> | <a href="../../views/consulta/historial.php?id=<?php echo $id_empleado; ?>">Ir al historial</a></p>
+        </noscript>
+    </body>
+    </html>
+    <?php
     exit;
 } else {
     $error = $stmt->error;
