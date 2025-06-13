@@ -73,7 +73,7 @@ while ($row = $res->fetch_assoc()) $enfermedadesP[] = $row;
 $stmt->close();
 
 // Crear PDF
-$pdf = new Fpdi();
+$pdf = new Fpdi('P', 'mm', 'Letter');
 $pdf->SetFont('Helvetica');
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFontSize(9);

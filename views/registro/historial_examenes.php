@@ -18,7 +18,7 @@ if ($id_empleado > 0) {
 // Obtener historial de examenes
 $examenes = [];
 if ($id_empleado > 0) {
-    $stmt = $conn->prepare("SELECT * FROM pdf WHERE id_empleado = ? AND tipo_pdf = 'examen' ORDER BY fecha_creacion DESC, id DESC");
+    $stmt = $conn->prepare("SELECT * FROM pdf WHERE id_empleado = ? AND tipo_pdf = 'examen_medico' ORDER BY fecha_creacion DESC, id DESC");
     $stmt->bind_param("i", $id_empleado);
     $stmt->execute();
     $result = $stmt->get_result();

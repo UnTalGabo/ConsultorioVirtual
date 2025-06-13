@@ -44,7 +44,7 @@ $consulta = obtenerDatos('consultas', $id_consulta);
 $paciente = obtenerDatosPac('pacientes', $consulta['id_empleado']);
 
 // Crear PDF
-$pdf = new Fpdi();
+$pdf = new Fpdi('P', 'mm', 'Letter');
 $pdf->SetFont('Helvetica');
 $pdf->SetTextColor(0, 0, 0);
 $pdf->SetFontSize(9);
