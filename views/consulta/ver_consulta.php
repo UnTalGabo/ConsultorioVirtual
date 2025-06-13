@@ -10,16 +10,17 @@ $paciente = null;
 
 if ($id_consulta > 0) {
     // Obtener datos de la consulta y del paciente
-    $sql = "SELECT c.*, p.nombre_completo 
-            FROM consultas c 
-            INNER JOIN pacientes p ON c.id_empleado = p.id_empleado 
-            WHERE c.id_consulta = ?";
-    $stmt = $conn->prepare($sql);
-    $stmt->bind_param("i", $id_consulta);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $consulta = $result->fetch_assoc();
-    $stmt->close();
+    $sql = "SELECT c.*, p.nombre_completo, pdf.ruta_pdf 
+        FROM consultas c 
+        INNER JOIN pacientes p ON c.id_empleado = p.id_empleado 
+        LEFT JOIN pdf ON c.pdf = pdf.id
+        WHERE c.id_consulta = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $id_consulta);
+$stmt->execute();
+$result = $stmt->get_result();
+$consulta = $result->fetch_assoc();
+$stmt->close();
 
     if ($consulta) {
         $paciente = ['nombre_completo' => $consulta['nombre_completo']];
@@ -303,7 +304,7 @@ $fecha = $consulta ? $consulta['fecha'] : date('Y-m-d');
                         <a href="../../views/consulta/historial.php?id=<?php echo $consulta['id_empleado']; ?>" class="btn btn-danger btn-lg">
                             <i class="bi bi-box-arrow-left"></i> Volver
                         </a>
-                        <a href="../../php/pdf_consulta.php?id=<?php echo $consulta['id_consulta']; ?>" target="_blank" class="btn btn-primary btn-lg">
+                        <a href="../../media/consultas_pdf/<?php echo $consulta['ruta_pdf']; ?>" target="_blank" class="btn btn-primary btn-lg">
                             <i class="bi bi-file-earmark-pdf"></i> PDF
                         </a>
                     </div>

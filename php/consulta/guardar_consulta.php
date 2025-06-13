@@ -79,7 +79,7 @@ if ($stmt->execute()) {
     // Imprime JS para abrir el PDF y luego redirige
     echo "<script>
         window.open('../pdf_consulta.php?id=$consulta_id', '_blank');
-        window.location.href = '../../views/consulta/ver_consulta.php?id_consulta=$consulta_id';
+        window.location.href = '../../views/consulta/historial.php?id=$id_empleado';
     </script>";
     exit;
 } else {
