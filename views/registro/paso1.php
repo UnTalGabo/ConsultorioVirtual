@@ -1,15 +1,16 @@
 <?php
 session_start();
 if (
-    !isset($_SESSION['usuario_rol']) ||
-    !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
+  !isset($_SESSION['usuario_rol']) ||
+  !in_array($_SESSION['usuario_rol'], ['doctor', 'admin'])
 ) {
-    header('Location: login.php');
-    exit();
+  header('Location: login.php');
+  exit();
 }
 require_once "../../php/conexion.php";
 
-$id_paciente = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$id_paciente = isset($_GET['id']) ? intval($_GET['id']) :
+  header("Location: crear_paciente.php");
 $paciente = [];
 
 if ($id_paciente > 0) {
@@ -46,7 +47,8 @@ if ($id_paciente > 0) {
       background: #1e2a78;
     }
 
-    .navbar-brand, .navbar-brand i {
+    .navbar-brand,
+    .navbar-brand i {
       color: #fff !important;
       font-weight: 600;
       letter-spacing: 1px;
@@ -71,6 +73,7 @@ if ($id_paciente > 0) {
         opacity: 0;
         transform: translateY(40px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -85,11 +88,27 @@ if ($id_paciente > 0) {
       opacity: 0;
       transform: translateY(30px);
     }
-    .form-section:nth-child(1) { animation-delay: 0.1s; }
-    .form-section:nth-child(2) { animation-delay: 0.2s; }
-    .form-section:nth-child(3) { animation-delay: 0.3s; }
-    .form-section:nth-child(4) { animation-delay: 0.4s; }
-    .form-section:nth-child(5) { animation-delay: 0.5s; }
+
+    .form-section:nth-child(1) {
+      animation-delay: 0.1s;
+    }
+
+    .form-section:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .form-section:nth-child(3) {
+      animation-delay: 0.3s;
+    }
+
+    .form-section:nth-child(4) {
+      animation-delay: 0.4s;
+    }
+
+    .form-section:nth-child(5) {
+      animation-delay: 0.5s;
+    }
+
     @keyframes sectionFadeIn {
       to {
         opacity: 1;
@@ -117,7 +136,8 @@ if ($id_paciente > 0) {
       font-weight: 500;
     }
 
-    .form-control:focus, .form-select:focus {
+    .form-control:focus,
+    .form-select:focus {
       border-color: #2e3c81;
       box-shadow: 0 0 0 2px #2e3c8133;
     }
@@ -134,7 +154,9 @@ if ($id_paciente > 0) {
       align-items: center;
       gap: 0.5rem;
     }
-    .btn-primary:hover, .btn-primary:focus {
+
+    .btn-primary:hover,
+    .btn-primary:focus {
       background-color: #1e2a78;
       transform: scale(0.98);
     }
@@ -152,9 +174,11 @@ if ($id_paciente > 0) {
       .main-container {
         margin-top: 20px;
       }
+
       .card {
         padding: 0.5rem;
       }
+
       .form-section {
         padding-bottom: 0.5rem;
       }
@@ -316,7 +340,7 @@ if ($id_paciente > 0) {
               <label for="ciudad" class="form-label">Ciudad</label>
               <input type="text" name="ciudad" class="form-control"
                 value="<?php echo isset($paciente['ciudad']) ? $paciente['ciudad'] : 'Morelia'; ?>"
-                required >
+                required>
             </div>
             <div class="col-md-8">
               <label for="estado" class="form-label">Estado</label>
@@ -379,8 +403,8 @@ if ($id_paciente > 0) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Animación de fade-in para las secciones
-    document.addEventListener("DOMContentLoaded", function () {
-      document.querySelectorAll('.form-section').forEach(function (section, i) {
+    document.addEventListener("DOMContentLoaded", function() {
+      document.querySelectorAll('.form-section').forEach(function(section, i) {
         setTimeout(() => {
           section.style.opacity = 1;
           section.style.transform = 'translateY(0)';
@@ -389,17 +413,17 @@ if ($id_paciente > 0) {
     });
   </script>
   <script>
-document.addEventListener('DOMContentLoaded', function() {
-  const form = document.querySelector('form');
-  const btnContinuar = form.querySelector('button[name="accion"][value="guardar_continuar"]');
-  form.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      btnContinuar.click();
-    }
-  });
-});
-</script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const form = document.querySelector('form');
+      const btnContinuar = form.querySelector('button[name="accion"][value="guardar_continuar"]');
+      form.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+          e.preventDefault();
+          btnContinuar.click();
+        }
+      });
+    });
+  </script>
 </body>
 
 </html>
