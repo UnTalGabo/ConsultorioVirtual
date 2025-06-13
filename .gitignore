@@ -1,0 +1,9 @@
+# Ignora todos los archivos dentro de media/
+media/*
+
+# Pero no ignores la carpeta misma
+!media/
+
+# Y permite archivos de control como .gitkeep o README.md
+!media/.gitkeep
+!media/README.md
