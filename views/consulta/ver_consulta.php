@@ -304,7 +304,7 @@ $fecha = $consulta ? $consulta['fecha'] : date('Y-m-d');
                         <a href="../../views/consulta/historial.php?id=<?php echo $consulta['id_empleado']; ?>" class="btn btn-danger btn-lg">
                             <i class="bi bi-box-arrow-left"></i> Volver
                         </a>
-                        <a href="../../media/consultas_pdf/<?php echo $consulta['ruta_pdf']; ?>" target="_blank" class="btn btn-primary btn-lg">
+                        <a href="../../../<?php echo $consulta['ruta_pdf']; ?>" target="_blank" class="btn btn-primary btn-lg">
                             <i class="bi bi-file-earmark-pdf"></i> PDF
                         </a>
                     </div>
