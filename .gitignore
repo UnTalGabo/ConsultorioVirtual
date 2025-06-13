@@ -1,9 +1,15 @@
 # Ignora todos los archivos dentro de media/
 media/*
-
+media/examenes_pdf/*
+media/consultas_pdf/*
 # Pero no ignores la carpeta misma
 !media/
 
+!media/consultas_pdf
+
+!media/examenes_pdf
 # Y permite archivos de control como .gitkeep o README.md
 !media/.gitkeep
 !media/README.md
+!media/consultas_pdf/.gitkeep
+!media/examenes_pdf/.gitkeep
