@@ -36,16 +36,16 @@ $resultado = $conn->query("SELECT id, usuario, rol FROM usuarios");
                 <td><?php echo htmlspecialchars($usuario['usuario']); ?></td>
                 <td><?php echo htmlspecialchars($usuario['rol']); ?></td>
                 <td class="text-center">
-                    <a href="../php/usuarios/eliminar_usuario.php?id=<?php echo $usuario['id']; ?>" 
+                    <a href="../../php/usuarios/eliminar_usuario.php?id=<?php echo $usuario['id']; ?>" 
                        class="btn btn-danger btn-sm"
                        onclick="return confirm('¿Seguro que deseas eliminar este usuario?');">
                         Eliminar
                     </a>
-                    <a href="../php/usuarios/cambiar_contrasena.php?id=<?php echo $usuario['id']; ?>" 
+                    <a href="../usuarios/cambiar_contrasena.php?id=<?php echo $usuario['id']; ?>" 
                        class="btn btn-warning btn-sm">
                         Cambiar Contraseña
                     </a>
-                    <a href="../php/usuarios/cambiar_rol.php?id=<?php echo $usuario['id']; ?>" 
+                    <a href="../usuarios/cambiar_rol.php?id=<?php echo $usuario['id']; ?>" 
                        class="btn btn-info btn-sm">
                         Cambiar Rol
                     </a>
