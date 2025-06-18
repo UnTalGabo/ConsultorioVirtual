@@ -261,17 +261,10 @@ function getChecked($valor)
                             class="form-control">
                     </div>
                     <div class="mb-3">
-                        <label for="antiguedad" class="form-label">Antigüedad (años):</label>
-                        <select name="antiguedad" id="antiguedad" class="form-select">
-                            <option value="">Seleccione una edad</option>
-                            <?php
-                            $edad_actual = isset($antecedentes['antiguedad']) ? $antecedentes['antiguedad'] : '';
-                            for ($i = 0; $i <= 20; $i++) {
-                                $selected = ($i == $edad_actual) ? 'selected' : '';
-                                echo "<option value='$i' $selected>$i años</option>";
-                            }
-                            ?>
-                        </select>
+                        <label for="antiguedad" class="form-label">Antigüedad:</label>
+                        <input type="text" name="antiguedad" id="antiguedad"
+                            value="<?php echo isset($antecedentes['antiguedad']) ? $antecedentes['antiguedad'] : '' ?>"
+                            class="form-control">
                     </div>
                     <div class="mb-3">
                         <label for="puesto" class="form-label">Puesto:</label>

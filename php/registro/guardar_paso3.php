@@ -20,15 +20,21 @@ $stmt_delete->close();
 try {
 
     // 4. Insertar nuevas enfermedades marcadas
-    $sql_insert = "INSERT INTO enfermedades_heredo (id_empleado, enfermedad, parentesco) VALUES (?, ?, ?)";
+    $sql_insert = "INSERT INTO enfermedades_heredo (id_empleado, enfermedad, parentesco, tipo) VALUES (?, ?, ?, ?)";
     $stmt_insert = $conn->prepare($sql_insert);
 
     foreach ($enfermedades_marcadas as $enfermedad) {
         $nombre_real = $_POST["nombre_enfermedad_$enfermedad"] ?? $enfermedad;
         $parentesco = $_POST[$enfermedad . '_quien'] ?? null;
+        $tipo = null;
+
+        // Solo para enfermedades del corazón
+        if ($enfermedad === 'corazon') {
+            $tipo = $_POST['corazon_tipo'] ?? null;
+        }
 
         if (!empty($parentesco)) {
-            $stmt_insert->bind_param("iss", $id_empleado, $nombre_real, $parentesco);
+            $stmt_insert->bind_param("isss", $id_empleado, $nombre_real, $parentesco, $tipo);
             $stmt_insert->execute();
         }
     }

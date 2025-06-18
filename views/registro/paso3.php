@@ -23,7 +23,7 @@ if ($resultado->num_rows == 0) {
 $paciente = $resultado->fetch_assoc();
 $stmt_verifica->close();
 
-$sql = "SELECT enfermedad, parentesco FROM enfermedades_heredo WHERE id_empleado = ?";
+$sql = "SELECT enfermedad, parentesco, tipo FROM enfermedades_heredo WHERE id_empleado = ?";
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $id_empleado);
 $stmt->execute();
@@ -31,6 +31,13 @@ $resultado = $stmt->get_result();
 $enfermedades = [];
 while ($row = $resultado->fetch_assoc()) {
     $enfermedades[] = $row;
+}
+$corazon_tipo = '';
+foreach ($enfermedades as $enfermedad) {
+    if ($enfermedad['enfermedad'] == 'Enfermedades del Corazón' && !empty($enfermedad['tipo'])) {
+        $corazon_tipo = $enfermedad['tipo'];
+        break;
+    }
 }
 $stmt->close();
 
@@ -234,6 +241,7 @@ function getChecked($efnfermedad)
                 Paso 3: Antecedentes Heredo-Familiares
             </h2>
             <p class="mb-4">Paciente: <strong><?php echo $paciente['nombre_completo']; ?></strong></p>
+            <h3 class="mb-4">Seleccione las enfermedades presentes en la familia del paciente y quiénes las padecen.</h3>
 
             <form action="../../php/registro/guardar_paso3.php" method="post" id="formPaso3">
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
@@ -314,9 +322,12 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Enfermedades del Corazón</td>
+                                    <td>Enfermedades del Corazón
+                                        <input type="text" name="corazon_tipo" id="corazon_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
+                                        value="<?php echo ($corazon_tipo); ?>">
+                                    </td>
                                     <td>
-                                        <input type="checkbox" name="enfermedades[]" value="corazon" <?php echo getChecked("Enfermedades del Corazón") ?>>
+                                        <input type="checkbox" id="check_corazon" name="enfermedades[]" value="corazon" <?php echo getChecked("Enfermedades del Corazón") ?>>
                                         <input type="hidden" name="nombre_enfermedad_corazon" value="Enfermedades del Corazón">
                                     </td>
                                     <td>
@@ -766,6 +777,20 @@ document.addEventListener('DOMContentLoaded', function() {
       btnContinuar.click();
     }
   });
+});
+</script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const checkCorazon = document.getElementById('check_corazon');
+    const inputTipo = document.getElementById('corazon_tipo_input');
+    function toggleTipoInput() {
+        inputTipo.style.display = checkCorazon.checked ? 'block' : 'none';
+        if (!checkCorazon.checked) inputTipo.value = '';
+    }
+    if (checkCorazon && inputTipo) {
+        toggleTipoInput();
+        checkCorazon.addEventListener('change', toggleTipoInput);
+    }
 });
 </script>
 </body>
