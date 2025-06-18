@@ -249,7 +249,7 @@ $stmt->close();
                         </div>
                         <div class="form-group">
                             <label class="form-label">Ritmo de ciclo menstrual (días)</label>
-                            <input type="number" name="ritmo_ciclo_menstrual" min="15" max="45" class="form-control"
+                            <input type="text" name="ritmo_ciclo_menstrual" min="15" max="45" class="form-control"
                                 value="<?php echo isset($antecedentes['ritmo_ciclo_menstrual']) ? $antecedentes['ritmo_ciclo_menstrual'] : ''; ?>">
                         </div>
                         <div class="form-group">

@@ -72,7 +72,6 @@ try {
                 abdomen = ?,
                 resultado = ?,
                 recomendaciones = ?,
-                confirmacion_paciente = ?,
                 fecha_actualizacion = NOW()
                 WHERE id_empleado = ?";
     } else {
@@ -99,17 +98,16 @@ try {
                 abdomen,
                 resultado,
                 recomendaciones,
-                confirmacion_paciente,
                 fecha_creacion,
                 fecha_actualizacion
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())";
     }
 
     $stmt = $conn->prepare($sql);
 
     if ($result->num_rows > 0) {
         $stmt->bind_param(
-            "dddiidisisssssssssssii",
+            "dddiidisisssssssssssi",
             $talla,
             $peso,
             $imc,
@@ -130,12 +128,11 @@ try {
             $abdomen,
             $resultado,
             $recomendaciones,
-            $confirmacion_paciente,
             $id_empleado
         );
     } else {
         $stmt->bind_param(
-            "idddiidisisssssssssssi",
+            "idddiidisisssssssssss",
             $id_empleado,
             $talla,
             $peso,
@@ -156,8 +153,7 @@ try {
             $torax,
             $abdomen,
             $resultado,
-            $recomendaciones,
-            $confirmacion_paciente
+            $recomendaciones
         );
     }
 

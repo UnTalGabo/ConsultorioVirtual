@@ -429,14 +429,7 @@ function getChecked($valor, $comparar)
                     </div>
                 </div>
 
-                <div class="signature-box">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="confirmacion_paciente" id="confirmacion_paciente" required>
-                        <label class="form-check-label" for="confirmacion_paciente">
-                            Hago constar que las respuestas suministradas en este cuestionario son verídicas y proporcionan la información requerida acerca de mis antecedentes de salud.
-                        </label>
-                    </div>
-                </div>
+                
 
                 <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mt-4">
                     <a href="../ver_pacientes.php" class="btn btn-danger btn-lg" onclick="return confirm('¿Estás seguro de que quieres salir sin guardar?');">

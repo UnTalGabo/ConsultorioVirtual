@@ -243,7 +243,7 @@ function getChecked($efnfermedad)
                 <input type="hidden" name="id_empleado" value="<?php echo $id_empleado; ?>">
 
                 <div class="form-section">
-                    <h3><i class="bi bi-activity"></i> Enfermedades que padeces o hayas padecido</h3>
+                    <h3><i class="bi bi-activity"></i> Enfermedades</h3>
                     <div class="row form-columns g-3">
                         <!-- 3 columnas de enfermedades, balanceadas -->
                         <div class="col-md-4">
