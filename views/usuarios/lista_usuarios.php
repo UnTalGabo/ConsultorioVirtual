@@ -1,5 +1,13 @@
 <?php
 require_once "../../php/conexion.php";
+session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    $_SESSION['usuario_rol'] !== 'admin'
+) {
+    header('Location: ../index.php');
+    exit();
+}
 
 // Obtener todos los usuarios
 $resultado = $conn->query("SELECT id, usuario, rol FROM usuarios");

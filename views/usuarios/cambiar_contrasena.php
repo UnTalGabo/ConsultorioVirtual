@@ -1,5 +1,12 @@
 <?php
 session_start();
+if (
+    !isset($_SESSION['usuario_rol']) ||
+    $_SESSION['usuario_rol'] !== 'admin'
+) {
+    header('Location: ../index.php');
+    exit();
+}
 $id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $error = $_GET['error'] ?? '';
 $success = $_GET['success'] ?? '';
