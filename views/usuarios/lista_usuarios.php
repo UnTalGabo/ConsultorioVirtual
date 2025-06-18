@@ -1,5 +1,5 @@
 <?php
-require_once "../php/conexion.php";
+require_once "../../php/conexion.php";
 
 // Obtener todos los usuarios
 $resultado = $conn->query("SELECT id, usuario, rol FROM usuarios");
@@ -54,7 +54,11 @@ $resultado = $conn->query("SELECT id, usuario, rol FROM usuarios");
         <?php endwhile; ?>
         </tbody>
     </table>
+    <a href="../index.php" class="btn btn-secondary">
+    <i class="bi bi-arrow-left"></i> Volver
+</a>
 </div>
+
 </body>
 </html>
 <?php $conn->close(); ?>

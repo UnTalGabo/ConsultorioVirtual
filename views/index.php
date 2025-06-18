@@ -99,7 +99,7 @@ if (
 <body>
   <nav class="navbar navbar-expand-lg">
     <div class="container">
-      <a class="navbar-brand" href="lista_usuarios.php">
+      <a class="navbar-brand" href="./usuarios/lista_usuarios.php">
         <i class="bi bi-hospital"></i> Consultorio Médico
       </a>
       <div class="d-flex">

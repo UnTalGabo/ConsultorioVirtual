@@ -7,7 +7,7 @@ if (
     header('Location: login.php');
     exit();
 }
-require_once '../php/conexion.php';
+require_once '../../php/conexion.php';
 
 // Solo admin puede agregar usuarios
 if (!isset($_SESSION['usuario_rol']) || $_SESSION['usuario_rol'] !== 'admin') {
