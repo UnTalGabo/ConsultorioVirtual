@@ -18,7 +18,13 @@ if ($id_empleado > 0) {
 // Obtener historial de consultas
 $consultas = [];
 if ($id_empleado > 0) {
-    $stmt = $conn->prepare("SELECT id_consulta, fecha, motivo FROM consultas WHERE id_empleado = ? ORDER BY fecha DESC, id_consulta DESC");
+    $stmt = $conn->prepare("
+    SELECT c.id_consulta, c.fecha, c.motivo, pdf.ruta_pdf
+    FROM consultas c
+    LEFT JOIN pdf ON c.pdf = pdf.id
+    WHERE c.id_empleado = ?
+    ORDER BY c.fecha DESC, c.id_consulta DESC
+");
     $stmt->bind_param("i", $id_empleado);
     $stmt->execute();
     $result = $stmt->get_result();
@@ -163,8 +169,11 @@ if ($id_empleado > 0) {
                                     <td><?php echo htmlspecialchars($consulta['fecha']); ?></td>
                                     <td><?php echo nl2br(htmlspecialchars($consulta['motivo'])); ?></td>
                                     <td class="text-center">
-                                        <a href="ver_consulta.php?id_consulta=<?php echo $consulta['id_consulta']; ?>" class="btn btn-primary btn-sm">
-                                            <i class="bi bi-eye"></i> Ver
+                                        <a href="ver_consulta.php?id_consulta=<?php echo $consulta['id_consulta']; ?>" class="btn btn-secondary btn-sm">
+                                            <i class="bi bi-pencil-square"></i> Editar
+                                        </a>
+                                        <a href="../../../<?php echo $consulta['ruta_pdf']; ?>" target="_blank" class="btn btn-primary btn-sm">
+                                            <i class="bi bi-file-earmark-pdf"></i> PDF
                                         </a>
                                         <a href="../../php/consulta/eliminar_consulta.php?id_consulta=<?php echo $consulta['id_consulta']; ?>&id_empleado=<?php echo $id_empleado; ?>"
                                             class="btn btn-danger btn-sm"

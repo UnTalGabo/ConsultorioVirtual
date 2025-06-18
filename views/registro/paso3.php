@@ -32,12 +32,14 @@ $enfermedades = [];
 while ($row = $resultado->fetch_assoc()) {
     $enfermedades[] = $row;
 }
-$corazon_tipo = '';
+$corazon_tipo = $pulmonares_tipo = $rinon_tipo = $higado_tipo = $alergias_tipo = $tumores_tipo = '';
 foreach ($enfermedades as $enfermedad) {
-    if ($enfermedad['enfermedad'] == 'Enfermedades del Corazón' && !empty($enfermedad['tipo'])) {
-        $corazon_tipo = $enfermedad['tipo'];
-        break;
-    }
+    if ($enfermedad['enfermedad'] == 'Enfermedades del Corazón' && !empty($enfermedad['tipo'])) $corazon_tipo = $enfermedad['tipo'];
+    if ($enfermedad['enfermedad'] == 'Enfermedades Pulmonares' && !empty($enfermedad['tipo'])) $pulmonares_tipo = $enfermedad['tipo'];
+    if ($enfermedad['enfermedad'] == 'Enfermedades del Riñon' && !empty($enfermedad['tipo'])) $rinon_tipo = $enfermedad['tipo'];
+    if ($enfermedad['enfermedad'] == 'Enfermedades del Higado' && !empty($enfermedad['tipo'])) $higado_tipo = $enfermedad['tipo'];
+    if ($enfermedad['enfermedad'] == 'Alergias' && !empty($enfermedad['tipo'])) $alergias_tipo = $enfermedad['tipo'];
+    if ($enfermedad['enfermedad'] == 'Tumores o cáncer' && !empty($enfermedad['tipo'])) $tumores_tipo = $enfermedad['tipo'];
 }
 $stmt->close();
 
@@ -322,9 +324,10 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Enfermedades del Corazón
+                                    <td>
+                                        Enfermedades del Corazón
                                         <input type="text" name="corazon_tipo" id="corazon_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
-                                        value="<?php echo ($corazon_tipo); ?>">
+                                        value="<?php echo htmlspecialchars($corazon_tipo); ?>">
                                     </td>
                                     <td>
                                         <input type="checkbox" id="check_corazon" name="enfermedades[]" value="corazon" <?php echo getChecked("Enfermedades del Corazón") ?>>
@@ -345,9 +348,13 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Enfermedades Pulmonares</td>
                                     <td>
-                                        <input type="checkbox" name="enfermedades[]" value="pulmonares" <?php echo getChecked("Enfermedades Pulmonares") ?>>
+                                        Enfermedades Pulmonares
+                                        <input type="text" name="pulmonares_tipo" id="pulmonares_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
+                                        value="<?php echo htmlspecialchars($pulmonares_tipo); ?>">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="check_pulmonares" name="enfermedades[]" value="pulmonares" <?php echo getChecked("Enfermedades Pulmonares") ?>>
                                         <input type="hidden" name="nombre_enfermedad_pulmonares" value="Enfermedades Pulmonares">
                                     </td>
                                     <td>
@@ -365,9 +372,13 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Enfermedades del Riñon</td>
                                     <td>
-                                        <input type="checkbox" name="enfermedades[]" value="rinon" <?php echo getChecked("Enfermedades del Riñon") ?>>
+                                        Enfermedades del Riñon
+                                        <input type="text" name="rinon_tipo" id="rinon_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
+                                        value="<?php echo htmlspecialchars($rinon_tipo); ?>">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="check_rinon" name="enfermedades[]" value="rinon" <?php echo getChecked("Enfermedades del Riñon") ?>>
                                         <input type="hidden" name="nombre_enfermedad_rinon" value="Enfermedades del Riñon">
                                     </td>
                                     <td>
@@ -385,9 +396,13 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Enfermedades del Higado</td>
                                     <td>
-                                        <input type="checkbox" name="enfermedades[]" value="higado" <?php echo getChecked("Enfermedades del Higado") ?>>
+                                        Enfermedades del Higado
+                                        <input type="text" name="higado_tipo" id="higado_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
+                                        value="<?php echo htmlspecialchars($higado_tipo); ?>">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="check_higado" name="enfermedades[]" value="higado" <?php echo getChecked("Enfermedades del Higado") ?>>
                                         <input type="hidden" name="nombre_enfermedad_higado" value="Enfermedades del Higado">
                                     </td>
                                     <td>
@@ -405,9 +420,13 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Alergias</td>
                                     <td>
-                                        <input type="checkbox" name="enfermedades[]" value="alergias" <?php echo getChecked("Alergias") ?>>
+                                        Alergias
+                                        <input type="text" name="alergias_tipo" id="alergias_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
+                                        value="<?php echo htmlspecialchars($alergias_tipo); ?>">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="check_alergias" name="enfermedades[]" value="alergias" <?php echo getChecked("Alergias") ?>>
                                         <input type="hidden" name="nombre_enfermedad_alergias" value="Alergias">
                                     </td>
                                     <td>
@@ -425,9 +444,13 @@ function getChecked($efnfermedad)
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td>Tumores o cáncer</td>
                                     <td>
-                                        <input type="checkbox" name="enfermedades[]" value="tumores" <?php echo getChecked("Tumores o cáncer") ?>>
+                                        Tumores o cáncer
+                                        <input type="text" name="tumores_tipo" id="tumores_tipo_input" class="form-control mt-2" placeholder="¿Qué tipo?" style="display:none;" maxlength="20"
+                                        value="<?php echo htmlspecialchars($tumores_tipo); ?>">
+                                    </td>
+                                    <td>
+                                        <input type="checkbox" id="check_tumores" name="enfermedades[]" value="tumores" <?php echo getChecked("Tumores o cáncer") ?>>
                                         <input type="hidden" name="nombre_enfermedad_tumores" value="Tumores o cáncer">
                                     </td>
                                     <td>
@@ -781,16 +804,28 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const checkCorazon = document.getElementById('check_corazon');
-    const inputTipo = document.getElementById('corazon_tipo_input');
-    function toggleTipoInput() {
-        inputTipo.style.display = checkCorazon.checked ? 'block' : 'none';
-        if (!checkCorazon.checked) inputTipo.value = '';
-    }
-    if (checkCorazon && inputTipo) {
-        toggleTipoInput();
-        checkCorazon.addEventListener('change', toggleTipoInput);
-    }
+    const enfermedades = [
+        { check: 'check_corazon', input: 'corazon_tipo_input' },
+        { check: 'check_pulmonares', input: 'pulmonares_tipo_input' },
+        { check: 'check_rinon', input: 'rinon_tipo_input' },
+        { check: 'check_higado', input: 'higado_tipo_input' },
+        { check: 'check_alergias', input: 'alergias_tipo_input' },
+        { check: 'check_tumores', input: 'tumores_tipo_input' }
+    ];
+    enfermedades.forEach(function(e) {
+        const check = document.getElementById(e.check);
+        const input = document.getElementById(e.input);
+        function toggle() {
+            if (input) {
+                input.style.display = check.checked ? 'block' : 'none';
+                if (!check.checked) input.value = '';
+            }
+        }
+        if (check && input) {
+            toggle();
+            check.addEventListener('change', toggle);
+        }
+    });
 });
 </script>
 </body>

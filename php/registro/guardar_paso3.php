@@ -16,7 +16,6 @@ $stmt_delete->bind_param("i", $id_empleado);
 $stmt_delete->execute();
 $stmt_delete->close();
 
-
 try {
 
     // 4. Insertar nuevas enfermedades marcadas
@@ -28,9 +27,19 @@ try {
         $parentesco = $_POST[$enfermedad . '_quien'] ?? null;
         $tipo = null;
 
-        // Solo para enfermedades del corazón
+        // Guardar el tipo para las enfermedades que lo requieren
         if ($enfermedad === 'corazon') {
             $tipo = $_POST['corazon_tipo'] ?? null;
+        } elseif ($enfermedad === 'pulmonares') {
+            $tipo = $_POST['pulmonares_tipo'] ?? null;
+        } elseif ($enfermedad === 'rinon') {
+            $tipo = $_POST['rinon_tipo'] ?? null;
+        } elseif ($enfermedad === 'higado') {
+            $tipo = $_POST['higado_tipo'] ?? null;
+        } elseif ($enfermedad === 'alergias') {
+            $tipo = $_POST['alergias_tipo'] ?? null;
+        } elseif ($enfermedad === 'tumores') {
+            $tipo = $_POST['tumores_tipo'] ?? null;
         }
 
         if (!empty($parentesco)) {

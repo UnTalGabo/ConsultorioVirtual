@@ -168,4 +168,3 @@ try {
     die("Error al guardar los datos del examen médico: " . $e->getMessage());
 }
 
-$conn->close();

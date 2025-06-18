@@ -15,12 +15,12 @@ if ($id_consulta > 0) {
         INNER JOIN pacientes p ON c.id_empleado = p.id_empleado 
         LEFT JOIN pdf ON c.pdf = pdf.id
         WHERE c.id_consulta = ?";
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("i", $id_consulta);
-$stmt->execute();
-$result = $stmt->get_result();
-$consulta = $result->fetch_assoc();
-$stmt->close();
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param("i", $id_consulta);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $consulta = $result->fetch_assoc();
+    $stmt->close();
 
     if ($consulta) {
         $paciente = ['nombre_completo' => $consulta['nombre_completo']];
@@ -200,7 +200,8 @@ $fecha = $consulta ? $consulta['fecha'] : date('Y-m-d');
             <?php endif; ?>
 
             <?php if ($consulta): ?>
-                <form autocomplete="off">
+                <form method="post" action="../../php/consulta/actualizar_consulta.php" autocomplete="off">
+                    <input type="hidden" name="id_consulta" value="<?php echo $consulta['id_consulta']; ?>">
                     <input type="hidden" name="id_empleado" value="<?php echo $consulta['id_empleado']; ?>">
                     <!-- Hora de entrada y salida -->
                     <div class="row mb-4">
@@ -273,15 +274,15 @@ $fecha = $consulta ? $consulta['fecha'] : date('Y-m-d');
                     </div>
 
                     <div class="form-section">
-                    <div class="evaluation-grid">
-                        <div class="evaluation-column" style="grid-column: 1 / -1;">
-                            <div class="evaluation-item">
-                                <h4><i class="bi bi-person-vcard"></i> Evaluacion Fisica</h4>
-                                <textarea name="evaluacion_fisica" rows="5" class="form-control" readonly><?php echo htmlspecialchars($consulta['evaluacion_fisica']); ?></textarea>
+                        <div class="evaluation-grid">
+                            <div class="evaluation-column" style="grid-column: 1 / -1;">
+                                <div class="evaluation-item">
+                                    <h4><i class="bi bi-person-vcard"></i> Evaluacion Fisica</h4>
+                                    <textarea name="evaluacion_fisica" rows="5" class="form-control"><?php echo htmlspecialchars($consulta['evaluacion_fisica']); ?></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
                     <div class="form-section">
                         <div class="evaluation-grid">
@@ -304,9 +305,9 @@ $fecha = $consulta ? $consulta['fecha'] : date('Y-m-d');
                         <a href="../../views/consulta/historial.php?id=<?php echo $consulta['id_empleado']; ?>" class="btn btn-danger btn-lg">
                             <i class="bi bi-box-arrow-left"></i> Volver
                         </a>
-                        <a href="../../../<?php echo $consulta['ruta_pdf']; ?>" target="_blank" class="btn btn-primary btn-lg">
-                            <i class="bi bi-file-earmark-pdf"></i> PDF
-                        </a>
+                        <button type="submit" class="btn btn-success btn-lg">
+                            <i class="bi bi-save"></i> Guardar cambios
+                        </button>
                     </div>
                 </form>
             <?php else: ?>

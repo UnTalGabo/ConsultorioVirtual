@@ -1,10 +1,11 @@
-<?php 
+<?php
 require_once '../vendor/autoload.php';
 require 'conexion.php';
 
 use setasign\Fpdi\Fpdi;
 
 $id_consulta = $_GET['id'] ?? null;
+$redir = $_GET['redir'] ?? null;
 if (!$id_consulta) die("ID de empleado no proporcionado.");
 $carpeta_destino = __DIR__ . '../../media/consultas_pdf/';
 
@@ -81,10 +82,10 @@ $pdf->MultiCell(170, 3.5, ($consulta['motivo'] ?? ''), 0, 'L');
 $pdf->SetXY(15, 66.5);
 $pdf->MultiCell(170, 3.5, ($consulta['evaluacion_fisica'] ?? ''), 0, 'L');
 
-$pdf->SetXY(8, 238);
+$pdf->SetXY(8, 207.5);
 $pdf->MultiCell(87, 3.5, ($consulta['botiquin'] ?? ''), 0, 'L');
 
-$pdf->SetXY(121, 238);
+$pdf->SetXY(121, 207.5);
 $pdf->MultiCell(87, 3.5, ($consulta['destino'] ?? ''), 0, 'L');
 
 
@@ -118,8 +119,10 @@ $stmt = $conn->prepare("UPDATE consultas SET pdf = ? WHERE id_consulta = ?");
 $stmt->bind_param("ii", $id_pdf, $id_consulta);
 $stmt->execute();
 $stmt->close();
-
-header('Location: ../../' . $ruta_relativa);
+if ($redir) {
+    // Redirigir a la vista de historial de consultas del paciente
+    header('Location: ../views/consulta/historial.php?id=' . $consulta['id_empleado']);
+} else {
+    header('Location: ../../' . $ruta_relativa);
+}
 $conn->close();
-
-?>
