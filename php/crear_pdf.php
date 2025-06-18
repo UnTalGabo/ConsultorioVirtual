@@ -53,6 +53,7 @@ $antecedentesGineco = (isset($paciente['genero']) && $paciente['genero'] === 'Fe
 $antecedentesPatologicos = obtenerDatos('antecedentes_patologicos', $id_empleado);
 $antecedentesLaborales = obtenerDatos('antecedentes_laborales', $id_empleado);
 $examenMedico = obtenerDatos('examenes_medicos', $id_empleado);
+$vacunas = obtenerDatos('vacunas', $id_empleado);
 
 // Enfermedades heredo familiares
 $enfermedadesH = [];
@@ -474,13 +475,56 @@ $pdf->Write(0, utf8_decode($examenMedico['extremidades_inferiores'] ?? ''));
 $pdf->SetXY(23, 134.2);
 $pdf->Write(0, utf8_decode($examenMedico['abdomen'] ?? ''));
 
+
+$pdf->AddPage();
+$pdf->setSourceFile('../media/vacunas.pdf');
+$tplIdx = $pdf->importPage(1);
+$pdf->useTemplate($tplIdx);
+$pdf->SetFontSize(7);
+$pdf->SetXY(86.8, 34.2);
+$pdf->Write(0, !empty($vacunas['covid']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 41.6);
+$pdf->Write(0, !empty($vacunas['influenza']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 49);
+$pdf->Write(0, !empty($vacunas['sarampion']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 56.4);
+$pdf->Write(0, !empty($vacunas['tetanos']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 63.8);
+$pdf->Write(0, !empty($vacunas['varicela']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 71.2);
+$pdf->Write(0, !empty($vacunas['herpes']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 78.6);
+$pdf->Write(0, !empty($vacunas['vph']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 86);
+$pdf->Write(0, !empty($vacunas['hepatitis_a']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 93.4);
+$pdf->Write(0, !empty($vacunas['hepatitis_b']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 100.8);
+$pdf->Write(0, !empty($vacunas['neumococo']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 108.2);
+$pdf->Write(0, !empty($vacunas['meningococo']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 115.6);
+$pdf->Write(0, !empty($vacunas['rabia']) ? 'X' : 'X');
+$pdf->SetXY(86.8, 123);
+$pdf->Write(0, !empty($vacunas['fiebre_amarilla']) ? 'X' : 'X');
+
+
+
+
+
+
+
+
+
+
+
 $nombre_archivo = 'examen_' . $id_empleado . '_' . date('dmY') . '.pdf';
 $ruta_relativa = 'consultoriovirtual/media/examenes_pdf/' . $nombre_archivo;
 $ruta_completa = $carpeta_destino . $nombre_archivo;
 
 // Guardar el PDF en el servidor
-$pdf->Output($ruta_completa, 'F'); // 'F' para guardar en archivo
-
+//$pdf->Output($ruta_completa, 'F'); // 'F' para guardar en archivo
+$pdf->Output('I', 'historia_clinica.pdf');
 
 $tipo_pdf = 'examen_medico'; // O el tipo que corresponda
 
@@ -495,7 +539,7 @@ $stmt->bind_param("iss", $id_empleado, $tipo_pdf, $ruta_relativa);
 $stmt->execute();
 $stmt->close();
 
-header('Location: ../views/registro/historial_examenes.php?id=' . $id_empleado);
+//header('Location: ../views/registro/historial_examenes.php?id=' . $id_empleado);
 exit();
 
 $conn->close();
