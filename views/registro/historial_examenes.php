@@ -120,20 +120,27 @@ if ($id_empleado > 0) {
     </nav>
     <div class="main-container">
         <div class="card p-4 p-md-5">
-            <div class="d-flex justify-content-between align-items-center mb-3">
-                <a href="../ver_pacientes.php?buscador=<?php echo $paciente['nombre_completo'] ?>" class="btn btn-outline-primary volver-btn">
-                    <i class="bi bi-arrow-left"></i> Volver a Pacientes
-                </a>
-                <?php if ($paciente): ?>
-                    <a href="../consulta/historial.php?id=<?php echo $id_empleado; ?>" class="btn btn-outline-secondary btn-lg">
-                        <i class="bi bi-plus-circle"></i> Ver consultas
+            <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center mb-3">
+                <div class="d-flex gap-2">
+                    <a href="../ver_pacientes.php?buscador=<?php echo urlencode($paciente['nombre_completo']); ?>" class="btn btn-outline-primary volver-btn">
+                        <i class="bi bi-arrow-left-circle"></i> Volver a Pacientes
                     </a>
-                <?php endif; ?>
-                <?php if ($paciente): ?>
-                    <a href="paso1.php?id=<?php echo $id_empleado; ?>" class="btn btn-success btn-lg">
-                        <i class="bi bi-plus-circle"></i> Nuevo examen
-                    </a>
-                <?php endif; ?>
+                    <?php if ($paciente): ?>
+                        <a href="../consulta/historial.php?id=<?php echo $id_empleado; ?>" class="btn btn-outline-secondary">
+                            <i class="bi bi-journal-text"></i> Consultas
+                        </a>
+                    <?php endif; ?>
+                </div>
+                <div class="d-flex gap-2">
+                    <?php if ($paciente): ?>
+                        <a href="paso1.php?id=<?php echo $id_empleado; ?>" class="btn btn-success">
+                            <i class="bi bi-file-earmark-plus"></i> Nuevo examen
+                        </a>
+                        <a href="../../php/crear_pdf.php?id=<?php echo $id_empleado; ?>" class="btn btn-warning" target="_blank">
+                            <i class="bi bi-file-earmark-arrow-down"></i> Generar PDF temporal
+                        </a>
+                    <?php endif; ?>
+                </div>
             </div>
             <h2 class="text-center mb-4 fw-bold text-primary">
                 <i class="bi bi-journal-medical me-2"></i>
@@ -162,12 +169,12 @@ if ($id_empleado > 0) {
                                     <td><?php echo date('d/m/Y', strtotime($examen['fecha_creacion'])); ?></td>
                                     <td class="text-center">
                                         <a href="../../../<?php echo $examen['ruta_pdf'] ?>" class="btn btn-primary btn-sm" target="_blank">
-                                            <i class="bi bi-eye"></i> Ver
+                                            <i class="bi bi-file-earmark-pdf"></i> Ver PDF
                                         </a>
-                                        <a href="../../php/eliminar_pdf.php?ruta=<?php echo $examen['ruta_pdf'];?>&accion=examen"
-                                            class="btn btn-danger btn-sm"
-                                            onclick="return confirm('¿Seguro que deseas eliminar esta examen?');">
-                                            <i class="bi bi-trash"></i> Eliminar
+                                        <a href="../../php/eliminar_pdf.php?ruta=<?php echo $examen['ruta_pdf']; ?>&accion=examen"
+                                            class="btn btn-outline-danger btn-sm"
+                                            onclick="return confirm('¿Seguro que deseas eliminar este examen?');">
+                                            <i class="bi bi-trash3"></i> Eliminar
                                         </a>
                                     </td>
                                 </tr>

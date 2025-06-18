@@ -5,6 +5,7 @@ require 'conexion.php';
 use setasign\Fpdi\Fpdi;
 
 $id_empleado = $_GET['id'] ?? null;
+$redir = $_GET['redir'] ?? null;
 if (!$id_empleado) die("ID de empleado no proporcionado.");
 
 $carpeta_destino = __DIR__ . '../../media/examenes_pdf/';
@@ -113,7 +114,7 @@ if (!empty($paciente['colonia'])) $domicilio[] = $paciente['colonia'];
 if (!empty($paciente['ciudad'])) $domicilio[] = $paciente['ciudad'];
 $domicilio_str = implode(', ', $domicilio);
 if ($domicilio_str !== '') {
-    $pdf->Write (0, utf8_decode(($domicilio_str) . ', Michoacán'));
+    $pdf->Write(0, utf8_decode(($domicilio_str) . ', Michoacán'));
 }
 $pdf->SetFontSize(7.5);
 $pdf->SetXY(54, 73);
@@ -478,24 +479,30 @@ $nombre_archivo = 'examen_' . $id_empleado . '_' . date('dmY') . '.pdf';
 $ruta_relativa = 'consultoriovirtual/media/examenes_pdf/' . $nombre_archivo;
 $ruta_completa = $carpeta_destino . $nombre_archivo;
 
-// Guardar el PDF en el servidor
-$pdf->Output($ruta_completa, 'F'); // 'F' para guardar en archivo
+if ($redir) {
+    // Guardar el PDF en el servidor
+    $pdf->Output($ruta_completa, 'F'); // 'F' para guardar en archivo
 
 
-$tipo_pdf = 'examen_medico'; // O el tipo que corresponda
+    $tipo_pdf = 'examen_medico'; // O el tipo que corresponda
 
-// Eliminar registro anterior con la misma ruta
-$stmt = $conn->prepare("DELETE FROM pdf WHERE ruta_pdf = ?");
-$stmt->bind_param("s", $ruta_relativa);
-$stmt->execute();
-$stmt->close();
+    // Eliminar registro anterior con la misma ruta
+    $stmt = $conn->prepare("DELETE FROM pdf WHERE ruta_pdf = ?");
+    $stmt->bind_param("s", $ruta_relativa);
+    $stmt->execute();
+    $stmt->close();
 
-$stmt = $conn->prepare("INSERT INTO pdf (id_empleado, tipo_pdf, ruta_pdf, fecha_creacion) VALUES (?, ?, ?, NOW())");
-$stmt->bind_param("iss", $id_empleado, $tipo_pdf, $ruta_relativa);
-$stmt->execute();
-$stmt->close();
+    $stmt = $conn->prepare("INSERT INTO pdf (id_empleado, tipo_pdf, ruta_pdf, fecha_creacion) VALUES (?, ?, ?, NOW())");
+    $stmt->bind_param("iss", $id_empleado, $tipo_pdf, $ruta_relativa);
+    $stmt->execute();
+    $stmt->close();
 
-header('Location: ../views/registro/historial_examenes.php?id=' . $id_empleado);
-exit();
+    header('Location: ../views/registro/historial_examenes.php?id=' . $id_empleado);
+    exit();
+} else {
+    // Mostrar el PDF en el navegador
+    $pdf->Output('I', $nombre_archivo); // 'I' para mostrar en el navegador
+}
+
 
 $conn->close();

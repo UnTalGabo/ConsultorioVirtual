@@ -122,7 +122,9 @@ $stmt->close();
 if ($redir) {
     // Redirigir a la vista de historial de consultas del paciente
     header('Location: ../views/consulta/historial.php?id=' . $consulta['id_empleado']);
+    exit;
 } else {
     header('Location: ../../' . $ruta_relativa);
+    exit;
 }
 $conn->close();

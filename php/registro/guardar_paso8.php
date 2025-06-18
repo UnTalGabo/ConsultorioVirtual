@@ -161,7 +161,7 @@ try {
     $stmt->close();
 
     $conn->commit();
-    header("Location: ../crear_pdf.php?id=$id_empleado");
+    header("Location: ../crear_pdf.php?id=$id_empleado&redir=1");
     exit();
 } catch (Exception $e) {
     $conn->rollback();
