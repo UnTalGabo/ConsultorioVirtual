@@ -495,7 +495,7 @@ $stmt->bind_param("iss", $id_empleado, $tipo_pdf, $ruta_relativa);
 $stmt->execute();
 $stmt->close();
 
-header('Location: ../../' . $ruta_relativa);
+header('Location: ../views/registro/historial_examenes.php?id=' . $id_empleado);
 exit();
 
 $conn->close();

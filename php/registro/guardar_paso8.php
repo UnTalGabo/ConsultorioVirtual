@@ -161,28 +161,7 @@ try {
     $stmt->close();
 
     $conn->commit();
-    // Mostrar HTML con JS para abrir PDF y redirigir
-?>
-    <!DOCTYPE html>
-    <html lang="es">
-
-    <head>
-        <meta charset="UTF-8">
-        <title>Redirigiendo...</title>
-    </head>
-
-    <body>
-        <script>
-            window.open("../crear_pdf.php?id=<?php echo $id_empleado; ?>", "_blank");
-            window.location.href = "../../views/registro/historial_examenes.php?id=<?php echo $id_empleado; ?>";
-        </script>
-        <noscript>
-            <p>El examen fue guardado. <a href="../crear_pdf.php?id=<?php echo $id_empleado; ?>" target="_blank">Ver PDF</a> | <a href="../historial_examenes.php?id=<?php echo $id_empleado; ?>">Ver historial</a></p>
-        </noscript>
-    </body>
-
-    </html>
-<?php
+    header("Location: ../crear_pdf.php?id=$id_empleado");
     exit();
 } catch (Exception $e) {
     $conn->rollback();
