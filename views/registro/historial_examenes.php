@@ -127,8 +127,7 @@ if ($id_empleado > 0) {
                     </a>
                     <?php if ($paciente): ?>
                         <a href="../consulta/historial.php?id=<?php echo $id_empleado; ?>" class="btn btn-outline-secondary">
-                            <i class="bi bi-journal-text"></i> Consultas
-                        </a>
+                            <i class="bi bi-journal-text"></i> Consultas</a>
                     <?php endif; ?>
                 </div>
                 <div class="d-flex gap-2">
